@@ -238,9 +238,11 @@
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    resultDiv.innerHTML = `<div class="result success">Registration successful! Auto-logged in.\n\n${JSON.stringify(data, null, 2)}</div>`;
+                    resultDiv.innerHTML = `<div class="result success">Registration successful!${data.user ? ' Auto-logged in.' : ' Please login.'}\n\n${JSON.stringify(data, null, 2)}</div>`;
                     // Update auth status after successful registration
-                    setTimeout(checkAuthStatus, 1000);
+                    if (data.user) {
+                        setTimeout(checkAuthStatus, 1000);
+                    }
                 } else {
                     resultDiv.innerHTML = `<div class="result error">Registration failed: ${data.error}\n\n${JSON.stringify(data, null, 2)}</div>`;
                 }

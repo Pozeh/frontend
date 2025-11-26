@@ -896,10 +896,14 @@
                     const data = await response.json();
 
                     if (data.success) {
-                        // Auto-login after registration
-                        currentUser = data.user;
-                        this.updateUI();
-                        showToast('Registration successful! You are now logged in.', 'success');
+                        // Auto-login after registration if session was created
+                        if (data.user) {
+                            currentUser = data.user;
+                            this.updateUI();
+                            showToast('Registration successful! You are now logged in.', 'success');
+                        } else {
+                            showToast('Registration successful! Please login.', 'success');
+                        }
                         return { success: true };
                     } else {
                         return { success: false, error: data.error || 'Registration failed' };
