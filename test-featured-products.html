@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Products Test Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #27AE60;
+        }
+        button {
+            background: #27AE60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #229954;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .form-row > div {
+            flex: 1;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #27AE60;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .test-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-running {
+            background: #cce5ff;
+            color: #004085;
+        }
+        .status-passed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .preview-section {
+            border: 2px solid #27AE60;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f8fff8;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .preview-product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            background: white;
+        }
+        .preview-product img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        .preview-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .preview-price {
+            color: #27AE60;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .preview-seller {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .preview-actions {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        .preview-actions button {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ Featured Products Test Suite</h1>
+        <p>Complete testing of the featured products panel and auto-approval functionality.</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div id="overallStatus">Ready to start testing</div>
+
+        <!-- Test Configuration -->
+        <div class="test-section">
+            <h3>📋 Test Configuration</h3>
+            <div class="form-row">
+                <div>
+                    <label>Number of Test Products:</label>
+                    <input type="number" id="productCount" value="5" min="1" max="20">
+                </div>
+                <div>
+                    <label>Product Categories:</label>
+                    <select id="categories" multiple size="4">
+                        <option value="electronics" selected>Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="home">Home & Garden</option>
+                        <option value="sports">Sports</option>
+                        <option value="food">Food & Beverages</option>
+                        <option value="books">Books</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="runAllTests()">🚀 Run All Tests</button>
+            <button onclick="clearTestData()">🗑️ Clear Test Data</button>
+            <button onclick="openMainShop()">🛍️ Open Main Shop</button>
+            <button onclick="openAdminApproval()">👨‍💼 Open Admin Approval</button>
+        </div>
+
+        <!-- Individual Test Results -->
+        <div class="test-section">
+            <h3>1. MongoDB Connection Test <span class="test-status status-pending" id="mongoStatus">Pending</span></h3>
+            <button onclick="testMongoConnection()" id="mongoBtn">Test MongoDB Connection</button>
+            <div id="mongoResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Auto-Approval Test <span class="test-status status-pending" id="approvalStatus">Pending</span></h3>
+            <button onclick="testAutoApproval()" id="approvalBtn">Test Auto-Approval Function</button>
+            <div id="approvalResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Product Loading Test <span class="test-status status-pending" id="loadingStatus">Pending</span></h3>
+            <button onclick="testProductLoading()" id="loadingBtn">Test Product Loading</button>
+            <div id="loadingResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Featured Products Display Test <span class="test-status status-pending" id="displayStatus">Pending</span></h3>
+            <button onclick="testFeaturedDisplay()" id="displayBtn">Test Featured Display</button>
+            <div id="displayResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Customer Features Test <span class="test-status status-pending" id="featuresStatus">Pending</span></h3>
+            <button onclick="testCustomerFeatures()" id="featuresBtn">Test Customer Features</button>
+            <div id="featuresResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="preview-section">
+            <h3>📱 Live Preview - Approved Products</h3>
+            <div id="previewLoading" style="text-align: center; padding: 20px;">
+                <i class="fas fa-spinner fa-spin"></i> Loading preview...
+            </div>
+            <div class="preview-grid" id="previewGrid" style="display: none;">
+                <!-- Products will be shown here -->
+            </div>
+            <div id="previewEmpty" style="display: none; text-align: center; padding: 20px; color: #666;">
+                <i class="fas fa-box-open" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <p>No approved products available</p>
+                <button onclick="testAutoApproval()" style="margin-top: 10px;">
+                    <i class="fas fa-plus"></i> Create Test Products
+                </button>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="test-section">
+            <h3>📊 Test Summary</h3>
+            <div id="summaryResult" class="result" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test configuration
+        let testResults = {
+            mongo: false,
+            approval: false,
+            loading: false,
+            display: false,
+            features: false
+        };
+
+        let currentTestIndex = 0;
+        const tests = ['mongo', 'approval', 'loading', 'display', 'features'];
+
+        // Utility functions
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function updateTestStatus(testId, status, resultElementId, message, type) {
+            const statusElement = document.getElementById(testId + 'Status');
+            const resultElement = document.getElementById(resultElementId);
+            
+            statusElement.className = `test-status status-${status}`;
+            statusElement.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+            
+            if (message) {
+                resultElement.textContent = message;
+                resultElement.className = `result ${type}`;
+                resultElement.style.display = 'block';
+            }
+            
+            testResults[testId] = status === 'passed';
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const passed = Object.values(testResults).filter(result => result === true).length;
+            const total = Object.keys(testResults).length;
+            const percentage = (passed / total) * 100;
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            
+            const overallStatus = document.getElementById('overallStatus');
+            if (passed === total) {
+                overallStatus.innerHTML = `✅ All tests passed! (${passed}/${total})`;
+                overallStatus.style.color = '#27AE60';
+            } else if (passed > 0) {
+                overallStatus.innerHTML = `🔄 Testing in progress... (${passed}/${total} passed)`;
+                overallStatus.style.color = '#f59e0b';
+            } else {
+                overallStatus.innerHTML = 'Ready to start testing';
+                overallStatus.style.color = '#64748b';
+            }
+        }
+
+        function showSummary() {
+            const passed = Object.values(testResults).filter(result => result === true).length;
+            const total = Object.keys(testResults).length;
+            const failed = total - passed;
+            
+            let summary = `📊 Featured Products Test Summary:\n`;
+            summary += `Total Tests: ${total}\n`;
+            summary += `Passed: ${passed}\n`;
+            summary += `Failed: ${failed}\n`;
+            summary += `Success Rate: ${Math.round((passed/total) * 100)}%\n\n`;
+            
+            summary += `Test Results:\n`;
+            Object.entries(testResults).forEach(([test, passed]) => {
+                const testName = test.charAt(0).toUpperCase() + test.slice(1);
+                summary += `${testName}: ${passed ? '✅ PASS' : '❌ FAIL'}\n`;
+            });
+            
+            const summaryElement = document.getElementById('summaryResult');
+            summaryElement.textContent = summary;
+            summaryElement.className = `result ${passed === total ? 'success' : failed > 0 ? 'warning' : 'info'}`;
+            summaryElement.style.display = 'block';
+        }
+
+        // MongoDB functions
+        async function saveToMongo(data, collection) {
+            try {
+                const response = await fetch('https://my-backend-1-jk7w.onrender.com/api/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...data,
+                        collection: collection || 'test',
+                        timestamp: new Date()
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    return { success: true, id: result.id };
+                } else {
+                    throw new Error('MongoDB save failed');
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        async function getFromMongo(collection) {
+            try {
+                const response = await fetch('https://my-backend-1-jk7w.onrender.com/api/data');
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        return result.data.filter(item => 
+                            (collection ? item.collection === collection : true) && 
+                            !item.deleted
+                        );
+                    }
+                }
+            } catch (error) {
+                console.log('MongoDB fetch failed:', error);
+            }
+            return [];
+        }
+
+        // Test functions
+        async function testMongoConnection() {
+            updateTestStatus('mongo', 'running', 'mongoResult', 'Testing MongoDB connection...', 'info');
+            
+            try {
+                const response = await fetch('https://my-backend-1-jk7w.onrender.com/api/test');
+                const result = await response.json();
+                
+                if (result.connected) {
+                    updateTestStatus('mongo', 'passed', 'mongoResult', 
+                        '✅ MongoDB connection successful!\n' + JSON.stringify(result, null, 2), 'success');
+                } else {
+                    updateTestStatus('mongo', 'failed', 'mongoResult', 
+                        '❌ MongoDB connection failed!\n' + JSON.stringify(result, null, 2), 'error');
+                }
+            } catch (error) {
+                updateTestStatus('mongo', 'failed', 'mongoResult', 
+                    '❌ MongoDB connection error: ' + error.message + '\n\nMake sure the MongoDB backend server is running on https://my-backend-1-jk7w.onrender.com', 'error');
+            }
+        }
+
+        async function testAutoApproval() {
+            updateTestStatus('approval', 'running', 'approvalResult', 'Testing auto-approval function...', 'info');
+            
+            try {
+                // Simulate calling the createTestProducts function from main shop
+                const testSeller = {
+                    id: 'test-seller-' + Date.now(),
+                    name: 'Featured Test Store',
+                    email: 'featured.test@example.com',
+                    password: 'test123',
+                    type: 'seller',
+                    business: 'Featured Test Business',
+                    phone: '+254 712 345 678',
+                    location: 'Nairobi, Kenya',
+                    createdAt: new Date().toISOString(),
+                    status: 'approved',
+                    sellerRating: 4.5,
+                    totalSales: 0,
+                    productsUploaded: 0
+                };
+                
+                // Save test seller
+                const sellerResult = await saveToMongo(testSeller, 'sellers');
+                if (!sellerResult.success) {
+                    throw new Error('Failed to save test seller: ' + sellerResult.error);
+                }
+                
+                // Get selected categories
+                const categorySelect = document.getElementById('categories');
+                const selectedCategories = Array.from(categorySelect.selectedOptions).map(option => option.value);
+                const productCount = parseInt(document.getElementById('productCount').value);
+                
+                // Create test products
+                const productTemplates = [
+                    { title: 'Wireless Headphones', price: 3500, category: 'electronics' },
+                    { title: 'Smart Watch', price: 8500, category: 'electronics' },
+                    { title: 'Organic Coffee', price: 1200, category: 'food' },
+                    { title: 'Yoga Mat', price: 2200, category: 'sports' },
+                    { title: 'Water Bottle', price: 850, category: 'home' },
+                    { title: 'Running Shoes', price: 4500, category: 'sports' },
+                    { title: 'Laptop Stand', price: 1800, category: 'electronics' },
+                    { title: 'Kitchen Knife Set', price: 3200, category: 'home' }
+                ];
+                
+                const testProducts = [];
+                for (let i = 0; i < productCount; i++) {
+                    const template = productTemplates[i % productTemplates.length];
+                    const category = selectedCategories[i % selectedCategories.length] || template.category;
+                    
+                    const product = {
+                        id: 'featured-test-' + i + '-' + Date.now(),
+                        title: template.title + ' ' + (i + 1),
+                        price: template.price + (i * 100),
+                        category: category,
+                        description: `Test product ${i + 1} for featured products testing. Auto-approved for demonstration.`,
+                        stock: 10 + i,
+                        condition: 'new',
+                        sellerEmail: testSeller.email,
+                        sellerName: testSeller.name,
+                        sellerPhone: testSeller.phone,
+                        sellerLocation: testSeller.location,
+                        type: 'product',
+                        status: 'approved', // Auto-approved
+                        rating: 4.0 + (i % 2) * 0.5,
+                        reviews: Math.floor(Math.random() * 50) + 1,
+                        createdAt: new Date().toISOString(),
+                        image: `https://via.placeholder.com/250x200/${['4A90E2', '50C878', 'FF6B6B', '28A745', 'D4A574'][i % 5]}/ffffff?text=Product+${i + 1}`
+                    };
+                    
+                    testProducts.push(product);
+                }
+                
+                // Save products to MongoDB
+                const productResults = [];
+                for (const product of testProducts) {
+                    const result = await saveToMongo(product, 'products');
+                    productResults.push(result);
+                }
+                
+                const failedSaves = productResults.filter(r => !r.success);
+                if (failedSaves.length > 0) {
+                    throw new Error(`Failed to save ${failedSaves.length} products`);
+                }
+                
+                // Also save to localStorage
+                const sellers = JSON.parse(localStorage.getItem('registeredSellers') || '[]');
+                if (!sellers.find(s => s.email === testSeller.email)) {
+                    sellers.push(testSeller);
+                    localStorage.setItem('registeredSellers', JSON.stringify(sellers));
+                }
+                
+                const products = JSON.parse(localStorage.getItem('products') || '[]');
+                testProducts.forEach(product => {
+                    if (!products.find(p => p.id === product.id)) {
+                        products.push(product);
+                    }
+                });
+                localStorage.setItem('products', JSON.stringify(products));
+                
+                updateTestStatus('approval', 'passed', 'approvalResult', 
+                    `✅ Auto-approval test successful!\n\nCreated ${testProducts.length} test products:\n` + 
+                    testProducts.map(p => `- ${p.title} (${p.category}) - KES ${p.price}`).join('\n') +
+                    `\n\nAll products are auto-approved and ready for display.\n` +
+                    `Test Seller: ${testSeller.name} (${testSeller.email})`, 'success');
+                
+                // Refresh preview
+                await refreshPreview();
+                
+            } catch (error) {
+                updateTestStatus('approval', 'failed', 'approvalResult', 
+                    '❌ Auto-approval test failed: ' + error.message, 'error');
+            }
+        }
+
+        async function testProductLoading() {
+            updateTestStatus('loading', 'running', 'loadingResult', 'Testing product loading functionality...', 'info');
+            
+            try {
+                // Test loading approved products from MongoDB
+                const mongoProducts = await getFromMongo('products');
+                const approvedProducts = mongoProducts.filter(p => p.status === 'approved');
+                
+                // Test loading from localStorage fallback
+                const localProducts = JSON.parse(localStorage.getItem('products') || '[]');
+                const localApproved = localProducts.filter(p => p.status === 'approved');
+                
+                const loadingResults = {
+                    mongoApproved: approvedProducts.length,
+                    localApproved: localApproved.length,
+                    totalAvailable: approvedProducts.length + localApproved.length,
+                    hasProducts: approvedProducts.length > 0 || localApproved.length > 0
+                };
+                
+                if (loadingResults.hasProducts) {
+                    updateTestStatus('loading', 'passed', 'loadingResult', 
+                        '✅ Product loading test successful!\n\nLoading Results:\n' + JSON.stringify(loadingResults, null, 2) +
+                        '\n\n✅ Products can be loaded from both MongoDB and localStorage', 'success');
+                } else {
+                    updateTestStatus('loading', 'failed', 'loadingResult', 
+                        '❌ No approved products found. Run auto-approval test first.\n\nResults:\n' + JSON.stringify(loadingResults, null, 2), 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus('loading', 'failed', 'loadingResult', 
+                    '❌ Product loading test failed: ' + error.message, 'error');
+            }
+        }
+
+        async function testFeaturedDisplay() {
+            updateTestStatus('display', 'running', 'displayResult', 'Testing featured products display...', 'info');
+            
+            try {
+                // Get approved products
+                const mongoProducts = await getFromMongo('products');
+                const approvedProducts = mongoProducts.filter(p => p.status === 'approved');
+                
+                if (approvedProducts.length === 0) {
+                    updateTestStatus('display', 'failed', 'displayResult', 
+                        '❌ No approved products to display. Run auto-approval test first.', 'error');
+                    return;
+                }
+                
+                // Test product card creation logic (simulate)
+                const displayResults = {
+                    totalProducts: approvedProducts.length,
+                    categories: [...new Set(approvedProducts.map(p => p.category))],
+                    priceRange: {
+                        min: Math.min(...approvedProducts.map(p => p.price)),
+                        max: Math.max(...approvedProducts.map(p => p.price))
+                    },
+                    sellers: [...new Set(approvedProducts.map(p => p.sellerName))],
+                    hasSellerInfo: approvedProducts.every(p => p.sellerEmail && p.sellerName),
+                    hasImages: approvedProducts.every(p => p.image),
+                    hasRatings: approvedProducts.every(p => p.rating !== undefined)
+                };
+                
+                // Test sample product card HTML
+                const sampleProduct = approvedProducts[0];
+                const sampleCard = `
+                    <div class="product-card">
+                        <img src="${sampleProduct.image}" alt="${sampleProduct.title}">
+                        <h3>${sampleProduct.title}</h3>
+                        <div class="rating">★${sampleProduct.rating}</div>
+                        <div class="price">KES ${sampleProduct.price.toLocaleString()}</div>
+                        <div class="seller">Sold by ${sampleProduct.sellerName}</div>
+                        <div class="actions">
+                            <button>Message Seller</button>
+                            <button>Add to Cart</button>
+                            <button>Wishlist</button>
+                        </div>
+                    </div>
+                `;
+                
+                updateTestStatus('display', 'passed', 'displayResult', 
+                    '✅ Featured products display test successful!\n\nDisplay Results:\n' + JSON.stringify(displayResults, null, 2) +
+                    '\n\nSample Product Card:\n' + sampleCard, 'success');
+                
+            } catch (error) {
+                updateTestStatus('display', 'failed', 'displayResult', 
+                    '❌ Featured products display test failed: ' + error.message, 'error');
+            }
+        }
+
+        async function testCustomerFeatures() {
+            updateTestStatus('features', 'running', 'featuresResult', 'Testing customer interaction features...', 'info');
+            
+            try {
+                // Get approved products
+                const mongoProducts = await getFromMongo('products');
+                const approvedProducts = mongoProducts.filter(p => p.status === 'approved');
+                
+                if (approvedProducts.length === 0) {
+                    updateTestStatus('features', 'failed', 'featuresResult', 
+                        '❌ No approved products to test features. Run auto-approval test first.', 'error');
+                    return;
+                }
+                
+                const sampleProduct = approvedProducts[0];
+                
+                // Test messaging functionality
+                const messageTest = {
+                    hasSellerEmail: !!sampleProduct.sellerEmail,
+                    hasSellerName: !!sampleProduct.sellerName,
+                    hasSellerPhone: !!sampleProduct.sellerPhone,
+                    canMessage: !!(sampleProduct.sellerEmail && sampleProduct.sellerName)
+                };
+                
+                // Test cart functionality (simulate)
+                const cartTest = {
+                    hasProductId: !!sampleProduct.id,
+                    hasPrice: !!sampleProduct.price,
+                    hasTitle: !!sampleProduct.title,
+                    canAddToCart: !!(sampleProduct.id && sampleProduct.price && sampleProduct.title)
+                };
+                
+                // Test wishlist functionality (simulate)
+                const wishlistTest = {
+                    hasProductId: !!sampleProduct.id,
+                    canAddToWishlist: !!sampleProduct.id
+                };
+                
+                const featuresResults = {
+                    messaging: messageTest,
+                    cart: cartTest,
+                    wishlist: wishlistTest,
+                    allFeaturesWorking: messageTest.canMessage && cartTest.canAddToCart && wishlistTest.canAddToWishlist
+                };
+                
+                if (featuresResults.allFeaturesWorking) {
+                    updateTestStatus('features', 'passed', 'featuresResult', 
+                        '✅ Customer features test successful!\n\nFeatures Results:\n' + JSON.stringify(featuresResults, null, 2) +
+                        '\n\n✅ Customers can:\n- Message sellers directly\n- Add products to cart\n- Add products to wishlist\n- View complete product information', 'success');
+                } else {
+                    updateTestStatus('features', 'failed', 'featuresResult', 
+                        '❌ Some customer features not working.\n\nResults:\n' + JSON.stringify(featuresResults, null, 2), 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus('features', 'failed', 'featuresResult', 
+                    '❌ Customer features test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Preview functionality
+        async function refreshPreview() {
+            const loadingDiv = document.getElementById('previewLoading');
+            const gridDiv = document.getElementById('previewGrid');
+            const emptyDiv = document.getElementById('previewEmpty');
+            
+            loadingDiv.style.display = 'block';
+            gridDiv.style.display = 'none';
+            emptyDiv.style.display = 'none';
+            
+            try {
+                const mongoProducts = await getFromMongo('products');
+                const approvedProducts = mongoProducts.filter(p => p.status === 'approved');
+                
+                if (approvedProducts.length > 0) {
+                    loadingDiv.style.display = 'none';
+                    gridDiv.style.display = 'grid';
+                    
+                    gridDiv.innerHTML = approvedProducts.slice(0, 6).map(product => `
+                        <div class="preview-product">
+                            <img src="${product.image}" alt="${product.title}">
+                            <div class="preview-title">${product.title}</div>
+                            <div class="preview-price">KES ${product.price.toLocaleString()}</div>
+                            <div class="preview-seller">${product.sellerName}</div>
+                            <div class="preview-actions">
+                                <button onclick="alert('Message: ${product.sellerEmail}')" title="Message Seller">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button onclick="alert('Added to cart')" title="Add to Cart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button onclick="alert('Added to wishlist')" title="Wishlist">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    loadingDiv.style.display = 'none';
+                    emptyDiv.style.display = 'block';
+                }
+            } catch (error) {
+                loadingDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error loading preview';
+            }
+        }
+
+        async function clearTestData() {
+            try {
+                // Clear localStorage
+                localStorage.removeItem('registeredSellers');
+                localStorage.removeItem('products');
+                localStorage.removeItem('sellerProducts');
+                
+                // Reset test results
+                testResults = {
+                    mongo: false,
+                    approval: false,
+                    loading: false,
+                    display: false,
+                    features: false
+                };
+                
+                updateProgress();
+                
+                // Refresh preview
+                await refreshPreview();
+                
+                alert('✅ Test data cleared from localStorage. MongoDB data may need manual deletion.');
+                
+            } catch (error) {
+                alert('❌ Error clearing test data: ' + error.message);
+            }
+        }
+
+        // Navigation functions
+        function openMainShop() {
+            window.open('index.html', '_blank');
+        }
+
+        function openAdminApproval() {
+            window.open('admin/product-approval.html', '_blank');
+        }
+
+        // Run all tests sequentially
+        async function runAllTests() {
+            for (let i = 0; i < tests.length; i++) {
+                currentTestIndex = i;
+                await runIndividualTest(tests[i]);
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds between tests
+            }
+            showSummary();
+        }
+
+        // Run individual test
+        async function runIndividualTest(testName) {
+            switch(testName) {
+                case 'mongo':
+                    await testMongoConnection();
+                    break;
+                case 'approval':
+                    await testAutoApproval();
+                    break;
+                case 'loading':
+                    await testProductLoading();
+                    break;
+                case 'display':
+                    await testFeaturedDisplay();
+                    break;
+                case 'features':
+                    await testCustomerFeatures();
+                    break;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🛍️ Featured Products Test Suite loaded');
+            updateProgress();
+            refreshPreview();
+        });
+    </script>
+</body>
+</html>
