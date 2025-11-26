@@ -857,7 +857,7 @@
 
             async login(email, password, rememberMe = false) {
                 try {
-                    const response = await fetch(`${BACKEND_URL}/api/user/login`, {
+                    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -868,19 +868,13 @@
 
                     const data = await response.json();
 
-                    if (response.ok) {
-                        currentUser = {
-                            id: data.session.userId,
-                            name: data.session.name,
-                            email: data.session.email,
-                            role: data.session.role
-                        };
-
+                    if (data.success) {
+                        currentUser = data.user;
                         this.updateUI();
                         showToast('Login successful!', 'success');
                         return { success: true };
                     } else {
-                        return { success: false, error: data.error || 'Login failed' };
+                        return { success: false, error: data.error };
                     }
                 } catch (error) {
                     console.error('Login error:', error);
@@ -890,18 +884,22 @@
 
             async register(userData) {
                 try {
-                    const response = await fetch(`${BACKEND_URL}/api/user/register`, {
+                    const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
+                        credentials: 'include', // Use cookies for session management
                         body: JSON.stringify(userData)
                     });
 
                     const data = await response.json();
 
-                    if (response.ok) {
-                        showToast('Registration successful! Please login.', 'success');
+                    if (data.success) {
+                        // Auto-login after registration
+                        currentUser = data.user;
+                        this.updateUI();
+                        showToast('Registration successful! You are now logged in.', 'success');
                         return { success: true };
                     } else {
                         return { success: false, error: data.error || 'Registration failed' };
