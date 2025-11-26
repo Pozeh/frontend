@@ -1837,6 +1837,14 @@
 
             async checkAuthStatus() {
                 try {
+                    // First check localStorage for cached user data
+                    const cachedUser = localStorage.getItem('ecoloopUser');
+                    if (cachedUser) {
+                        currentUser = JSON.parse(cachedUser);
+                        this.updateUI();
+                    }
+
+                    // Then try to verify with backend
                     const response = await fetch(`${BACKEND_URL}/api/user/session`, {
                         method: 'GET',
                         credentials: 'include' // Important for HTTP-only cookies
@@ -1844,17 +1852,42 @@
 
                     if (response.ok) {
                         const data = await response.json();
-                        if (data.success) {
+                        if (data.success && data.user) {
                             currentUser = data.user;
+                            // Cache user data in localStorage
+                            localStorage.setItem('ecoloopUser', JSON.stringify(currentUser));
+                            this.updateUI();
                         } else {
-                            currentUser = null;
+                            // Backend says no user, but we have cached data
+                            if (cachedUser) {
+                                // Keep using cached data until explicit logout
+                                console.log('Using cached user session');
+                            } else {
+                                currentUser = null;
+                                this.updateUI();
+                            }
                         }
                     } else {
-                        currentUser = null;
+                        // Backend failed, but we have cached data
+                        if (cachedUser) {
+                            console.log('Backend unavailable, using cached user session');
+                        } else {
+                            currentUser = null;
+                            this.updateUI();
+                        }
                     }
                 } catch (error) {
                     console.error('Auth check failed:', error);
-                    currentUser = null;
+                    // Network error, but we have cached data
+                    const cachedUser = localStorage.getItem('ecoloopUser');
+                    if (cachedUser) {
+                        currentUser = JSON.parse(cachedUser);
+                        this.updateUI();
+                        console.log('Network error, using cached user session');
+                    } else {
+                        currentUser = null;
+                        this.updateUI();
+                    }
                 }
             }
 
@@ -1873,6 +1906,8 @@
 
                     if (data.success) {
                         currentUser = data.user;
+                        // Cache user data in localStorage
+                        localStorage.setItem('ecoloopUser', JSON.stringify(currentUser));
                         this.updateUI();
                         showToast('Login successful!', 'success');
                         return { success: true };
@@ -1900,6 +1935,8 @@
 
                     if (data.success) {
                         currentUser = data.user;
+                        // Cache user data in localStorage
+                        localStorage.setItem('ecoloopUser', JSON.stringify(currentUser));
                         this.updateUI();
                         showToast('Account created successfully!', 'success');
                         return { success: true };
@@ -1943,20 +1980,20 @@
                         credentials: 'include' // Important for HTTP-only cookies
                     });
                     
-                    if (response.ok) {
-                        currentUser = null;
-                        this.updateUI();
-                        showToast('Logged out successfully!', 'success');
-                    } else {
-                        // Still clear user on error
-                        currentUser = null;
-                        this.updateUI();
-                        showToast('Logged out successfully!', 'success');
+                    // Clear user data regardless of backend response
+                    currentUser = null;
+                    localStorage.removeItem('ecoloopUser');
+                    this.updateUI();
+                    showToast('Logged out successfully!', 'success');
+                    
+                    if (!response.ok) {
+                        console.log('Backend logout failed, but cleared local session');
                     }
                 } catch (error) {
                     console.error('Logout error:', error);
-                    // Clear user on error
+                    // Clear user data on error
                     currentUser = null;
+                    localStorage.removeItem('ecoloopUser');
                     this.updateUI();
                     showToast('Logged out successfully!', 'success');
                 }
@@ -2651,6 +2688,7 @@
         // Backend cart functions
         async function addToCartBackend(productId, quantity) {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/cart/add`, {
                     method: 'POST',
                     headers: {
@@ -2667,16 +2705,45 @@
                     updateCartBadge();
                     loadCartItems();
                 } else {
-                    showToast(data.message || 'Failed to add to cart', 'error');
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Cart add error:', error);
-                showToast('Failed to add to cart', 'error');
+                console.log('Backend cart add failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                addToCartLocalStorage(productId, quantity);
             }
+        }
+
+        // LocalStorage fallback functions
+        function addToCartLocalStorage(productId, quantity) {
+            const product = sampleProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            let cart = JSON.parse(localStorage.getItem('ecoloopCart') || '[]');
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+                showToast('Cart quantity updated', 'success');
+            } else {
+                cart.push({
+                    id: productId,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    quantity: quantity
+                });
+                showToast('Product added to cart', 'success');
+            }
+            
+            localStorage.setItem('ecoloopCart', JSON.stringify(cart));
+            updateCartBadge();
+            renderCartItems(cart);
         }
 
         async function removeFromCart(productId) {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/cart/remove`, {
                     method: 'POST',
                     headers: {
@@ -2693,16 +2760,32 @@
                     updateCartBadge();
                     loadCartItems();
                 } else {
-                    showToast(data.message || 'Failed to remove item', 'error');
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Cart remove error:', error);
-                showToast('Failed to remove item', 'error');
+                console.log('Backend cart remove failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                removeFromCartLocalStorage(productId);
             }
         }
 
+        function removeFromCartLocalStorage(productId) {
+            let cart = JSON.parse(localStorage.getItem('ecoloopCart') || '[]');
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('ecoloopCart', JSON.stringify(cart));
+            showToast('Item removed from cart', 'success');
+            updateCartBadge();
+            renderCartItems(cart);
+        }
+
         async function updateCartQuantity(productId, quantity) {
+            if (quantity <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/cart/update`, {
                     method: 'POST',
                     headers: {
@@ -2718,16 +2801,29 @@
                     updateCartBadge();
                     loadCartItems();
                 } else {
-                    showToast(data.message || 'Failed to update quantity', 'error');
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Cart update error:', error);
-                showToast('Failed to update quantity', 'error');
+                console.log('Backend cart update failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                updateCartQuantityLocalStorage(productId, quantity);
+            }
+        }
+
+        function updateCartQuantityLocalStorage(productId, quantity) {
+            let cart = JSON.parse(localStorage.getItem('ecoloopCart') || '[]');
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = quantity;
+                localStorage.setItem('ecoloopCart', JSON.stringify(cart));
+                updateCartBadge();
+                renderCartItems(cart);
             }
         }
 
         async function loadCartItems() {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/cart`, {
                     credentials: 'include'
                 });
@@ -2737,9 +2833,15 @@
                 if (data.success) {
                     renderCartItems(data.cart);
                     updateCartBadge();
+                } else {
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Load cart error:', error);
+                console.log('Backend cart load failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                const cart = JSON.parse(localStorage.getItem('ecoloopCart') || '[]');
+                renderCartItems(cart);
+                updateCartBadge();
             }
         }
 
@@ -2760,10 +2862,13 @@
 
             let subtotal = 0;
             const itemsHTML = cartItems.map(item => {
-                const product = sampleProducts.find(p => p.id === item.productId);
+                // Handle both backend format (item.productId) and localStorage format (item.id)
+                const productId = item.productId || item.id;
+                const quantity = item.quantity || 1;
+                const product = sampleProducts.find(p => p.id === productId);
                 if (!product) return '';
                 
-                const itemTotal = parseFloat(product.price.replace(/[^\d.]/g, '')) * item.quantity;
+                const itemTotal = parseFloat(product.price.replace(/[^\d.]/g, '')) * quantity;
                 subtotal += itemTotal;
                 
                 return `
@@ -2775,13 +2880,13 @@
                             <div class="cart-item-quantity">
                                 <span>Qty:</span>
                                 <div class="quantity-controls">
-                                    <button class="quantity-btn" onclick="updateCartQuantity(${item.productId}, ${item.quantity - 1})">-</button>
-                                    <span class="quantity-value">${item.quantity}</span>
-                                    <button class="quantity-btn" onclick="updateCartQuantity(${item.productId}, ${item.quantity + 1})">+</button>
+                                    <button class="quantity-btn" onclick="updateCartQuantity(${productId}, ${quantity - 1})">-</button>
+                                    <span class="quantity-value">${quantity}</span>
+                                    <button class="quantity-btn" onclick="updateCartQuantity(${productId}, ${quantity + 1})">+</button>
                                 </div>
                             </div>
                             <div class="cart-item-actions">
-                                <button class="btn-remove" onclick="removeFromCart(${item.productId})">
+                                <button class="btn-remove" onclick="removeFromCart(${productId})">
                                     <i class="fas fa-trash"></i> Remove
                                 </button>
                             </div>
@@ -2825,6 +2930,7 @@
 
         async function addToWishlistBackend(productId) {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/wishlist/add`, {
                     method: 'POST',
                     headers: {
@@ -2841,16 +2947,42 @@
                     updateWishlistBadge();
                     loadWishlistItems();
                 } else {
-                    showToast(data.message || 'Failed to add to wishlist', 'error');
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Wishlist add error:', error);
-                showToast('Failed to add to wishlist', 'error');
+                console.log('Backend wishlist add failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                addToWishlistLocalStorage(productId);
             }
+        }
+
+        function addToWishlistLocalStorage(productId) {
+            const product = sampleProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            let wishlist = JSON.parse(localStorage.getItem('ecoloopWishlist') || '[]');
+            const existingItem = wishlist.find(item => item.id === productId);
+            
+            if (existingItem) {
+                showToast('Product already in wishlist', 'info');
+            } else {
+                wishlist.push({
+                    id: productId,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image
+                });
+                showToast('Product added to wishlist', 'success');
+            }
+            
+            localStorage.setItem('ecoloopWishlist', JSON.stringify(wishlist));
+            updateWishlistBadge();
+            renderWishlistItems(wishlist);
         }
 
         async function removeFromWishlist(productId) {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/wishlist/remove`, {
                     method: 'POST',
                     headers: {
@@ -2867,16 +2999,27 @@
                     updateWishlistBadge();
                     loadWishlistItems();
                 } else {
-                    showToast(data.message || 'Failed to remove item', 'error');
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Wishlist remove error:', error);
-                showToast('Failed to remove item', 'error');
+                console.log('Backend wishlist remove failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                removeFromWishlistLocalStorage(productId);
             }
+        }
+
+        function removeFromWishlistLocalStorage(productId) {
+            let wishlist = JSON.parse(localStorage.getItem('ecoloopWishlist') || '[]');
+            wishlist = wishlist.filter(item => item.id !== productId);
+            localStorage.setItem('ecoloopWishlist', JSON.stringify(wishlist));
+            showToast('Item removed from wishlist', 'success');
+            updateWishlistBadge();
+            renderWishlistItems(wishlist);
         }
 
         async function moveToCartFromWishlist(productId) {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/wishlist/move-to-cart`, {
                     method: 'POST',
                     headers: {
@@ -2895,16 +3038,32 @@
                     loadWishlistItems();
                     loadCartItems();
                 } else {
-                    showToast(data.message || 'Failed to move item', 'error');
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Move to cart error:', error);
-                showToast('Failed to move item', 'error');
+                console.log('Backend move to cart failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                moveToCartFromWishlistLocalStorage(productId);
             }
+        }
+
+        function moveToCartFromWishlistLocalStorage(productId) {
+            // Remove from wishlist
+            let wishlist = JSON.parse(localStorage.getItem('ecoloopWishlist') || '[]');
+            wishlist = wishlist.filter(item => item.id !== productId);
+            localStorage.setItem('ecoloopWishlist', JSON.stringify(wishlist));
+            
+            // Add to cart
+            addToCartLocalStorage(productId, 1);
+            
+            showToast('Item moved to cart', 'success');
+            updateWishlistBadge();
+            renderWishlistItems(wishlist);
         }
 
         async function loadWishlistItems() {
             try {
+                // Try backend API first
                 const response = await fetch(`${BACKEND_URL}/api/wishlist`, {
                     credentials: 'include'
                 });
@@ -2914,9 +3073,15 @@
                 if (data.success) {
                     renderWishlistItems(data.wishlist);
                     updateWishlistBadge();
+                } else {
+                    throw new Error(data.message || 'Backend failed');
                 }
             } catch (error) {
-                console.error('Load wishlist error:', error);
+                console.log('Backend wishlist load failed, using localStorage fallback:', error);
+                // Fallback to localStorage
+                const wishlist = JSON.parse(localStorage.getItem('ecoloopWishlist') || '[]');
+                renderWishlistItems(wishlist);
+                updateWishlistBadge();
             }
         }
 
@@ -2933,7 +3098,9 @@
             wishlistEmpty.style.display = 'none';
 
             const itemsHTML = wishlistItems.map(item => {
-                const product = sampleProducts.find(p => p.id === item.productId);
+                // Handle both backend format (item.productId) and localStorage format (item.id)
+                const productId = item.productId || item.id;
+                const product = sampleProducts.find(p => p.id === productId);
                 if (!product) return '';
                 
                 return `
@@ -2943,10 +3110,10 @@
                             <div class="wishlist-item-title">${product.title}</div>
                             <div class="wishlist-item-price">${product.price}</div>
                             <div class="wishlist-item-actions">
-                                <button class="btn-move-to-cart" onclick="moveToCartFromWishlist(${item.productId})">
+                                <button class="btn-move-to-cart" onclick="moveToCartFromWishlist(${productId})">
                                     <i class="fas fa-shopping-cart"></i> Move to Cart
                                 </button>
-                                <button class="btn-remove" onclick="removeFromWishlist(${item.productId})">
+                                <button class="btn-remove" onclick="removeFromWishlist(${productId})">
                                     <i class="fas fa-trash"></i> Remove
                                 </button>
                             </div>
