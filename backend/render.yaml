@@ -1,0 +1,21 @@
+services:
+  # Backend API Service Only
+  - type: web
+    name: ecoloop-backend
+    runtime: node
+    plan: free
+    # Build and deployment configuration
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    # Environment variables
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: PORT
+        value: 3000
+    # Health check - use root endpoint
+    healthCheckPath: /
+    # Auto-deploy configuration
+    autoDeploy: yes
