@@ -1,4 +1,4 @@
-Deployment Version: 2025-11-26-v6.3-HEIGHT-OPTIMIZED
-Features: Reduced welcome panel height to ¾ of original size, preserved all styling and animations
-Deployed at: 2025-11-26 22:28 UTC
-Status: HEIGHT ADJUSTED - Panel occupies less vertical space across all devices
+Deployment Version: 2025-11-26-v6.4-HERO-HEIGHT-REDUCED
+Features: Reduced animated hero background height to ¼ of original (100vh → 25vh), preserved all animations
+Deployed at: 2025-11-26 22:35 UTC
+Status: HERO SECTION OPTIMIZED - Background now 25% of original height, panel perfectly centered
