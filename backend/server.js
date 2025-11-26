@@ -1,7 +1,8 @@
 const express = require("express");
-const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors");
+const { MongoClient, ObjectId } = require("mongodb");
 const session = require("express-session");
+const authRoutes = require('./auth-routes');
 require("dotenv").config();
 
 const app = express();
@@ -758,11 +759,19 @@ app.post("/api/user/login", async (req, res) => {
     // Find user
     const user = await db.collection("users").findOne({ 
       email: email, 
-      password: password,
       status: "active"
     });
     
     if (!user) {
+      return res.status(401).json({ 
+        success: false, 
+        error: "Invalid email or password" 
+      });
+    }
+    
+    // For now, we'll use simple password comparison (in production, use bcrypt)
+    // This is a temporary fix - you should implement proper password hashing
+    if (user.password !== password) {
       return res.status(401).json({ 
         success: false, 
         error: "Invalid email or password" 
@@ -1432,8 +1441,14 @@ app.post("/api/admin/settings", async (req, res) => {
   }
 });
 
+// Add session-based authentication routes
+app.use('/api/auth', authRoutes);
+
 // Start server
 connectToMongo().then(() => {
+  // Make database available to routes
+  app.locals.db = db;
+  
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`API endpoints:`);
