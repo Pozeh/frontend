@@ -1,4 +1,4 @@
-Deployment Version: 2025-11-26-v6.4-HERO-HEIGHT-REDUCED
-Features: Reduced animated hero background height to ¼ of original (100vh → 25vh), preserved all animations
-Deployed at: 2025-11-26 22:35 UTC
-Status: HERO SECTION OPTIMIZED - Background now 25% of original height, panel perfectly centered
+Deployment Version: 2025-11-26-v6.5-PRODUCT-LAYER-ADDED
+Features: Added independent GPU-friendly animated product layer with bouncing electronics, preserved all existing animations
+Deployed at: 2025-11-26 22:58 UTC
+Status: PRODUCT LAYER INTEGRATED - Non-destructive additive animation with 12 bouncing products
