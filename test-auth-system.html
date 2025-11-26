@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Complete Authentication System Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .success {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            color: #856404;
+        }
+        button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #27ae60;
+        }
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #2ecc71;
+        }
+        .result {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .step-number {
+            background: #2ecc71;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .step-number.pending {
+            background: #95a5a6;
+        }
+        .step-number.error {
+            background: #e74c3c;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #2ecc71;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .test-user {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-indicator.success { background: #28a745; }
+        .status-indicator.error { background: #dc3545; }
+        .status-indicator.pending { background: #ffc107; }
+    </style>
+</head>
+<body>
+    <h1>🔐 Complete Authentication System Test</h1>
+    
+    <div class="test-section info">
+        <h3>📋 Test Overview</h3>
+        <p>This comprehensive test verifies the entire authentication system works correctly with a clean MongoDB database.</p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div id="overallStatus">Ready to start testing...</div>
+    </div>
+
+    <div class="test-section">
+        <h3>👤 Test User Credentials</h3>
+        <div class="test-user">
+            <strong>Test User:</strong>
+            <div>Email: testuser@ecoloop.com</div>
+            <div>Password: TestPassword123!</div>
+            <div>First Name: John</div>
+            <div>Last Name: Doe</div>
+            <div>Phone: +254700123456</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>🧪 Individual Tests</h3>
+        
+        <button onclick="testRegistration()">1️⃣ Test User Registration</button>
+        <button onclick="testLogin()">2️⃣ Test User Login</button>
+        <button onclick="testAuthStatus()">3️⃣ Test Auth Status</button>
+        <button onclick="testLogout()">4️⃣ Test Logout</button>
+        <button onclick="testInvalidLogin()">5️⃣ Test Invalid Login</button>
+        <button onclick="testDuplicateRegistration()">6️⃣ Test Duplicate Registration</button>
+        
+        <div id="individualTestResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>🔄 Complete End-to-End Test</h3>
+        <button onclick="runCompleteTest()" id="completeTestBtn">🚀 Run Complete Authentication Test</button>
+        <div id="completeTestResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>📊 Test Results Summary</h3>
+        <div id="testSummary">
+            <div class="step">
+                <div class="step-number pending">1</div>
+                <div class="step-content">Registration Test</div>
+            </div>
+            <div class="step">
+                <div class="step-number pending">2</div>
+                <div class="step-content">Login Test</div>
+            </div>
+            <div class="step">
+                <div class="step-number pending">3</div>
+                <div class="step-content">Auth Status Test</div>
+            </div>
+            <div class="step">
+                <div class="step-number pending">4</div>
+                <div class="step-content">Logout Test</div>
+            </div>
+            <div class="step">
+                <div class="step-number pending">5</div>
+                <div class="step-content">Invalid Login Test</div>
+            </div>
+            <div class="step">
+                <div class="step-number pending">6</div>
+                <div class="step-content">Duplicate Registration Test</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BACKEND_URL = 'https://my-backend-1-jk7w.onrender.com';
+        
+        // Test user data
+        const testUser = {
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'testuser@ecoloop.com',
+            phone: '+254700123456',
+            password: 'TestPassword123!'
+        };
+
+        let testResults = {
+            registration: null,
+            login: null,
+            authStatus: null,
+            logout: null,
+            invalidLogin: null,
+            duplicateRegistration: null
+        };
+
+        function updateProgress(percentage) {
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        function updateStepStatus(stepNumber, status) {
+            const steps = document.querySelectorAll('.step-number');
+            if (steps[stepNumber - 1]) {
+                steps[stepNumber - 1].className = `step-number ${status}`;
+            }
+        }
+
+        function showResult(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="result ${type}">${message}</div>`;
+        }
+
+        function updateOverallStatus(message, type = 'info') {
+            const element = document.getElementById('overallStatus');
+            element.innerHTML = `<span class="status-indicator ${type}"></span>${message}`;
+        }
+
+        async function testRegistration() {
+            showResult('individualTestResults', 'Testing user registration...', 'info');
+            updateOverallStatus('Testing registration...', 'pending');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/user/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(testUser)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testResults.registration = { success: true, data };
+                    showResult('individualTestResults', 
+                        `✅ Registration successful!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'success'
+                    );
+                    updateStepStatus(1, 'success');
+                    updateOverallStatus('Registration successful!', 'success');
+                } else {
+                    testResults.registration = { success: false, error: data.error };
+                    showResult('individualTestResults', 
+                        `❌ Registration failed: ${data.error}\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'error'
+                    );
+                    updateStepStatus(1, 'error');
+                    updateOverallStatus('Registration failed!', 'error');
+                }
+            } catch (error) {
+                testResults.registration = { success: false, error: error.message };
+                showResult('individualTestResults', 
+                    `❌ Network error: ${error.message}`, 
+                    'error'
+                );
+                updateStepStatus(1, 'error');
+                updateOverallStatus('Network error!', 'error');
+            }
+        }
+
+        async function testLogin() {
+            showResult('individualTestResults', 'Testing user login...', 'info');
+            updateOverallStatus('Testing login...', 'pending');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/user/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ 
+                        email: testUser.email, 
+                        password: testUser.password 
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testResults.login = { success: true, data };
+                    showResult('individualTestResults', 
+                        `✅ Login successful!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'success'
+                    );
+                    updateStepStatus(2, 'success');
+                    updateOverallStatus('Login successful!', 'success');
+                } else {
+                    testResults.login = { success: false, error: data.error };
+                    showResult('individualTestResults', 
+                        `❌ Login failed: ${data.error}\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'error'
+                    );
+                    updateStepStatus(2, 'error');
+                    updateOverallStatus('Login failed!', 'error');
+                }
+            } catch (error) {
+                testResults.login = { success: false, error: error.message };
+                showResult('individualTestResults', 
+                    `❌ Network error: ${error.message}`, 
+                    'error'
+                );
+                updateStepStatus(2, 'error');
+                updateOverallStatus('Network error!', 'error');
+            }
+        }
+
+        async function testAuthStatus() {
+            showResult('individualTestResults', 'Testing authentication status...', 'info');
+            updateOverallStatus('Testing auth status...', 'pending');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/auth/verify`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testResults.authStatus = { success: true, data };
+                    showResult('individualTestResults', 
+                        `✅ Auth status verified!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'success'
+                    );
+                    updateStepStatus(3, 'success');
+                    updateOverallStatus('User is authenticated!', 'success');
+                } else {
+                    testResults.authStatus = { success: false, error: data.error };
+                    showResult('individualTestResults', 
+                        `⚠️ User not authenticated: ${data.error}\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'warning'
+                    );
+                    updateStepStatus(3, 'error');
+                    updateOverallStatus('User not authenticated!', 'error');
+                }
+            } catch (error) {
+                testResults.authStatus = { success: false, error: error.message };
+                showResult('individualTestResults', 
+                    `❌ Network error: ${error.message}`, 
+                    'error'
+                );
+                updateStepStatus(3, 'error');
+                updateOverallStatus('Network error!', 'error');
+            }
+        }
+
+        async function testLogout() {
+            showResult('individualTestResults', 'Testing logout...', 'info');
+            updateOverallStatus('Testing logout...', 'pending');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/auth/logout`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testResults.logout = { success: true, data };
+                    showResult('individualTestResults', 
+                        `✅ Logout successful!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'success'
+                    );
+                    updateStepStatus(4, 'success');
+                    updateOverallStatus('Logout successful!', 'success');
+                } else {
+                    testResults.logout = { success: false, error: data.error };
+                    showResult('individualTestResults', 
+                        `❌ Logout failed: ${data.error}\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'error'
+                    );
+                    updateStepStatus(4, 'error');
+                    updateOverallStatus('Logout failed!', 'error');
+                }
+            } catch (error) {
+                testResults.logout = { success: false, error: error.message };
+                showResult('individualTestResults', 
+                    `❌ Network error: ${error.message}`, 
+                    'error'
+                );
+                updateStepStatus(4, 'error');
+                updateOverallStatus('Network error!', 'error');
+            }
+        }
+
+        async function testInvalidLogin() {
+            showResult('individualTestResults', 'Testing invalid login...', 'info');
+            updateOverallStatus('Testing invalid login...', 'pending');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/user/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ 
+                        email: 'nonexistent@test.com', 
+                        password: 'wrongpassword' 
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    testResults.invalidLogin = { success: true, error: data.error };
+                    showResult('individualTestResults', 
+                        `✅ Invalid login correctly rejected!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'success'
+                    );
+                    updateStepStatus(5, 'success');
+                    updateOverallStatus('Invalid login test passed!', 'success');
+                } else {
+                    testResults.invalidLogin = { success: false, error: 'Should have failed' };
+                    showResult('individualTestResults', 
+                        `❌ Invalid login was incorrectly accepted!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'error'
+                    );
+                    updateStepStatus(5, 'error');
+                    updateOverallStatus('Invalid login test failed!', 'error');
+                }
+            } catch (error) {
+                testResults.invalidLogin = { success: false, error: error.message };
+                showResult('individualTestResults', 
+                    `❌ Network error: ${error.message}`, 
+                    'error'
+                );
+                updateStepStatus(5, 'error');
+                updateOverallStatus('Network error!', 'error');
+            }
+        }
+
+        async function testDuplicateRegistration() {
+            showResult('individualTestResults', 'Testing duplicate registration...', 'info');
+            updateOverallStatus('Testing duplicate registration...', 'pending');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/user/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(testUser)
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    testResults.duplicateRegistration = { success: true, error: data.error };
+                    showResult('individualTestResults', 
+                        `✅ Duplicate registration correctly rejected!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'success'
+                    );
+                    updateStepStatus(6, 'success');
+                    updateOverallStatus('Duplicate registration test passed!', 'success');
+                } else {
+                    testResults.duplicateRegistration = { success: false, error: 'Should have failed' };
+                    showResult('individualTestResults', 
+                        `❌ Duplicate registration was incorrectly accepted!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, 
+                        'error'
+                    );
+                    updateStepStatus(6, 'error');
+                    updateOverallStatus('Duplicate registration test failed!', 'error');
+                }
+            } catch (error) {
+                testResults.duplicateRegistration = { success: false, error: error.message };
+                showResult('individualTestResults', 
+                    `❌ Network error: ${error.message}`, 
+                    'error'
+                );
+                updateStepStatus(6, 'error');
+                updateOverallStatus('Network error!', 'error');
+            }
+        }
+
+        async function runCompleteTest() {
+            const btn = document.getElementById('completeTestBtn');
+            btn.disabled = true;
+            btn.textContent = '🔄 Testing in Progress...';
+            
+            showResult('completeTestResults', '🚀 Starting complete authentication system test...\n\n', 'info');
+            updateOverallStatus('Running complete test...', 'pending');
+            
+            const results = [];
+            let progress = 0;
+            
+            try {
+                // Step 1: Registration
+                results.push('📝 Step 1: Testing Registration...\n');
+                updateProgress(16);
+                
+                await testRegistration();
+                results.push(`Registration Result: ${testResults.registration?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                // Step 2: Login
+                results.push('🔐 Step 2: Testing Login...\n');
+                updateProgress(33);
+                
+                await testLogin();
+                results.push(`Login Result: ${testResults.login?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                // Step 3: Auth Status
+                results.push('👤 Step 3: Testing Auth Status...\n');
+                updateProgress(50);
+                
+                await testAuthStatus();
+                results.push(`Auth Status Result: ${testResults.authStatus?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                // Step 4: Logout
+                results.push('🚪 Step 4: Testing Logout...\n');
+                updateProgress(67);
+                
+                await testLogout();
+                results.push(`Logout Result: ${testResults.logout?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                // Step 5: Invalid Login
+                results.push('⚠️ Step 5: Testing Invalid Login...\n');
+                updateProgress(83);
+                
+                await testInvalidLogin();
+                results.push(`Invalid Login Result: ${testResults.invalidLogin?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                // Step 6: Duplicate Registration
+                results.push('🔄 Step 6: Testing Duplicate Registration...\n');
+                updateProgress(100);
+                
+                await testDuplicateRegistration();
+                results.push(`Duplicate Registration Result: ${testResults.duplicateRegistration?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                // Final Summary
+                const allPassed = Object.values(testResults).every(result => result?.success);
+                
+                results.push('🎉 COMPLETE TEST SUMMARY\n');
+                results.push('=' .repeat(50) + '\n');
+                results.push(`Overall Result: ${allPassed ? '✅ ALL TESTS PASSED' : '❌ SOME TESTS FAILED'}\n\n`);
+                
+                results.push('Detailed Results:\n');
+                results.push(`• Registration: ${testResults.registration?.success ? '✅ PASS' : '❌ FAIL'}\n`);
+                results.push(`• Login: ${testResults.login?.success ? '✅ PASS' : '❌ FAIL'}\n`);
+                results.push(`• Auth Status: ${testResults.authStatus?.success ? '✅ PASS' : '❌ FAIL'}\n`);
+                results.push(`• Logout: ${testResults.logout?.success ? '✅ PASS' : '❌ FAIL'}\n`);
+                results.push(`• Invalid Login: ${testResults.invalidLogin?.success ? '✅ PASS' : '❌ FAIL'}\n`);
+                results.push(`• Duplicate Registration: ${testResults.duplicateRegistration?.success ? '✅ PASS' : '❌ FAIL'}\n\n`);
+                
+                if (allPassed) {
+                    results.push('🎊 CONCLUSION: Authentication system is working perfectly!\n');
+                    results.push('✅ All features are functional and secure.\n');
+                    results.push('✅ MongoDB integration is working correctly.\n');
+                    results.push('✅ Session management is implemented properly.\n');
+                    results.push('✅ The system is ready for production use!\n');
+                    updateOverallStatus('🎉 All tests passed! System is ready!', 'success');
+                } else {
+                    results.push('⚠️ CONCLUSION: Some issues need attention.\n');
+                    results.push('❌ Please check the failed tests above.\n');
+                    updateOverallStatus('⚠️ Some tests failed. Check results.', 'error');
+                }
+                
+                showResult('completeTestResults', results.join(''), allPassed ? 'success' : 'error');
+                
+            } catch (error) {
+                results.push(`❌ CRITICAL ERROR: ${error.message}\n`);
+                showResult('completeTestResults', results.join(''), 'error');
+                updateOverallStatus('Critical error during testing!', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🚀 Run Complete Authentication Test';
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', function() {
+            updateOverallStatus('Ready to test authentication system', 'info');
+        });
+    </script>
+</body>
+</html>
