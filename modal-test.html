@@ -33,6 +33,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
+            overflow-y: auto; /* Allow scrolling within modal */
         }
 
         .modal-content {
@@ -43,6 +44,7 @@
             width: 90%;
             max-width: 500px;
             position: relative;
+            min-height: fit-content; /* Ensure modal fits content */
         }
 
         .modal-header {
