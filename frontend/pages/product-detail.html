@@ -1388,9 +1388,9 @@
                         seenIds.add(product.id);
                         uniqueProducts.push({
                             ...product,
-                            sellerEmail: product.sellerEmail || 'pmuiruri9657@gmail.com',
+                            sellerEmail: product.sellerEmail || \"pmuiruri9657@gmail.com\",
                             sellerName: product.sellerName || 'EcoLoop Kenya',
-                            sellerPhone: product.sellerPhone || '+254 712 345 678',
+                            sellerPhone: product.sellerPhone || '0705424364',
                             sellerLocation: product.sellerLocation || 'Nairobi, Kenya',
                             title: product.title || product.name || 'Untitled Product',
                             price: product.price || 0,
@@ -1460,7 +1460,7 @@
                         <!-- Rating and Reviews -->
                         <div class="product-rating">
                             <div class="rating-stars">
-                                <span class="stars">${'★'.repeat(Math.floor(product.rating || 4))}☆'.repeat(5 - Math.floor(product.rating || 4))}</span>
+                                <span class="stars">${'★'.repeat(Math.floor(product.rating || 4))}${'☆'.repeat(5 - Math.floor(product.rating || 4))}</span>
                                 <span class="rating-number">${product.rating || 4.0}</span>
                             </div>
                             <div class="rating-info">
@@ -1655,7 +1655,7 @@
                                 ${product.shippingOptions && product.shippingOptions.length > 0 ? 
                                     product.shippingOptions.map((option, index) => `
                                         <div class="shipping-option ${index === 0 ? 'selected' : ''}" 
-                                             onclick="selectShipping(${index}, '${option.method}', ${option.cost || 0}, '${option.time || '2-3 days'}')">
+                                             onclick="selectShipping(${index}, '${option.method}', ${option.cost || 0}, '${option.time || \"2-3 days\"}')">
                                             <div class="shipping-header">
                                                 <span class="shipping-method">${option.method}</span>
                                                 <span class="shipping-cost">${option.cost === 0 ? 'FREE' : `KES ${option.cost.toLocaleString()}`}</span>
@@ -1822,11 +1822,11 @@
                                     <div class="seller-contact">
                                         <div class="contact-item">
                                             <i class="fas fa-envelope"></i>
-                                            <span>${product.sellerEmail || 'contact@ecoloopkenya.com'}</span>
+                                            <span>${product.sellerEmail || \"pmuiruri9657@gmail.com\"}</span>
                                         </div>
                                         <div class="contact-item">
                                             <i class="fas fa-phone"></i>
-                                            <span>${product.sellerPhone || '+254 700 000 000'}</span>
+                                            <span>${product.sellerPhone || '0705424364'}</span>
                                         </div>
                                         <div class="contact-item">
                                             <i class="fas fa-map-marker-alt"></i>
@@ -1881,7 +1881,7 @@
                                     <i class="fas fa-heart"></i>
                                     <span id="wishlistBtnText">Add to Wishlist</span>
                                 </button>
-                                <button class="btn btn-secondary" onclick="messageSeller(${product.id}, '${product.sellerEmail || 'support@ecoloopkenya.com'}', '${product.sellerName || 'Seller'}')">
+                                <button class="btn btn-secondary" onclick="messageSeller(${product.id}, '${product.sellerEmail || \"pmuiruri9657@gmail.com\"}', '${product.sellerName || \"Seller\"}')">
                                     <i class="fas fa-envelope"></i>
                                     Message Seller
                                 </button>

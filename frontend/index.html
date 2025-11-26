@@ -107,23 +107,342 @@
             border-color: var(--primary-color);
         }
 
-        /* Hero Section */
+        /* Futuristic Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            padding: 80px 0;
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Animated Gradient Background */
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                #0a0e27 0%,
+                #1a1f3a 25%,
+                #2d1b69 50%,
+                #0f3460 75%,
+                #16213e 100%
+            );
+            animation: gradientShift 15s ease infinite;
+        }
+
+        /* Neon Grid */
+        .neon-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        /* Energy Waves */
+        .energy-waves {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+        }
+
+        .energy-waves::before,
+        .energy-waves::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .energy-waves::before {
+            border-color: #00ffff;
+            animation: waveExpand 4s ease-out infinite;
+        }
+
+        .energy-waves::after {
+            border-color: #ff00ff;
+            animation: waveExpand 4s ease-out infinite 2s;
+        }
+
+        /* Floating Particles */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particles-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 20%, rgba(0, 255, 128, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 80%, rgba(255, 128, 0, 0.2) 0%, transparent 50%);
+            animation: particlesFloat 20s ease-in-out infinite;
+        }
+
+        /* Holographic Overlay */
+        .holographic-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 0, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: holographicShift 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Glass Morphism Welcome Panel */
+        .welcome-panel {
+            position: relative;
+            z-index: 10;
             text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
+            transform: translateY(0);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: panelFloat 6s ease-in-out infinite;
         }
 
-        .hero h1 {
-            font-size: 48px;
+        .welcome-panel:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(0, 255, 255, 0.3),
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        /* Panel Glow Effect */
+        .panel-glow {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: glowRotate 4s linear infinite;
+            filter: blur(10px);
+        }
+
+        /* Futuristic Title */
+        .welcome-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
             margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #00ffff, #ff00ff, #ffffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
         }
 
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            opacity: 0.9;
+        /* Futuristic Subtitle */
+        .welcome-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: subtitlePulse 4s ease-in-out infinite;
+        }
+
+        /* Futuristic Button */
+        .futuristic-btn {
+            position: relative;
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .futuristic-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 0, 255, 0.6);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .futuristic-btn:hover .btn-glow {
+            left: 100%;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        @keyframes waveExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes particlesFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        @keyframes holographicShift {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        @keyframes panelFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glowRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.2) drop-shadow(0 0 30px rgba(255, 0, 255, 0.7));
+            }
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .welcome-panel {
+                padding: 40px 20px;
+                margin: 0 20px;
+            }
+
+            .welcome-title {
+                font-size: clamp(2rem, 5vw, 3rem);
+                letter-spacing: 2px;
+            }
+
+            .welcome-subtitle {
+                font-size: clamp(0.9rem, 2vw, 1.1rem);
+            }
+
+            .futuristic-btn {
+                padding: 15px 40px;
+                font-size: 1rem;
+            }
+
+            .neon-grid {
+                background-size: 30px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-panel {
+                padding: 30px 15px;
+                margin: 0 10px;
+            }
+
+            .futuristic-btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
         }
 
         .btn {
@@ -505,8 +824,8 @@
     <div class="top-header">
         <div class="container">
             <div class="contact-info">
-                <span><i class="fas fa-phone"></i> +254 700 000 000</span>
-                <span><i class="fas fa-envelope"></i> info@ecoloop.co.ke</span>
+                <span><i class="fas fa-phone"></i> 0705424364</span>
+                <span><i class="fas fa-envelope"></i> pmuiruri9657@gmail.com</span>
             </div>
             <div class="user-actions">
                 <a href="#" onclick="showLoginModal(); return false;"><i class="fas fa-user"></i> Login</a>
@@ -535,10 +854,22 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-background">
+            <div class="particles-container"></div>
+            <div class="energy-waves"></div>
+            <div class="holographic-overlay"></div>
+            <div class="neon-grid"></div>
+        </div>
         <div class="container">
-            <h1>Welcome to EcoLoop Kenya</h1>
-            <p>Your sustainable marketplace for eco-friendly products and services</p>
-            <a href="#products" class="btn">Start Shopping</a>
+            <div class="welcome-panel">
+                <div class="panel-glow"></div>
+                <h1 class="welcome-title">Welcome to EcoLoop Kenya</h1>
+                <p class="welcome-subtitle">Your sustainable marketplace for eco-friendly products and services</p>
+                <a href="#products" class="futuristic-btn">
+                    <span class="btn-text">Start Shopping</span>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
         </div>
     </section>
 
