@@ -6,6 +6,17 @@ const { ObjectId } = require('mongodb');
 
 const SALT_ROUNDS = 12;
 
+// Middleware to log all requests to this router
+router.use((req, res, next) => {
+    console.log('=== SECURE AUTH ROUTES MIDDLEWARE ===');
+    console.log('Method:', req.method);
+    console.log('URL:', req.url);
+    console.log('Path:', req.path);
+    console.log('Headers:', req.headers);
+    console.log('Body:', req.body);
+    next();
+});
+
 // Helper function to hash password
 async function hashPassword(password) {
     return await bcrypt.hash(password, SALT_ROUNDS);
