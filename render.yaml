@@ -5,7 +5,7 @@ services:
     runtime: static
     plan: free
     # Build and deployment configuration
-    buildCommand: "echo 'No build needed for static site'"
+    buildCommand: "echo 'Build v3.1 - $(date)' && echo 'No build needed for static site'"
     # Health check
     healthCheckPath: /
     # Auto-deploy configuration
