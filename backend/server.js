@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { MongoClient, ObjectId } = require("mongodb");
 const session = require("express-session");
-const jwtAuthRoutes = require('./jwt-auth-routes');
+const secureAuthRoutes = require('./secure-auth-routes');
 require("dotenv").config();
 
 const app = express();
@@ -773,154 +773,6 @@ app.post("/api/seller/login", async (req, res) => {
   }
 });
 
-// User Login
-app.post("/api/user/login", async (req, res) => {
-  try {
-    const { email, password, rememberMe } = req.body;
-    
-    // Find user
-    const user = await db.collection("users").findOne({ 
-      email: email, 
-      status: "active"
-    });
-    
-    if (!user) {
-      return res.status(401).json({ 
-        success: false, 
-        error: "Invalid email or password" 
-      });
-    }
-    
-    // For now, we'll use simple password comparison (in production, use bcrypt)
-    // This is a temporary fix - you should implement proper password hashing
-    if (user.password !== password) {
-      return res.status(401).json({ 
-        success: false, 
-        error: "Invalid email or password" 
-      });
-    }
-    
-    // Update last login
-    await db.collection("users").updateOne(
-      { _id: user._id },
-      { $set: { lastLogin: new Date() } }
-    );
-    
-    // Store user in session
-    req.session.user = {
-      userId: user._id.toString(),
-      email: user.email,
-      name: `${user.firstName} ${user.lastName}`,
-      role: "user",
-      loginTime: new Date().toISOString()
-    };
-    
-    // Save session
-    req.session.save((err) => {
-      if (err) {
-        console.error('Session save error:', err);
-        return res.status(500).json({ 
-          success: false, 
-          error: "Session creation failed" 
-        });
-      }
-      
-      console.log('User login successful:', { 
-        email, 
-        name: `${user.firstName} ${user.lastName}`,
-        timestamp: new Date().toISOString() 
-      });
-      
-      res.json({ 
-        success: true, 
-        message: "Login successful",
-        user: req.session.user
-      });
-    });
-  } catch (error) {
-    console.error('User login error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: "Login failed. Please try again." 
-    });
-  }
-});
-
-// Auth Verification
-app.get("/api/auth/verify", async (req, res) => {
-  try {
-    // Check if user is in session
-    if (!req.session.user) {
-      return res.status(401).json({ 
-        success: false, 
-        error: "No active session found" 
-      });
-    }
-
-    // Get user from database to ensure they still exist and are active
-    const user = await db.collection("users").findOne({ 
-      _id: new ObjectId(req.session.user.userId),
-      status: "active"
-    });
-
-    if (!user) {
-      // Clear invalid session
-      req.session.destroy();
-      return res.status(401).json({ 
-        success: false, 
-        error: "User not found or inactive" 
-      });
-    }
-
-    res.json({ 
-      success: true, 
-      user: {
-        id: user._id,
-        name: `${user.firstName} ${user.lastName}`,
-        email: user.email,
-        phone: user.phone,
-        role: "user"
-      }
-    });
-  } catch (error) {
-    console.error('Auth verification error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: "Verification failed" 
-    });
-  }
-});
-
-// Auth Logout
-app.post("/api/auth/logout", async (req, res) => {
-  try {
-    // Destroy the session
-    req.session.destroy((err) => {
-      if (err) {
-        console.error('Session destroy error:', err);
-        return res.status(500).json({ 
-          success: false, 
-          error: "Logout failed" 
-        });
-      }
-      
-      // Clear the session cookie
-      res.clearCookie('connect.sid');
-      
-      res.json({ 
-        success: true, 
-        message: "Logged out successfully" 
-      });
-    });
-  } catch (error) {
-    console.error('Logout error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: "Logout failed" 
-    });
-  }
-});
-
 // Get dashboard statistics
 app.get("/api/admin/stats", async (req, res) => {
   try {
@@ -1463,8 +1315,8 @@ app.post("/api/admin/settings", async (req, res) => {
   }
 });
 
-// Add JWT-based authentication routes
-app.use('/api/auth', jwtAuthRoutes);
+// Add secure session-based authentication routes
+app.use('/api/user', secureAuthRoutes);
 
 // Start server
 connectToMongo().then(() => {
