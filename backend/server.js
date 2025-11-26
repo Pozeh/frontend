@@ -1189,7 +1189,7 @@ app.use('/api/user', secureAuthRoutes);
 app.get('/api/test', (req, res) => {
   res.json({ 
     success: true, 
-    message: "Backend is working",
+    message: "Backend is working - Updated",
     timestamp: new Date().toISOString(),
     routes: [
       '/api/user/register',
