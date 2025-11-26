@@ -831,77 +831,48 @@
             }
 
             async init() {
-                // Check if user is already logged in from localStorage
-                const token = localStorage.getItem('authToken');
-                const userData = localStorage.getItem('userData');
-                
-                if (token && userData) {
-                    try {
-                        // Verify token with backend
-                        await this.checkAuthStatus();
-                    } catch (error) {
-                        console.error('Token verification failed:', error);
-                        // Clear invalid data
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('userData');
-                        currentUser = null;
-                    }
-                }
+                // Check if user is logged in by calling backend session endpoint
+                await this.checkAuthStatus();
                 this.updateUI();
             }
 
             async checkAuthStatus() {
                 try {
-                    const token = localStorage.getItem('authToken');
-                    
-                    if (!token) {
-                        currentUser = null;
-                        return;
-                    }
-
-                    const response = await fetch(`${BACKEND_URL}/api/auth/verify`, {
+                    const response = await fetch(`${BACKEND_URL}/api/user/session`, {
                         method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        }
+                        credentials: 'include' // Important for HTTP-only cookies
                     });
 
                     if (response.ok) {
                         const data = await response.json();
-                        currentUser = data.user;
+                        if (data.success) {
+                            currentUser = data.user;
+                        } else {
+                            currentUser = null;
+                        }
                     } else {
-                        // Token invalid, clear localStorage
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('userData');
                         currentUser = null;
                     }
                 } catch (error) {
                     console.error('Auth check failed:', error);
-                    // On error, clear localStorage and set user as null
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userData');
                     currentUser = null;
                 }
             }
 
             async login(email, password, rememberMe = false) {
                 try {
-                    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+                    const response = await fetch(`${BACKEND_URL}/api/user/login`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
+                        credentials: 'include', // Important for HTTP-only cookies
                         body: JSON.stringify({ email, password, rememberMe })
                     });
 
                     const data = await response.json();
 
                     if (data.success) {
-                        // Store JWT token and user data in localStorage
-                        localStorage.setItem('authToken', data.token);
-                        localStorage.setItem('userData', JSON.stringify(data.user));
-                        
                         currentUser = data.user;
                         this.updateUI();
                         showToast('Login successful!', 'success');
@@ -917,21 +888,18 @@
 
             async register(userData) {
                 try {
-                    const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
+                    const response = await fetch(`${BACKEND_URL}/api/user/register`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
+                        credentials: 'include', // Important for HTTP-only cookies
                         body: JSON.stringify(userData)
                     });
 
                     const data = await response.json();
 
                     if (data.success) {
-                        // Store JWT token and user data in localStorage
-                        localStorage.setItem('authToken', data.token);
-                        localStorage.setItem('userData', JSON.stringify(data.user));
-                        
                         currentUser = data.user;
                         this.updateUI();
                         showToast('Account created successfully!', 'success');
@@ -971,44 +939,24 @@
 
             async logout() {
                 try {
-                    const token = localStorage.getItem('authToken');
+                    const response = await fetch(`${BACKEND_URL}/api/user/logout`, {
+                        method: 'POST',
+                        credentials: 'include' // Important for HTTP-only cookies
+                    });
                     
-                    if (token) {
-                        const response = await fetch(`${BACKEND_URL}/api/auth/logout`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-                        
-                        if (response.ok) {
-                            // Clear localStorage regardless of response
-                            localStorage.removeItem('authToken');
-                            localStorage.removeItem('userData');
-                            currentUser = null;
-                            this.updateUI();
-                            showToast('Logged out successfully!', 'success');
-                        } else {
-                            // Still clear localStorage even if logout fails
-                            localStorage.removeItem('authToken');
-                            localStorage.removeItem('userData');
-                            currentUser = null;
-                            this.updateUI();
-                            showToast('Logged out successfully!', 'success');
-                        }
-                    } else {
-                        // No token, just clear and update UI
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('userData');
+                    if (response.ok) {
                         currentUser = null;
                         this.updateUI();
+                        showToast('Logged out successfully!', 'success');
+                    } else {
+                        // Still clear user on error
+                        currentUser = null;
+                        this.updateUI();
+                        showToast('Logged out successfully!', 'success');
                     }
                 } catch (error) {
                     console.error('Logout error:', error);
-                    // Clear localStorage on error
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userData');
+                    // Clear user on error
                     currentUser = null;
                     this.updateUI();
                     showToast('Logged out successfully!', 'success');
@@ -1192,7 +1140,8 @@
             setButtonLoading('registerBtn', true);
 
             const userData = {
-                name: `${firstName} ${lastName}`,
+                firstName,
+                lastName,
                 email,
                 phone,
                 password
