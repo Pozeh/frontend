@@ -680,10 +680,32 @@ app.post("/api/user/register", async (req, res) => {
       id: result.insertedId 
     });
     
-    res.json({ 
-      success: true, 
-      message: "User registered successfully",
-      userId: result.insertedId
+    // Auto-login after registration - create session
+    req.session.user = {
+      userId: result.insertedId.toString(),
+      email: email,
+      name: `${firstName} ${lastName}`,
+      role: "user",
+      loginTime: new Date().toISOString()
+    };
+    
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error after registration:', err);
+        // Still return success but note session issue
+        return res.json({ 
+          success: true, 
+          message: "User registered successfully but auto-login failed",
+          userId: result.insertedId
+        });
+      }
+      
+      res.json({ 
+        success: true, 
+        message: "User registered and logged in successfully",
+        userId: result.insertedId,
+        user: req.session.user
+      });
     });
   } catch (error) {
     console.error('User registration error:', error);
@@ -812,7 +834,7 @@ app.post("/api/user/login", async (req, res) => {
       res.json({ 
         success: true, 
         message: "Login successful",
-        session: req.session.user
+        user: req.session.user
       });
     });
   } catch (error) {
