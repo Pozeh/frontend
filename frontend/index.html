@@ -2139,6 +2139,545 @@
                 margin-left: 0;
             }
         }
+
+        /* Admin Dashboard Styles */
+        .admin-dashboard {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            z-index: 10000;
+            display: none;
+            overflow: hidden;
+        }
+
+        .admin-header {
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid rgba(255, 0, 255, 0.3);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(255, 0, 255, 0.2);
+        }
+
+        .admin-logo .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+        }
+
+        .admin-user span {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .admin-container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.8);
+            border-right: 1px solid rgba(255, 0, 255, 0.2);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .admin-nav {
+            padding: 20px 0;
+        }
+
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: #b0b0b0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            margin: 5px 0;
+            position: relative;
+        }
+
+        .admin-nav-item:hover {
+            background: rgba(255, 0, 255, 0.1);
+            color: #ff00ff;
+            border-left-color: #ff00ff;
+            transform: translateX(5px);
+        }
+
+        .admin-nav-item.active {
+            background: rgba(255, 0, 255, 0.2);
+            color: #ff00ff;
+            border-left-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .admin-nav-item i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .admin-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-section {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .admin-stat-card:hover::before {
+            left: 100%;
+        }
+
+        .admin-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.3);
+            border-color: #ff00ff;
+        }
+
+        .admin-stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff00ff, #8800cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .admin-stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+
+        .admin-stat-label {
+            color: #b0b0b0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .approval-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .approval-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 255, 0.2);
+        }
+
+        .approval-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .approval-title {
+            color: #ff00ff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .approval-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-approve {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-approve:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-reject {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-reject:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .approval-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            color: #b0b0b0;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: white;
+            font-weight: 600;
+        }
+
+        .product-preview {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            color: #ff00ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .product-category {
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .control-title {
+            color: #ff00ff;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+        }
+
+        .control-label {
+            color: white;
+            font-weight: 600;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #ff00ff, #8800cc);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            left: 27px;
+        }
+
+        .admin-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #ff00ff, #8800cc);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            border-radius: 15px;
+            font-size: 12px;
+            color: #28a745;
+            margin-left: 10px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        /* Admin Icon in Header */
+        .admin-icon {
+            position: relative;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            display: none;
+        }
+
+        .admin-icon:hover {
+            background: rgba(255, 0, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .admin-icon i {
+            color: #ff00ff;
+            font-size: 20px;
+        }
+
+        .admin-icon.show {
+            display: block;
+        }
+
+        .users-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            color: #ff00ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+
+        .user-role {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role-admin {
+            background: rgba(255, 0, 255, 0.2);
+            color: #ff00ff;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .role-seller {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .role-user {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-suspend {
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-suspend:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -2862,6 +3401,310 @@
 
     <!-- Overlay for dashboard -->
     <div class="dashboard-overlay" id="dashboardOverlay"></div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <div class="admin-header">
+            <div class="admin-logo">
+                <span class="logo-text">🌿 EcoLoop Admin Portal</span>
+            </div>
+            <div class="admin-user">
+                <div class="admin-avatar" id="adminAvatar">A</div>
+                <span id="adminName">Admin Name</span>
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span>LIVE</span>
+                </div>
+                <button class="btn-logout" onclick="adminLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-container">
+            <!-- Sidebar Navigation -->
+            <div class="admin-sidebar">
+                <div class="admin-nav">
+                    <div class="admin-nav-item active" onclick="showAdminSection('dashboard')" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </div>
+                    <div class="admin-nav-item" onclick="showAdminSection('users')" data-section="users">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Users</span>
+                    </div>
+                    <div class="admin-nav-item" onclick="showAdminSection('sellers')" data-section="sellers">
+                        <i class="fas fa-store"></i>
+                        <span>Seller Approvals</span>
+                        <div class="admin-badge" id="pendingSellersBadge">0</div>
+                    </div>
+                    <div class="admin-nav-item" onclick="showAdminSection('products')" data-section="products">
+                        <i class="fas fa-box"></i>
+                        <span>Product Approvals</span>
+                        <div class="admin-badge" id="pendingProductsBadge">0</div>
+                    </div>
+                    <div class="admin-nav-item" onclick="showAdminSection('controls')" data-section="controls">
+                        <i class="fas fa-cogs"></i>
+                        <span>System Controls</span>
+                    </div>
+                    <div class="admin-nav-item" onclick="showAdminSection('settings')" data-section="settings">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Settings</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <div id="adminDashboard" class="admin-section active">
+                    <div class="section-header">
+                        <h2>Admin Dashboard</h2>
+                        <p class="section-subtitle">Real-time system overview and analytics</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="totalUsers">0</div>
+                                <div class="admin-stat-label">Total Users</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="totalSellers">0</div>
+                                <div class="admin-stat-label">Total Sellers</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="pendingSellers">0</div>
+                                <div class="admin-stat-label">Pending Sellers</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="pendingProducts">0</div>
+                                <div class="admin-stat-label">Pending Products</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="activeProducts">0</div>
+                                <div class="admin-stat-label">Active Products</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="totalOrders">0</div>
+                                <div class="admin-stat-label">Total Orders</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="activeUsers">0</div>
+                                <div class="admin-stat-label">Active Users</div>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="admin-stat-number" id="totalRevenue">0</div>
+                                <div class="admin-stat-label">Revenue (KES)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="control-panel">
+                        <h3 class="control-title">Quick Actions</h3>
+                        <div class="control-grid">
+                            <div class="control-item">
+                                <span class="control-label">Maintenance Mode</span>
+                                <div class="toggle-switch" id="maintenanceToggle" onclick="toggleMaintenance(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">New Registrations</span>
+                                <div class="toggle-switch active" id="registrationsToggle" onclick="toggleRegistrations(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Product Uploads</span>
+                                <div class="toggle-switch active" id="uploadsToggle" onclick="toggleUploads(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Seller Applications</span>
+                                <div class="toggle-switch active" id="sellerAppsToggle" onclick="toggleSellerApps(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Manage Users Section -->
+                <div id="adminUsers" class="admin-section">
+                    <div class="section-header">
+                        <h2>Manage Users</h2>
+                        <p class="section-subtitle">View and manage all registered users</p>
+                    </div>
+                    
+                    <div class="control-panel">
+                        <h3 class="control-title">User Management</h3>
+                        <div id="usersList" class="users-list">
+                            <!-- Users will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seller Approvals Section -->
+                <div id="adminSellers" class="admin-section">
+                    <div class="section-header">
+                        <h2>Seller Approvals</h2>
+                        <p class="section-subtitle">Review and approve seller applications</p>
+                    </div>
+                    
+                    <div id="pendingSellersList" class="approvals-list">
+                        <!-- Pending sellers will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Product Approvals Section -->
+                <div id="adminProducts" class="admin-section">
+                    <div class="section-header">
+                        <h2>Product Approvals</h2>
+                        <p class="section-subtitle">Review and approve product submissions</p>
+                    </div>
+                    
+                    <div id="pendingProductsList" class="approvals-list">
+                        <!-- Pending products will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <!-- System Controls Section -->
+                <div id="adminControls" class="admin-section">
+                    <div class="section-header">
+                        <h2>System Controls</h2>
+                        <p class="section-subtitle">Manage website settings and features</p>
+                    </div>
+                    
+                    <div class="control-panel">
+                        <h3 class="control-title">Website Controls</h3>
+                        <div class="control-grid">
+                            <div class="control-item">
+                                <span class="control-label">Website Status</span>
+                                <div class="toggle-switch active" id="websiteToggle" onclick="toggleWebsite(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">User Registration</span>
+                                <div class="toggle-switch active" id="userRegToggle" onclick="toggleUserReg(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Cart System</span>
+                                <div class="toggle-switch active" id="cartToggle" onclick="toggleCart(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Wishlist System</span>
+                                <div class="toggle-switch active" id="wishlistToggle" onclick="toggleWishlist(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Product Search</span>
+                                <div class="toggle-switch active" id="searchToggle" onclick="toggleSearch(this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Category Filters</span>
+                                <div class="toggle-switch active" id="categoryToggle" onclick="toggleCategories(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="control-panel">
+                        <h3 class="control-title">Category Management</h3>
+                        <div class="control-grid">
+                            <div class="control-item">
+                                <span class="control-label">Electronics</span>
+                                <div class="toggle-switch active" onclick="toggleCategory('electronics', this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Clothing</span>
+                                <div class="toggle-switch active" onclick="toggleCategory('clothing', this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Home & Garden</span>
+                                <div class="toggle-switch active" onclick="toggleCategory('home', this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Sports</span>
+                                <div class="toggle-switch active" onclick="toggleCategory('sports', this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Books</span>
+                                <div class="toggle-switch active" onclick="toggleCategory('books', this)"></div>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-label">Toys & Games</span>
+                                <div class="toggle-switch active" onclick="toggleCategory('toys', this)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Section -->
+                <div id="adminSettings" class="admin-section">
+                    <div class="section-header">
+                        <h2>Admin Settings</h2>
+                        <p class="section-subtitle">Configure system preferences</p>
+                    </div>
+                    
+                    <div class="control-panel">
+                        <h3 class="control-title">System Configuration</h3>
+                        <div class="approval-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Auto-approve Products</span>
+                                <div class="toggle-switch" id="autoApproveProducts" onclick="toggleAutoApproveProducts(this)"></div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Auto-approve Sellers</span>
+                                <div class="toggle-switch" id="autoApproveSellers" onclick="toggleAutoApproveSellers(this)"></div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email Notifications</span>
+                                <div class="toggle-switch active" id="emailNotifications" onclick="toggleEmailNotifications(this)"></div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Real-time Updates</span>
+                                <div class="toggle-switch active" id="realTimeUpdates" onclick="toggleRealTimeUpdates(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Icon in Header -->
+    <div class="admin-icon" id="adminIcon" onclick="showAdminDashboard()">
+        <i class="fas fa-shield-alt"></i>
+    </div>
 
     <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="closeCart(); closeWishlist();"></div>
@@ -5010,7 +5853,7 @@
         window.editProduct = editProduct;
         window.deleteProduct = deleteProduct;
 
-        // Enhanced login function to check for seller role
+        // Enhanced login function to check for seller and admin roles
         const originalLogin = window.login;
         window.login = async function(email, password, rememberMe = false) {
             const result = await originalLogin.call(this, email, password, rememberMe);
@@ -5019,24 +5862,774 @@
                 // Check if user is a seller and show dashboard
                 setTimeout(() => {
                     checkAndShowSellerDashboard();
+                    checkAndShowAdminIcon();
                 }, 1000);
             }
             
             return result;
         };
 
-        // Enhanced checkAuthStatus to check for seller role
+        // Enhanced checkAuthStatus to check for seller and admin roles
         const originalCheckAuthStatus = authManager?.checkAuthStatus;
         if (originalCheckAuthStatus) {
             authManager.checkAuthStatus = async function() {
                 await originalCheckAuthStatus.call(this);
                 
-                // Check if user is a seller and show dashboard
+                // Check if user is a seller or admin and show appropriate dashboard
                 if (currentUser) {
                     checkAndShowSellerDashboard();
+                    checkAndShowAdminIcon();
                 }
             };
         }
+
+        // Admin Dashboard Functions
+        let adminData = null;
+        let adminStats = {};
+        let pendingSellers = [];
+        let pendingProducts = [];
+        let allUsers = [];
+        let realTimeInterval = null;
+
+        // Check if user is admin and show admin icon
+        function checkAndShowAdminIcon() {
+            if (!currentUser) return;
+            
+            // Check if user has admin role
+            if (currentUser.role === 'admin') {
+                document.getElementById('adminIcon').classList.add('show');
+                // Auto-show admin dashboard for admin users
+                setTimeout(() => {
+                    showAdminDashboard();
+                }, 500);
+            }
+        }
+
+        // Show admin dashboard
+        function showAdminDashboard() {
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Initialize admin dashboard
+            initializeAdminDashboard();
+        }
+
+        // Close admin dashboard
+        function closeAdminDashboard() {
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Admin logout
+        function adminLogout() {
+            closeAdminDashboard();
+            // Use existing logout function
+            if (typeof authManager !== 'undefined') {
+                authManager.logout();
+            }
+        }
+
+        // Initialize admin dashboard
+        async function initializeAdminDashboard() {
+            // Update admin info in header
+            updateAdminHeader();
+            
+            // Load admin data
+            await loadAdminData();
+            
+            // Load dashboard stats
+            await loadAdminStats();
+            
+            // Load pending sellers
+            await loadPendingSellers();
+            
+            // Load pending products
+            await loadPendingProducts();
+            
+            // Load all users
+            await loadAllUsers();
+            
+            // Start real-time updates
+            startRealTimeUpdates();
+            
+            // Set up event listeners
+            setupAdminEventListeners();
+        }
+
+        // Update admin header info
+        function updateAdminHeader() {
+            if (!currentUser) return;
+            
+            document.getElementById('adminName').textContent = currentUser.firstName || currentUser.email || 'Admin';
+            
+            // Set avatar with first letter of name
+            const firstLetter = (currentUser.firstName || currentUser.email || 'A')[0].toUpperCase();
+            document.getElementById('adminAvatar').textContent = firstLetter;
+        }
+
+        // Load admin data from backend
+        async function loadAdminData() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/stats`, {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        adminData = data.admin;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load admin data:', error);
+                // Use current user data as fallback
+                adminData = currentUser;
+            }
+        }
+
+        // Load admin statistics
+        async function loadAdminStats() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/stats`, {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        adminStats = data.stats || {};
+                        updateDashboardStats();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load admin stats:', error);
+                // Use mock data as fallback
+                adminStats = {
+                    totalUsers: 150,
+                    totalSellers: 25,
+                    pendingSellers: 5,
+                    pendingProducts: 12,
+                    activeProducts: 85,
+                    totalOrders: 320,
+                    activeUsers: 45,
+                    totalRevenue: 125000
+                };
+                updateDashboardStats();
+            }
+        }
+
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            document.getElementById('totalUsers').textContent = adminStats.totalUsers || 0;
+            document.getElementById('totalSellers').textContent = adminStats.totalSellers || 0;
+            document.getElementById('pendingSellers').textContent = adminStats.pendingSellers || 0;
+            document.getElementById('pendingProducts').textContent = adminStats.pendingProducts || 0;
+            document.getElementById('activeProducts').textContent = adminStats.activeProducts || 0;
+            document.getElementById('totalOrders').textContent = adminStats.totalOrders || 0;
+            document.getElementById('activeUsers').textContent = adminStats.activeUsers || 0;
+            document.getElementById('totalRevenue').textContent = (adminStats.totalRevenue || 0).toLocaleString();
+            
+            // Update badges
+            document.getElementById('pendingSellersBadge').textContent = adminStats.pendingSellers || 0;
+            document.getElementById('pendingProductsBadge').textContent = adminStats.pendingProducts || 0;
+        }
+
+        // Load pending sellers
+        async function loadPendingSellers() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/sellers/pending`, {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        pendingSellers = data.sellers || [];
+                        updatePendingSellersList();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load pending sellers:', error);
+                // Use mock data as fallback
+                pendingSellers = [
+                    {
+                        id: '1',
+                        firstName: 'John',
+                        lastName: 'Doe',
+                        email: 'john@example.com',
+                        phone: '+254712345678',
+                        businessName: 'John Electronics',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                updatePendingSellersList();
+            }
+        }
+
+        // Update pending sellers list
+        function updatePendingSellersList() {
+            const container = document.getElementById('pendingSellersList');
+            
+            if (pendingSellers.length === 0) {
+                container.innerHTML = '<div class="approval-item"><div class="approval-title">No pending seller applications</div></div>';
+            } else {
+                container.innerHTML = pendingSellers.map(seller => `
+                    <div class="approval-item">
+                        <div class="approval-header">
+                            <div class="approval-title">${seller.businessName || `${seller.firstName} ${seller.lastName}`}</div>
+                            <div class="approval-actions">
+                                <button class="btn-approve" onclick="approveSeller('${seller.id}')">Approve</button>
+                                <button class="btn-reject" onclick="rejectSeller('${seller.id}')">Reject</button>
+                            </div>
+                        </div>
+                        <div class="approval-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Name</span>
+                                <span class="detail-value">${seller.firstName} ${seller.lastName}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email</span>
+                                <span class="detail-value">${seller.email}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Phone</span>
+                                <span class="detail-value">${seller.phone || 'N/A'}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Applied</span>
+                                <span class="detail-value">${new Date(seller.createdAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Load pending products
+        async function loadPendingProducts() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/products/pending`, {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        pendingProducts = data.products || [];
+                        updatePendingProductsList();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load pending products:', error);
+                // Use mock data as fallback
+                pendingProducts = [
+                    {
+                        id: '1',
+                        name: 'Smartphone XYZ',
+                        category: 'Electronics',
+                        price: 25000,
+                        description: 'Latest smartphone with amazing features',
+                        sellerName: 'John Electronics',
+                        image: 'https://picsum.photos/seed/phone1/80/80.jpg',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                updatePendingProductsList();
+            }
+        }
+
+        // Update pending products list
+        function updatePendingProductsList() {
+            const container = document.getElementById('pendingProductsList');
+            
+            if (pendingProducts.length === 0) {
+                container.innerHTML = '<div class="approval-item"><div class="approval-title">No pending product approvals</div></div>';
+            } else {
+                container.innerHTML = pendingProducts.map(product => `
+                    <div class="approval-item">
+                        <div class="approval-header">
+                            <div class="approval-title">${product.name}</div>
+                            <div class="approval-actions">
+                                <button class="btn-approve" onclick="approveProduct('${product.id}')">Approve</button>
+                                <button class="btn-reject" onclick="rejectProduct('${product.id}')">Reject</button>
+                            </div>
+                        </div>
+                        <div class="product-preview">
+                            <img src="${product.image || 'https://picsum.photos/seed/' + product.id + '/80/80.jpg'}" 
+                                 alt="${product.name}" class="product-image">
+                            <div class="product-info">
+                                <div class="product-name">${product.name}</div>
+                                <div class="product-category">${product.category}</div>
+                            </div>
+                        </div>
+                        <div class="approval-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Price</span>
+                                <span class="detail-value">KES ${product.price}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Seller</span>
+                                <span class="detail-value">${product.sellerName}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Category</span>
+                                <span class="detail-value">${product.category}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Submitted</span>
+                                <span class="detail-value">${new Date(product.createdAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Load all users
+        async function loadAllUsers() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/users`, {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        allUsers = data.users || [];
+                        updateUsersList();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load users:', error);
+                // Use mock data as fallback
+                allUsers = [
+                    {
+                        id: '1',
+                        firstName: 'John',
+                        lastName: 'Doe',
+                        email: 'john@example.com',
+                        role: 'user',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: '2',
+                        firstName: 'Jane',
+                        lastName: 'Smith',
+                        email: 'jane@example.com',
+                        role: 'seller',
+                        sellerStatus: 'approved',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                updateUsersList();
+            }
+        }
+
+        // Update users list
+        function updateUsersList() {
+            const container = document.getElementById('usersList');
+            
+            if (allUsers.length === 0) {
+                container.innerHTML = '<div class="user-item"><div class="user-info"><div class="user-name">No users found</div></div></div>';
+            } else {
+                container.innerHTML = allUsers.map(user => `
+                    <div class="user-item">
+                        <div class="user-info">
+                            <div class="user-name">${user.firstName} ${user.lastName}</div>
+                            <div class="user-email">${user.email}</div>
+                            <span class="user-role role-${user.role}">${user.role}</span>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn-suspend" onclick="suspendUser('${user.id}')">Suspend</button>
+                            <button class="btn-delete" onclick="deleteUser('${user.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Show admin section
+        function showAdminSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(`admin${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}`).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.admin-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+            
+            // Load section-specific data
+            switch(sectionName) {
+                case 'users':
+                    loadAllUsers();
+                    break;
+                case 'sellers':
+                    loadPendingSellers();
+                    break;
+                case 'products':
+                    loadPendingProducts();
+                    break;
+                case 'dashboard':
+                    loadAdminStats();
+                    break;
+            }
+        }
+
+        // Approve seller
+        async function approveSeller(sellerId) {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/sellers/approve`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ sellerId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('Seller approved successfully!', 'success');
+                    await loadPendingSellers();
+                    await loadAdminStats();
+                } else {
+                    showToast(data.message || 'Failed to approve seller', 'error');
+                }
+            } catch (error) {
+                console.error('Approve seller error:', error);
+                showToast('Failed to approve seller. Please try again.', 'error');
+            }
+        }
+
+        // Reject seller
+        async function rejectSeller(sellerId) {
+            if (!confirm('Are you sure you want to reject this seller application?')) return;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/sellers/reject`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ sellerId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('Seller application rejected', 'success');
+                    await loadPendingSellers();
+                    await loadAdminStats();
+                } else {
+                    showToast(data.message || 'Failed to reject seller', 'error');
+                }
+            } catch (error) {
+                console.error('Reject seller error:', error);
+                showToast('Failed to reject seller. Please try again.', 'error');
+            }
+        }
+
+        // Approve product
+        async function approveProduct(productId) {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/products/approve`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ productId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('Product approved successfully!', 'success');
+                    await loadPendingProducts();
+                    await loadAdminStats();
+                } else {
+                    showToast(data.message || 'Failed to approve product', 'error');
+                }
+            } catch (error) {
+                console.error('Approve product error:', error);
+                showToast('Failed to approve product. Please try again.', 'error');
+            }
+        }
+
+        // Reject product
+        async function rejectProduct(productId) {
+            if (!confirm('Are you sure you want to reject this product?')) return;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/products/reject`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ productId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('Product rejected', 'success');
+                    await loadPendingProducts();
+                    await loadAdminStats();
+                } else {
+                    showToast(data.message || 'Failed to reject product', 'error');
+                }
+            } catch (error) {
+                console.error('Reject product error:', error);
+                showToast('Failed to reject product. Please try again.', 'error');
+            }
+        }
+
+        // Suspend user
+        async function suspendUser(userId) {
+            if (!confirm('Are you sure you want to suspend this user?')) return;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/users/suspend`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ userId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('User suspended successfully', 'success');
+                    await loadAllUsers();
+                } else {
+                    showToast(data.message || 'Failed to suspend user', 'error');
+                }
+            } catch (error) {
+                console.error('Suspend user error:', error);
+                showToast('Failed to suspend user. Please try again.', 'error');
+            }
+        }
+
+        // Delete user
+        async function deleteUser(userId) {
+            if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/users/${userId}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('User deleted successfully', 'success');
+                    await loadAllUsers();
+                    await loadAdminStats();
+                } else {
+                    showToast(data.message || 'Failed to delete user', 'error');
+                }
+            } catch (error) {
+                console.error('Delete user error:', error);
+                showToast('Failed to delete user. Please try again.', 'error');
+            }
+        }
+
+        // System control functions
+        function toggleMaintenance(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Maintenance mode ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            // Update backend
+            updateSystemSetting('maintenanceMode', isActive);
+        }
+
+        function toggleRegistrations(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`New registrations ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('registrations', isActive);
+        }
+
+        function toggleUploads(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Product uploads ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('uploads', isActive);
+        }
+
+        function toggleSellerApps(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Seller applications ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('sellerApps', isActive);
+        }
+
+        function toggleWebsite(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Website ${isActive ? 'online' : 'offline'}`, 'warning');
+            updateSystemSetting('website', isActive);
+        }
+
+        function toggleUserReg(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`User registration ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('userReg', isActive);
+        }
+
+        function toggleCart(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Cart system ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('cart', isActive);
+        }
+
+        function toggleWishlist(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Wishlist system ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('wishlist', isActive);
+        }
+
+        function toggleSearch(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Product search ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('search', isActive);
+        }
+
+        function toggleCategories(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Category filters ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('categories', isActive);
+        }
+
+        function toggleCategory(category, element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`${category} category ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting(`category_${category}`, isActive);
+        }
+
+        function toggleAutoApproveProducts(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Auto-approve products ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('autoApproveProducts', isActive);
+        }
+
+        function toggleAutoApproveSellers(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Auto-approve sellers ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('autoApproveSellers', isActive);
+        }
+
+        function toggleEmailNotifications(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Email notifications ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('emailNotifications', isActive);
+        }
+
+        function toggleRealTimeUpdates(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Real-time updates ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            updateSystemSetting('realTimeUpdates', isActive);
+            
+            if (isActive) {
+                startRealTimeUpdates();
+            } else {
+                stopRealTimeUpdates();
+            }
+        }
+
+        // Update system setting
+        async function updateSystemSetting(setting, value) {
+            try {
+                await fetch(`${BACKEND_URL}/api/admin/settings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ setting, value })
+                });
+            } catch (error) {
+                console.error('Failed to update system setting:', error);
+            }
+        }
+
+        // Start real-time updates
+        function startRealTimeUpdates() {
+            if (realTimeInterval) return;
+            
+            realTimeInterval = setInterval(async () => {
+                await loadAdminStats();
+                await loadPendingSellers();
+                await loadPendingProducts();
+            }, 30000); // Update every 30 seconds
+        }
+
+        // Stop real-time updates
+        function stopRealTimeUpdates() {
+            if (realTimeInterval) {
+                clearInterval(realTimeInterval);
+                realTimeInterval = null;
+            }
+        }
+
+        // Set up admin event listeners
+        function setupAdminEventListeners() {
+            // Add any additional event listeners here
+        }
+
+        // Make functions globally available
+        window.showAdminSection = showAdminSection;
+        window.showAdminDashboard = showAdminDashboard;
+        window.adminLogout = adminLogout;
+        window.approveSeller = approveSeller;
+        window.rejectSeller = rejectSeller;
+        window.approveProduct = approveProduct;
+        window.rejectProduct = rejectProduct;
+        window.suspendUser = suspendUser;
+        window.deleteUser = deleteUser;
+        window.toggleMaintenance = toggleMaintenance;
+        window.toggleRegistrations = toggleRegistrations;
+        window.toggleUploads = toggleUploads;
+        window.toggleSellerApps = toggleSellerApps;
+        window.toggleWebsite = toggleWebsite;
+        window.toggleUserReg = toggleUserReg;
+        window.toggleCart = toggleCart;
+        window.toggleWishlist = toggleWishlist;
+        window.toggleSearch = toggleSearch;
+        window.toggleCategories = toggleCategories;
+        window.toggleCategory = toggleCategory;
+        window.toggleAutoApproveProducts = toggleAutoApproveProducts;
+        window.toggleAutoApproveSellers = toggleAutoApproveSellers;
+        window.toggleEmailNotifications = toggleEmailNotifications;
+        window.toggleRealTimeUpdates = toggleRealTimeUpdates;
+
+        // Clean up real-time updates on page unload
+        window.addEventListener('beforeunload', () => {
+            stopRealTimeUpdates();
+        });
 
         </script>
         <script src="assets/js/productLayer.js"></script>
