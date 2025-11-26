@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { MongoClient, ObjectId } = require("mongodb");
 const session = require("express-session");
-const authRoutes = require('./auth-routes');
+const jwtAuthRoutes = require('./jwt-auth-routes');
 require("dotenv").config();
 
 const app = express();
@@ -1463,8 +1463,8 @@ app.post("/api/admin/settings", async (req, res) => {
   }
 });
 
-// Add session-based authentication routes
-app.use('/api/auth', authRoutes);
+// Add JWT-based authentication routes
+app.use('/api/auth', jwtAuthRoutes);
 
 // Start server
 connectToMongo().then(() => {
