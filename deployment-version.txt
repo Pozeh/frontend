@@ -1,4 +1,4 @@
-Deployment Version: 2025-11-26-v6.5-PRODUCT-LAYER-ADDED
-Features: Added independent GPU-friendly animated product layer with bouncing electronics, preserved all existing animations
-Deployed at: 2025-11-26 22:58 UTC
-Status: PRODUCT LAYER INTEGRATED - Non-destructive additive animation with 12 bouncing products
+Deployment Version: 2025-11-26-v6.6-VISIBILITY-FIXED
+Features: Enhanced product layer visibility with real database products, increased sizes and brightness
+Deployed at: 2025-11-26 23:05 UTC
+Status: VISIBILITY ENHANCED - Products now clearly visible with database integration

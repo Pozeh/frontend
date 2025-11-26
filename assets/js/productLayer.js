@@ -21,81 +21,8 @@ class EcoloopProductLayer {
             ...options
         };
 
-        // Embedded product data with base64 fallbacks
-        this.products = [
-            {
-                id: 'product-01',
-                file: 'product-01.webp',
-                alt: 'Smartphone model — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#00ffff', '📱')
-            },
-            {
-                id: 'product-02',
-                file: 'product-02.webp',
-                alt: 'Wireless earbuds — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#ff00ff', '🎧')
-            },
-            {
-                id: 'product-03',
-                file: 'product-03.webp',
-                alt: 'Laptop computer — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#ffff00', '💻')
-            },
-            {
-                id: 'product-04',
-                file: 'product-04.webp',
-                alt: 'Smartwatch — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#00ff00', '⌚')
-            },
-            {
-                id: 'product-05',
-                file: 'product-05.webp',
-                alt: 'Digital camera — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#ff6600', '📷')
-            },
-            {
-                id: 'product-06',
-                file: 'product-06.webp',
-                alt: 'Bluetooth speaker — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#0099ff', '🔊')
-            },
-            {
-                id: 'product-07',
-                file: 'product-07.webp',
-                alt: 'Tablet device — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#ff0099', '📱')
-            },
-            {
-                id: 'product-08',
-                file: 'product-08.webp',
-                alt: 'Gaming headset — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#9900ff', '🎮')
-            },
-            {
-                id: 'product-09',
-                file: 'product-09.webp',
-                alt: 'Fitness tracker — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#00ff99', '⚡')
-            },
-            {
-                id: 'product-10',
-                file: 'product-10.webp',
-                alt: 'Portable charger — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#ff9900', '🔋')
-            },
-            {
-                id: 'product-11',
-                file: 'product-11.webp',
-                alt: 'Smart home hub — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#99ff00', '🏠')
-            },
-            {
-                id: 'product-12',
-                file: 'product-12.webp',
-                alt: 'Wireless mouse — Ecoloop showcase',
-                base64: this.createPlaceholderBase64('#0099ff', '🖱️')
-            }
-        ];
+        // Use real database products
+        this.products = this.getDatabaseProducts();
 
         this.canvas = null;
         this.ctx = null;
@@ -108,6 +35,42 @@ class EcoloopProductLayer {
         this.isVisible = true;
 
         this.init();
+    }
+
+    // Get real database products
+    getDatabaseProducts() {
+        // Try to get from global sampleProducts, otherwise use fallback
+        if (typeof sampleProducts !== 'undefined' && sampleProducts.length > 0) {
+            return sampleProducts.map((product, index) => ({
+                id: product.id || `product-${index + 1}`,
+                file: `product-${index + 1}.webp`,
+                alt: product.title || `Product ${index + 1}`,
+                image: product.image,
+                title: product.title,
+                price: product.price,
+                base64: this.createProductBase64(product.title, index)
+            }));
+        }
+        
+        // Fallback products if database not available
+        return [
+            { id: 'product-01', file: 'product-01.webp', alt: 'Wireless Headphones', base64: this.createProductBase64('Wireless Headphones', 0) },
+            { id: 'product-02', file: 'product-02.webp', alt: 'Smartphone', base64: this.createProductBase64('Smartphone', 1) },
+            { id: 'product-03', file: 'product-03.webp', alt: 'Laptop', base64: this.createProductBase64('Laptop', 2) },
+            { id: 'product-04', file: 'product-04.webp', alt: 'Smartwatch', base64: this.createProductBase64('Smartwatch', 3) },
+            { id: 'product-05', file: 'product-05.webp', alt: 'Camera', base64: this.createProductBase64('Camera', 4) },
+            { id: 'product-06', file: 'product-06.webp', alt: 'Speaker', base64: this.createProductBase64('Speaker', 5) }
+        ];
+    }
+
+    // Create product-specific base64 image
+    createProductBase64(title, index) {
+        const colors = ['#00ffff', '#ff00ff', '#ffff00', '#00ff00', '#ff6600', '#0099ff'];
+        const icons = ['🎧', '📱', '💻', '⌚', '📷', '🔊'];
+        const color = colors[index % colors.length];
+        const icon = icons[index % icons.length];
+        
+        return this.createPlaceholderBase64(color, icon);
     }
 
     // Get max items based on screen width
@@ -264,9 +227,9 @@ class EcoloopProductLayer {
     // Get item size based on screen
     getItemSize() {
         const width = window.innerWidth;
-        if (width <= 480) return 25;
-        if (width <= 768) return 30;
-        return 40;
+        if (width <= 480) return 35; // Increased from 25
+        if (width <= 768) return 45; // Increased from 30
+        return 60; // Increased from 40
     }
 
     // Setup intersection observer for performance
@@ -470,19 +433,25 @@ class EcoloopProductLayer {
         this.ctx.rotate(item.rotation);
         this.ctx.scale(item.scale, item.scale);
         
-        // Set drawing style
-        this.ctx.globalAlpha = item.opacity;
-        this.ctx.shadowBlur = 15;
+        // Enhanced drawing style for better visibility
+        this.ctx.globalAlpha = item.opacity * 0.9;
+        this.ctx.shadowBlur = 20; // Increased from 15
         this.ctx.shadowColor = '#00ffff';
         
         // Draw product image
         const halfSize = item.size / 2;
         this.ctx.drawImage(img, -halfSize, -halfSize, item.size, item.size);
         
-        // Draw neon border
+        // Enhanced neon border
         this.ctx.strokeStyle = '#00ffff';
-        this.ctx.lineWidth = 1;
+        this.ctx.lineWidth = 2; // Increased from 1
         this.ctx.strokeRect(-halfSize, -halfSize, item.size, item.size);
+        
+        // Add inner glow
+        this.ctx.strokeStyle = '#ffffff';
+        this.ctx.lineWidth = 1;
+        this.ctx.globalAlpha = item.opacity * 0.5;
+        this.ctx.strokeRect(-halfSize + 2, -halfSize + 2, item.size - 4, item.size - 4);
         
         this.ctx.restore();
     }
