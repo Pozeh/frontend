@@ -673,6 +673,184 @@
             padding: 30px;
         }
 
+        /* Product Details Modal Styles */
+        .product-details-modal {
+            max-width: 900px;
+            width: 95%;
+        }
+
+        .product-details-body {
+            padding: 0;
+        }
+
+        .product-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .product-image-section {
+            text-align: center;
+        }
+
+        .product-detail-image {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-rating {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .product-rating #productRating {
+            color: #f39c12;
+            font-size: 18px;
+        }
+
+        .product-rating #ratingValue {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .product-price-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .product-price-section h3 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .stock-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #27ae60;
+            color: white;
+        }
+
+        .stock-badge.out-of-stock {
+            background: #e74c3c;
+        }
+
+        .product-description,
+        .product-features,
+        .product-specifications {
+            margin-bottom: 25px;
+        }
+
+        .product-description h4,
+        .product-features h4,
+        .product-specifications h4 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .product-description p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .product-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-features li {
+            padding: 8px 0;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .specifications-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .spec-value {
+            color: var(--text-light);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .product-actions .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .product-actions .btn i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .product-details-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .product-detail-image {
+                height: 250px;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .product-price-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -1102,6 +1280,68 @@
                 </form>
                 <div class="form-footer">
                     <p>Already have an account? <a href="#" onclick="switchModal('sellerRegisterModal', 'loginModal')">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="productDetailsModal" class="modal">
+        <div class="modal-content product-details-modal">
+            <div class="modal-header">
+                <h2 id="productTitle">Product Details</h2>
+                <span class="close" onclick="closeProductDetailsModal()">&times;</span>
+            </div>
+            <div class="modal-body product-details-body">
+                <div class="product-details-grid">
+                    <div class="product-image-section">
+                        <img id="productImage" src="" alt="" class="product-detail-image">
+                        <div class="product-rating">
+                            <span id="productRating">★★★★★</span>
+                            <span id="ratingValue">(4.5)</span>
+                        </div>
+                    </div>
+                    <div class="product-info-section">
+                        <div class="product-price-section">
+                            <h3 id="productPrice">KES 0</h3>
+                            <span class="stock-badge" id="stockBadge">In Stock</span>
+                        </div>
+                        
+                        <div class="product-description">
+                            <h4>Description</h4>
+                            <p id="productDescription">Product description here</p>
+                        </div>
+
+                        <div class="product-features">
+                            <h4>Key Features</h4>
+                            <ul id="productFeatures">
+                                <li>Feature 1</li>
+                                <li>Feature 2</li>
+                            </ul>
+                        </div>
+
+                        <div class="product-specifications">
+                            <h4>Specifications</h4>
+                            <div class="specifications-grid" id="productSpecifications">
+                                <div class="spec-item">
+                                    <span class="spec-label">Brand:</span>
+                                    <span class="spec-value">Brand Name</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart()">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-success" onclick="buyNow()">
+                                <i class="fas fa-bolt"></i> Buy Now
+                            </button>
+                            <button class="btn btn-secondary" onclick="closeProductDetailsModal()">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1619,7 +1859,7 @@
             { name: "Books", icon: "fa-book-open", count: 0 }
         ];
 
-        // Sample products data
+        // Enhanced products data with full details
         const sampleProducts = [
             {
                 id: 1,
@@ -1627,7 +1867,18 @@
                 price: "KES 2,500",
                 description: "High-quality wireless headphones with noise cancellation",
                 category: "Electronics",
-                image: "https://via.placeholder.com/300x200/2ecc71/ffffff?text=Headphones"
+                image: "https://via.placeholder.com/300x200/2ecc71/ffffff?text=Headphones",
+                specifications: {
+                    "Brand": "EcoSound",
+                    "Connectivity": "Bluetooth 5.0",
+                    "Battery Life": "30 hours",
+                    "Noise Cancellation": "Active ANC",
+                    "Weight": "250g",
+                    "Color": "Midnight Black"
+                },
+                rating: 4.5,
+                stock: 15,
+                features: ["Active Noise Cancellation", "30-hour battery life", "Premium sound quality", "Comfortable fit"]
             },
             {
                 id: 2,
@@ -1635,7 +1886,18 @@
                 price: "KES 5,000",
                 description: "Feature-rich smartwatch with health tracking",
                 category: "Electronics",
-                image: "https://via.placeholder.com/300x200/3498db/ffffff?text=Smart+Watch"
+                image: "https://via.placeholder.com/300x200/3498db/ffffff?text=Smart+Watch",
+                specifications: {
+                    "Brand": "EcoTime",
+                    "Display": "1.4\" AMOLED",
+                    "Battery Life": "7 days",
+                    "Water Resistance": "IP68",
+                    "Compatibility": "iOS & Android",
+                    "Sensors": "Heart rate, GPS, Accelerometer"
+                },
+                rating: 4.3,
+                stock: 8,
+                features: ["Heart rate monitoring", "GPS tracking", "Water resistant", "7-day battery"]
             },
             {
                 id: 3,
@@ -1643,7 +1905,18 @@
                 price: "KES 3,500",
                 description: "Comfortable running shoes for all terrains",
                 category: "Sports",
-                image: "https://via.placeholder.com/300x200/e74c3c/ffffff?text=Shoes"
+                image: "https://via.placeholder.com/300x200/e74c3c/ffffff?text=Shoes",
+                specifications: {
+                    "Brand": "EcoRun",
+                    "Material": "Recycled polyester",
+                    "Weight": "280g",
+                    "Sole": "Eco-friendly rubber",
+                    "Sizes": "US 6-12",
+                    "Gender": "Unisex"
+                },
+                rating: 4.7,
+                stock: 25,
+                features: ["Eco-friendly materials", "All-terrain grip", "Breathable design", "Arch support"]
             },
             {
                 id: 4,
@@ -1651,7 +1924,18 @@
                 price: "KES 4,200",
                 description: "Automatic coffee maker with timer",
                 category: "Home & Kitchen",
-                image: "https://via.placeholder.com/300x200/f39c12/ffffff?text=Coffee+Maker"
+                image: "https://via.placeholder.com/300x200/f39c12/ffffff?text=Coffee+Maker",
+                specifications: {
+                    "Brand": "EcoBrew",
+                    "Capacity": "12 cups",
+                    "Programmable": "Yes, 24-hour timer",
+                    "Auto Shut-off": "2 hours",
+                    "Power": "900W",
+                    "Material": "Stainless steel"
+                },
+                rating: 4.4,
+                stock: 12,
+                features: ["Programmable timer", "Auto shut-off", "12-cup capacity", "Easy cleaning"]
             },
             {
                 id: 5,
@@ -1659,7 +1943,18 @@
                 price: "KES 1,800",
                 description: "Durable backpack with laptop compartment",
                 category: "Fashion",
-                image: "https://via.placeholder.com/300x200/9b59b6/ffffff?text=Backpack"
+                image: "https://via.placeholder.com/300x200/9b59b6/ffffff?text=Backpack",
+                specifications: {
+                    "Brand": "EcoCarry",
+                    "Material": "Recycled fabric",
+                    "Laptop Compartment": "Up to 15.6\"",
+                    "Capacity": "25L",
+                    "Water Resistant": "Yes",
+                    "Weight": "600g"
+                },
+                rating: 4.6,
+                stock: 20,
+                features: ["Laptop protection", "Water resistant", "Multiple pockets", "Eco-friendly materials"]
             },
             {
                 id: 6,
@@ -1667,7 +1962,18 @@
                 price: "KES 1,200",
                 description: "Learn programming with this comprehensive guide",
                 category: "Books",
-                image: "https://via.placeholder.com/300x200/1abc9c/ffffff?text=Book"
+                image: "https://via.placeholder.com/300x200/1abc9c/ffffff?text=Book",
+                specifications: {
+                    "Title": "Modern Web Development",
+                    "Author": "EcoTech Press",
+                    "Pages": "450",
+                    "Language": "English",
+                    "Format": "Paperback",
+                    "ISBN": "978-123-456-789"
+                },
+                rating: 4.8,
+                stock: 30,
+                features: ["Comprehensive guide", "Practical examples", "Latest technologies", "Beginner friendly"]
             }
         ];
 
@@ -1731,7 +2037,7 @@
                         <h3 class="product-title">${product.title}</h3>
                         <div class="product-price">${product.price}</div>
                         <p class="product-description">${product.description}</p>
-                        <button class="btn" onclick="showToast('Product details coming soon!', 'info')">View Details</button>
+                        <button class="btn" onclick="showProductDetails(${product.id})">View Details</button>
                     </div>
                 </div>
             `;
@@ -1788,6 +2094,188 @@
             loadCategories();
             loadProducts();
             setupSearch();
+        });
+
+        // Product Details Functions
+        let currentProduct = null;
+
+        // Show product details modal
+        function showProductDetails(productId) {
+            const product = sampleProducts.find(p => p.id === productId);
+            if (!product) {
+                showToast('Product not found', 'error');
+                return;
+            }
+
+            currentProduct = product;
+            
+            // Populate modal with product data
+            document.getElementById('productTitle').textContent = product.title;
+            document.getElementById('productImage').src = product.image;
+            document.getElementById('productImage').alt = product.title;
+            document.getElementById('productPrice').textContent = product.price;
+            document.getElementById('productDescription').textContent = product.description;
+            
+            // Set rating
+            const ratingStars = generateStars(product.rating || 4);
+            document.getElementById('productRating').innerHTML = ratingStars;
+            document.getElementById('ratingValue').textContent = `(${product.rating || 4.0})`;
+            
+            // Set stock badge
+            const stockBadge = document.getElementById('stockBadge');
+            if (product.stock > 0) {
+                stockBadge.textContent = `In Stock (${product.stock})`;
+                stockBadge.className = 'stock-badge';
+            } else {
+                stockBadge.textContent = 'Out of Stock';
+                stockBadge.className = 'stock-badge out-of-stock';
+            }
+            
+            // Set features
+            const featuresList = document.getElementById('productFeatures');
+            if (product.features && product.features.length > 0) {
+                featuresList.innerHTML = product.features.map(feature => `<li>${feature}</li>`).join('');
+            } else {
+                featuresList.innerHTML = '<li>No specific features listed</li>';
+            }
+            
+            // Set specifications
+            const specificationsGrid = document.getElementById('productSpecifications');
+            if (product.specifications) {
+                specificationsGrid.innerHTML = Object.entries(product.specifications)
+                    .map(([key, value]) => `
+                        <div class="spec-item">
+                            <span class="spec-label">${key}:</span>
+                            <span class="spec-value">${value}</span>
+                        </div>
+                    `).join('');
+            } else {
+                specificationsGrid.innerHTML = '<div class="spec-item"><span class="spec-label">No specifications available</span></div>';
+            }
+            
+            // Show modal
+            document.getElementById('productDetailsModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            console.log(`📦 Showing details for product: ${product.title}`);
+        }
+
+        // Close product details modal
+        function closeProductDetailsModal() {
+            document.getElementById('productDetailsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentProduct = null;
+        }
+
+        // Generate star rating HTML
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+            const emptyStars = 5 - fullStars - halfStar;
+            
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) {
+                stars += '★';
+            }
+            if (halfStar) {
+                stars += '☆';
+            }
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '☆';
+            }
+            
+            return stars;
+        }
+
+        // Add to cart functionality
+        function addToCart() {
+            if (!currentProduct) {
+                showToast('No product selected', 'error');
+                return;
+            }
+            
+            if (currentProduct.stock <= 0) {
+                showToast('Product is out of stock', 'error');
+                return;
+            }
+            
+            // Simulate adding to cart (in a real app, this would call an API)
+            const cartItem = {
+                id: currentProduct.id,
+                title: currentProduct.title,
+                price: currentProduct.price,
+                quantity: 1,
+                image: currentProduct.image
+            };
+            
+            // Get existing cart or create new one
+            let cart = JSON.parse(localStorage.getItem('ecoloopCart') || '[]');
+            const existingItem = cart.find(item => item.id === currentProduct.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+                showToast(`Updated quantity for ${currentProduct.title}`, 'success');
+            } else {
+                cart.push(cartItem);
+                showToast(`${currentProduct.title} added to cart`, 'success');
+            }
+            
+            // Save cart to localStorage
+            localStorage.setItem('ecoloopCart', JSON.stringify(cart));
+            
+            // Update cart count if cart display exists
+            updateCartCount();
+            
+            console.log('🛒 Cart updated:', cart);
+        }
+
+        // Buy now functionality
+        function buyNow() {
+            if (!currentProduct) {
+                showToast('No product selected', 'error');
+                return;
+            }
+            
+            if (currentProduct.stock <= 0) {
+                showToast('Product is out of stock', 'error');
+                return;
+            }
+            
+            // Add to cart and redirect to checkout (or show checkout modal)
+            addToCart();
+            
+            // In a real app, this would redirect to checkout
+            showToast('Proceeding to checkout...', 'info');
+            
+            // For now, just close the modal
+            setTimeout(() => {
+                closeProductDetailsModal();
+            }, 1000);
+        }
+
+        // Update cart count display
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('ecoloopCart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update cart count if cart icon exists
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = totalItems;
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const productModal = document.getElementById('productDetailsModal');
+            if (event.target === productModal) {
+                closeProductDetailsModal();
+            }
+        }
+
+        // Initialize cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
         });
 
         </script>
