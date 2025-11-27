@@ -7640,391 +7640,72 @@
             initializeWaveResponse();
             initializeFuturisticBackgrounds();
             
-            // Initialize scroll-seamless animations
-            initializeScrollSeamlessAnimations();
-            
             // Handle resize events
             window.addEventListener('resize', handleResize);
         });
 
-        // ============================================
-        // SCROLL-SEAMLESS ANIMATION SYSTEM
-        // ============================================
+        /* ============================================
+           SCROLL-OPTIMIZED ANIMATIONS
+           ============================================ */
         
-        // Global animation state manager
-        const scrollSeamlessAnimations = {
-            // Track all animation states
-            animationStates: new Map(),
-            
-            // Performance optimization
-            rafId: null,
-            isScrolling: false,
-            scrollTimeout: null,
-            
-            // GPU acceleration helpers
-            gpuElements: new Set(),
-            
-            // Animation frame tracking
-            lastFrameTime: 0,
-            targetFPS: 60,
-            frameInterval: 1000 / 60,
-            
-            // Initialize the scroll-seamless system
-            init() {
-                console.log('🔄 Initializing scroll-seamless animation system...');
-                
-                // Detect and optimize all animated elements
-                this.detectAnimatedElements();
-                
-                // Setup scroll listeners with performance optimization
-                this.setupScrollListeners();
-                
-                // Setup RAF loop for continuous animation monitoring
-                this.startAnimationLoop();
-                
-                // Optimize for GPU acceleration
-                this.optimizeForGPU();
-                
-                console.log('✅ Scroll-seamless animations initialized');
-            },
-            
-            // Detect all elements with animations
-            detectAnimatedElements() {
-                // Find all elements with CSS animations
-                const animatedElements = document.querySelectorAll('*');
-                let detectedCount = 0;
-                
-                animatedElements.forEach(element => {
-                    const styles = window.getComputedStyle(element);
-                    const animationName = styles.animationName;
-                    const animationDuration = styles.animationDuration;
-                    
-                    if (animationName && animationName !== 'none') {
-                        this.registerAnimatedElement(element, {
-                            type: 'css',
-                            name: animationName,
-                            duration: animationDuration,
-                            delay: styles.animationDelay,
-                            iterationCount: styles.animationIterationCount,
-                            playState: styles.animationPlayState
-                        });
-                        detectedCount++;
-                    }
-                    
-                    // Check for transform animations
-                    const transform = styles.transform;
-                    if (transform && transform !== 'none') {
-                        this.registerAnimatedElement(element, {
-                            type: 'transform',
-                            currentTransform: transform
-                        });
-                    }
-                    
-                    // Check for canvas animations
-                    if (element.tagName === 'CANVAS') {
-                        this.registerAnimatedElement(element, {
-                            type: 'canvas',
-                            context: element.getContext('2d')
-                        });
-                    }
-                });
-                
-                console.log(`🎬 Detected ${detectedCount} animated elements`);
-            },
-            
-            // Register an animated element for tracking
-            registerAnimatedElement(element, config) {
-                const elementId = this.getElementId(element);
-                this.animationStates.set(elementId, {
-                    element,
-                    config,
-                    lastAnimationTime: performance.now(),
-                    scrollOffset: window.pageYOffset,
-                    animationProgress: 0,
-                    isPaused: false,
-                    forceGPU: false
-                });
-            },
-            
-            // Generate unique element ID
-            getElementId(element) {
-                if (!element.dataset.scrollSeamlessId) {
-                    element.dataset.scrollSeamlessId = `ss_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-                }
-                return element.dataset.scrollSeamlessId;
-            },
-            
-            // Setup optimized scroll listeners
-            setupScrollListeners() {
-                let isTicking = false;
-                
-                // Optimized scroll handler
-                const optimizedScrollHandler = () => {
-                    if (!isTicking) {
-                        window.requestAnimationFrame(() => {
-                            this.handleScroll();
-                            isTicking = false;
-                        });
-                        isTicking = true;
-                    }
-                };
-                
-                // Throttled scroll event
-                window.addEventListener('scroll', optimizedScrollHandler, { passive: true });
-                
-                // Scroll end detection
-                window.addEventListener('scroll', () => {
-                    this.isScrolling = true;
-                    
-                    clearTimeout(this.scrollTimeout);
-                    this.scrollTimeout = setTimeout(() => {
-                        this.isScrolling = false;
-                        this.onScrollEnd();
-                    }, 150);
-                }, { passive: true });
-            },
-            
-            // Handle scroll events
-            handleScroll() {
-                const currentScrollOffset = window.pageYOffset;
-                const scrollDelta = currentScrollOffset - this.lastScrollOffset || 0;
-                
-                // Update all animation states
-                this.animationStates.forEach((state, elementId) => {
-                    this.updateElementScrollState(state, currentScrollOffset, scrollDelta);
-                });
-                
-                this.lastScrollOffset = currentScrollOffset;
-            },
-            
-            // Update individual element scroll state
-            updateElementScrollState(state, scrollOffset, scrollDelta) {
-                const { element, config } = state;
-                
-                // Store scroll position for animation continuity
-                state.scrollOffset = scrollOffset;
-                
-                // Handle different animation types
-                switch (config.type) {
-                    case 'css':
-                        this.preserveCSSAnimation(state, scrollOffset, scrollDelta);
-                        break;
-                    case 'transform':
-                        this.preserveTransform(state, scrollOffset, scrollDelta);
-                        break;
-                    case 'canvas':
-                        this.preserveCanvasAnimation(state, scrollOffset, scrollDelta);
-                        break;
-                }
-            },
-            
-            // Preserve CSS animations during scroll
-            preserveCSSAnimation(state, scrollOffset, scrollDelta) {
-                const { element, config } = state;
-                
-                // Get current animation state
-                const styles = window.getComputedStyle(element);
-                const currentTime = styles.animationPlayState;
-                
-                // Force animation to continue playing
-                if (currentTime === 'paused') {
-                    element.style.animationPlayState = 'running';
-                }
-                
-                // Remove scroll compensation to maintain original animation speed
-                // Let animations run at their natural pace without interference
-                // Only ensure animations don't pause during scroll
-            },
-            
-            // Preserve transform animations
-            preserveTransform(state, scrollOffset, scrollDelta) {
-                const { element } = state;
-                
-                // Remove scroll compensation to maintain original animation speed
-                // Let transform animations run at their natural pace
-                // Only ensure animations continue during scroll without interference
-            },
-            
-            // Preserve canvas animations
-            preserveCanvasAnimation(state, scrollOffset, scrollDelta) {
-                const { element, config } = state;
-                
-                // Canvas animations are typically handled by RAF
-                // Just ensure they continue running
-                if (config.context && !state.canvasOptimized) {
-                    this.optimizeCanvas(element, config.context);
-                    state.canvasOptimized = true;
-                }
-            },
-            
-            // Optimize canvas for scroll performance
-            optimizeCanvas(canvas, context) {
-                // Enable hardware acceleration for canvas
-                canvas.style.willChange = 'transform';
-                canvas.style.transform = 'translateZ(0)';
-                
-                // Optimize context for performance
-                context.imageSmoothingEnabled = false;
-                context.globalAlpha = 0.8;
-            },
-            
-            // Start continuous animation monitoring loop
-            startAnimationLoop() {
-                const animate = (currentTime) => {
-                    // Remove FPS limiting to maintain original animation speed
-                    // Allow animations to run at their natural speed
-                    this.updateAllAnimations(currentTime);
-                    this.lastFrameTime = currentTime;
-                    
-                    this.rafId = requestAnimationFrame(animate);
-                };
-                
-                this.rafId = requestAnimationFrame(animate);
-            },
-            
-            // Update all animations continuously
-            updateAllAnimations(currentTime) {
-                this.animationStates.forEach((state, elementId) => {
-                    this.updateAnimationFrame(state, currentTime);
-                });
-            },
-            
-            // Update individual animation frame
-            updateAnimationFrame(state, currentTime) {
-                const { element, config } = state;
-                
-                // Calculate animation progress
-                const deltaTime = currentTime - state.lastAnimationTime;
-                state.lastAnimationTime = currentTime;
-                
-                // Remove performance monitoring to avoid triggering optimizations
-                // Let animations run at their natural speed without interference
-                
-                // Only ensure animations don't pause during scroll
-                if (this.isScrolling) {
-                    this.ensureAnimationContinuity(state, deltaTime);
-                }
-            },
-            
-            // Ensure animation continuity during scroll
-            ensureAnimationContinuity(state, deltaTime) {
-                const { element, config } = state;
-                
-                // Only ensure animations don't pause during scroll
-                // Avoid any performance optimizations that might slow down animations
-                const styles = window.getComputedStyle(element);
-                if (styles.animationPlayState === 'paused') {
-                    element.style.animationPlayState = 'running';
-                }
-                
-                // Skip GPU forcing to maintain original animation speed
-                // Let animations run at their natural pace
-            },
-            
-            // Optimize performance for struggling animations
-            optimizePerformance(state) {
-                const { element } = state;
-                
-                // Reduce animation complexity if needed
-                if (state.performanceOptimized) return;
-                
-                // Apply performance optimizations WITHOUT changing animation timing
-                // Preserve original animation speed and behavior
-                element.style.willChange = 'transform, opacity';
-                element.style.transform = 'translateZ(0)';
-                
-                // Mark as optimized without altering animation properties
-                state.performanceOptimized = true;
-            },
-            
-            // Handle scroll end events
-            onScrollEnd() {
-                // Clean up scroll-specific optimizations
-                this.animationStates.forEach((state) => {
-                    if (state.forceGPU) {
-                        const { element } = state;
-                        element.style.willChange = 'auto';
-                        state.forceGPU = false;
-                    }
-                });
-            },
-            
-            // Optimize for GPU acceleration
-            optimizeForGPU() {
-                // Find and optimize all animated elements
-                document.querySelectorAll('[style*="animation"], [style*="transform"]').forEach(element => {
-                    this.gpuElements.add(element);
-                    element.style.willChange = 'transform, opacity';
-                    element.style.transform = 'translateZ(0)';
-                });
-                
-                // Optimize futuristic backgrounds specifically
-                const futuristicElements = document.querySelectorAll('.futuristic-background-left, .futuristic-background-right, .holographic-streams, .neon-particle-waves, .cybernetic-grid, .light-streaks');
-                futuristicElements.forEach(element => {
-                    element.style.willChange = 'transform, opacity, background-position';
-                    element.style.transform = 'translateZ(0)';
-                    element.style.backfaceVisibility = 'hidden';
-                });
-                
-                // Optimize canvas elements
-                document.querySelectorAll('canvas').forEach(canvas => {
-                    canvas.style.willChange = 'transform';
-                    canvas.style.transform = 'translateZ(0)';
-                });
-            },
-            
-            // Public API for manual animation control
-            pauseAnimation(element) {
-                const elementId = this.getElementId(element);
-                const state = this.animationStates.get(elementId);
-                if (state) {
-                    state.isPaused = true;
-                    element.style.animationPlayState = 'paused';
-                }
-            },
-            
-            resumeAnimation(element) {
-                const elementId = this.getElementId(element);
-                const state = this.animationStates.get(elementId);
-                if (state) {
-                    state.isPaused = false;
-                    element.style.animationPlayState = 'running';
-                }
-            },
-            
-            // Get animation statistics
-            getStats() {
-                return {
-                    totalAnimatedElements: this.animationStates.size,
-                    gpuOptimizedElements: this.gpuElements.size,
-                    isScrolling: this.isScrolling,
-                    currentFPS: this.targetFPS,
-                    memoryUsage: performance.memory ? {
-                        used: Math.round(performance.memory.usedJSHeapSize / 1048576) + 'MB',
-                        total: Math.round(performance.memory.totalJSHeapSize / 1048576) + 'MB'
-                    } : 'N/A'
-                };
-            }
-        };
+        /* Ensure animations continue smoothly during scroll */
+        * {
+            /* Allow browser to optimize animations during scroll */
+            animation-play-state: running;
+        }
         
-        // Initialize scroll-seamless animations
-        function initializeScrollSeamlessAnimations() {
-            scrollSeamlessAnimations.init();
-            
-            // Add debug function to console
-            window.scrollSeamlessDebug = () => {
-                console.log('🔍 Scroll-Seamless Animation Stats:', scrollSeamlessAnimations.getStats());
-            };
-            
-            // Add performance monitoring
-            if (window.performance && window.performance.memory) {
-                setInterval(() => {
-                    const stats = scrollSeamlessAnimations.getStats();
-                    if (stats.memoryUsage.used && parseInt(stats.memoryUsage.used) > 100) {
-                        console.warn('⚠️ High memory usage detected:', stats.memoryUsage);
-                    }
-                }, 30000); // Check every 30 seconds
-            }
+        /* GPU acceleration for animated elements */
+        .futuristic-background-left,
+        .futuristic-background-right,
+        .holographic-streams,
+        .neon-particle-waves,
+        .cybernetic-grid,
+        .light-streaks,
+        .panel-background,
+        .panel-particles-container,
+        .panel-energy-waves,
+        .panel-holographic-overlay,
+        .panel-neon-grid,
+        .ocean-waves,
+        .ocean-currents,
+        .bio-particle,
+        [style*="animation"] {
+            /* Force GPU acceleration for smooth scrolling */
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            /* Ensure animations don't pause during scroll */
+            animation-play-state: running !important;
+            /* Optimize for performance */
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        
+        /* Canvas optimization */
+        canvas {
+            will-change: transform;
+            transform: translateZ(0);
+            image-rendering: optimizeSpeed;
+            image-rendering: -webkit-optimize-contrast;
+        }
+        
+        /* Prevent layout thrashing during scroll */
+        body {
+            /* Enable smooth scrolling */
+            scroll-behavior: smooth;
+            /* Optimize for scroll performance */
+            overflow-x: hidden;
+            /* Prevent paint flashing */
+            will-change: scroll-position;
+        }
+        
+        /* Optimize animated backgrounds specifically */
+        .futuristic-background-left *,
+        .futuristic-background-right * {
+            /* Ensure all child animations continue */
+            animation-play-state: running !important;
+            /* GPU acceleration for all animated children */
+            transform: translateZ(0);
+            will-change: transform, opacity;
         }
 
         // Futuristic Background Animations
