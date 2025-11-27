@@ -1107,6 +1107,77 @@ app.post("/api/debug/test-password", async (req, res) => {
   }
 });
 
+// Fix seller approval status endpoint
+app.post("/api/debug/fix-seller-status", async (req, res) => {
+  try {
+    const { sellerId, email, approvalStatus, status } = req.body;
+    const db = req.app.locals.db;
+    
+    console.log('🔧 Fixing seller approval status:', { sellerId, email, approvalStatus, status });
+    
+    // Find the seller by ID or email
+    let seller;
+    if (sellerId) {
+      seller = await db.collection("sellers").findOne({ _id: new ObjectId(sellerId) });
+    } else if (email) {
+      seller = await db.collection("sellers").findOne({ email: email });
+    }
+    
+    if (!seller) {
+      return res.json({ 
+        success: false, 
+        error: "Seller not found" 
+      });
+    }
+    
+    // Update both status fields to ensure consistency
+    const updateData = {
+      approvalStatus: approvalStatus || 'approved',
+      status: status || 'approved',
+      updatedAt: new Date()
+    };
+    
+    // Add approval metadata if setting to approved
+    if (approvalStatus === 'approved' || status === 'approved') {
+      updateData.approvedAt = new Date();
+      updateData.approvedBy = 'system-fix';
+    }
+    
+    const result = await db.collection("sellers").updateOne(
+      { _id: seller._id },
+      { $set: updateData }
+    );
+    
+    if (result.matchedCount === 0) {
+      return res.json({ 
+        success: false, 
+        error: "Failed to update seller" 
+      });
+    }
+    
+    console.log('✅ Seller status fixed successfully:', { 
+      sellerId: seller._id,
+      email: seller.email,
+      updateData 
+    });
+    
+    res.json({ 
+      success: true, 
+      message: "Seller approval status fixed successfully",
+      sellerId: seller._id,
+      email: seller.email,
+      updatedFields: updateData
+    });
+    
+  } catch (error) {
+    console.error('🔥 Fix seller status error:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: "Failed to fix seller status: " + error.message 
+    });
+  }
+});
+
 // Database Migration: Hash existing unhashed seller passwords
 app.post("/api/admin/migrate-seller-passwords", async (req, res) => {
   try {
