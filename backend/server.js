@@ -521,9 +521,19 @@ app.post("/api/seller/register", async (req, res) => {
     
     // Hash the password
     const saltRounds = 12;
+    console.log('🔐 Starting password hashing:', { 
+      passwordLength: password.length, 
+      passwordStart: password.substring(0, 3) + '...',
+      saltRounds 
+    });
+    
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     
-    console.log(' Password hashed successfully');
+    console.log('✅ Password hashed successfully:', { 
+      hashLength: hashedPassword.length, 
+      hashStart: hashedPassword.substring(0, 20) + '...',
+      hashType: typeof hashedPassword 
+    });
     
     // Create new seller with proper schema
     const seller = {
@@ -588,16 +598,31 @@ app.post("/api/seller/register", async (req, res) => {
       rejectionReason: null
     };
     
-    console.log(' Creating seller document...');
+    console.log('📝 Creating seller document...');
+    console.log('🔍 Seller object before insertion:', {
+      email: seller.email,
+      passwordHashLength: seller.password ? seller.password.length : 0,
+      passwordHashStart: seller.password ? seller.password.substring(0, 20) + '...' : 'null',
+      approvalStatus: seller.approvalStatus
+    });
     
     const result = await db.collection("sellers").insertOne(seller);
     
-    console.log(' Seller registered successfully:', { 
+    console.log('✅ Seller registered successfully:', { 
       email, 
       businessName, 
       storeName,
       sellerId: result.insertedId.toString(),
       approvalStatus: seller.approvalStatus
+    });
+    
+    // Verify the seller was stored correctly
+    const storedSeller = await db.collection("sellers").findOne({ _id: result.insertedId });
+    console.log('🔍 Verification - stored seller:', {
+      email: storedSeller.email,
+      passwordHashLength: storedSeller.password ? storedSeller.password.length : 0,
+      passwordHashStart: storedSeller.password ? storedSeller.password.substring(0, 20) + '...' : 'null',
+      approvalStatus: storedSeller.approvalStatus
     });
     
     res.status(201).json({ 
@@ -921,6 +946,107 @@ app.post("/api/seller/login", async (req, res) => {
     return res.status(500).json({ 
       success: false, 
       error: "Login failed: " + (error.message || "Unknown error") 
+    });
+  }
+});
+
+// Debug endpoint to check seller password storage
+app.get("/api/debug/seller/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const db = req.app.locals.db;
+    
+    const seller = await db.collection("sellers").findOne({ email: email });
+    
+    if (!seller) {
+      return res.json({ 
+        success: false, 
+        message: "Seller not found" 
+      });
+    }
+    
+    // Return safe info (not the actual hash)
+    const debugInfo = {
+      email: seller.email,
+      name: seller.name,
+      businessName: seller.businessName,
+      approvalStatus: seller.approvalStatus || seller.status,
+      passwordHashLength: seller.password ? seller.password.length : 0,
+      passwordHashStart: seller.password ? seller.password.substring(0, 20) + "..." : "null",
+      registrationDate: seller.registrationDate,
+      createdAt: seller.createdAt,
+      fields: Object.keys(seller)
+    };
+    
+    console.log('🔍 Seller debug info:', debugInfo);
+    
+    res.json({ 
+      success: true, 
+      seller: debugInfo
+    });
+    
+  } catch (error) {
+    console.error('🔥 Debug endpoint error:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
+
+// Test password verification endpoint
+app.post("/api/debug/test-password", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const db = req.app.locals.db;
+    
+    const seller = await db.collection("sellers").findOne({ email: email });
+    
+    if (!seller) {
+      return res.json({ 
+        success: false, 
+        message: "Seller not found" 
+      });
+    }
+    
+    console.log('🔍 Testing password verification:', { 
+      email, 
+      passwordProvided: !!password,
+      passwordLength: password ? password.length : 0,
+      hashExists: !!seller.password,
+      hashLength: seller.password ? seller.password.length : 0
+    });
+    
+    // Test bcrypt comparison
+    let passwordMatch = false;
+    let bcryptError = null;
+    
+    try {
+      passwordMatch = await bcrypt.compare(password, seller.password);
+      console.log('✅ Bcrypt comparison result:', passwordMatch);
+    } catch (error) {
+      bcryptError = error.message;
+      console.error('❌ Bcrypt comparison error:', error);
+    }
+    
+    res.json({ 
+      success: true, 
+      test: {
+        email,
+        passwordProvided: !!password,
+        passwordLength: password ? password.length : 0,
+        hashExists: !!seller.password,
+        hashLength: seller.password ? seller.password.length : 0,
+        passwordMatch,
+        bcryptError
+      }
+    });
+    
+  } catch (error) {
+    console.error('🔥 Password test endpoint error:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message 
     });
   }
 });
