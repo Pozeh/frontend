@@ -5989,6 +5989,70 @@
                 margin: 20px;
             }
         }
+
+        /* ============================================
+           SCROLL-OPTIMIZED ANIMATIONS
+           ============================================ */
+
+        /* Ensure animations continue smoothly during scroll */
+        * {
+            /* Allow browser to optimize animations during scroll */
+            animation-play-state: running;
+        }
+
+        /* GPU acceleration for animated elements */
+        .futuristic-background-left,
+        .futuristic-background-right,
+        .holographic-streams,
+        .neon-particle-waves,
+        .cybernetic-grid,
+        .light-streaks,
+        .panel-background,
+        .panel-particles-container,
+        .panel-energy-waves,
+        .panel-holographic-overlay,
+        .panel-neon-grid,
+        .ocean-waves,
+        .ocean-currents,
+        .bio-particle,
+        [style*="animation"] {
+            /* Force GPU acceleration for smooth scrolling */
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            /* Ensure animations don't pause during scroll */
+            animation-play-state: running !important;
+            /* Optimize for performance */
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        /* Canvas optimization */
+        canvas {
+            will-change: transform;
+            transform: translateZ(0);
+            image-rendering: optimizeSpeed;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* Prevent layout thrashing during scroll */
+        body {
+            /* Enable smooth scrolling */
+            scroll-behavior: smooth;
+            /* Optimize for scroll performance */
+            overflow-x: hidden;
+            /* Prevent paint flashing */
+            will-change: scroll-position;
+        }
+
+        /* Optimize animated backgrounds specifically */
+        .futuristic-background-left *,
+        .futuristic-background-right * {
+            /* Ensure all child animations continue */
+            animation-play-state: running !important;
+            /* GPU acceleration for all animated children */
+            transform: translateZ(0);
+            will-change: transform, opacity;
+        }
     </style>
 </head>
 <body>
@@ -7643,70 +7707,6 @@
             // Handle resize events
             window.addEventListener('resize', handleResize);
         });
-
-        /* ============================================
-           SCROLL-OPTIMIZED ANIMATIONS
-           ============================================ */
-        
-        /* Ensure animations continue smoothly during scroll */
-        * {
-            /* Allow browser to optimize animations during scroll */
-            animation-play-state: running;
-        }
-        
-        /* GPU acceleration for animated elements */
-        .futuristic-background-left,
-        .futuristic-background-right,
-        .holographic-streams,
-        .neon-particle-waves,
-        .cybernetic-grid,
-        .light-streaks,
-        .panel-background,
-        .panel-particles-container,
-        .panel-energy-waves,
-        .panel-holographic-overlay,
-        .panel-neon-grid,
-        .ocean-waves,
-        .ocean-currents,
-        .bio-particle,
-        [style*="animation"] {
-            /* Force GPU acceleration for smooth scrolling */
-            will-change: transform, opacity;
-            transform: translateZ(0);
-            /* Ensure animations don't pause during scroll */
-            animation-play-state: running !important;
-            /* Optimize for performance */
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-        
-        /* Canvas optimization */
-        canvas {
-            will-change: transform;
-            transform: translateZ(0);
-            image-rendering: optimizeSpeed;
-            image-rendering: -webkit-optimize-contrast;
-        }
-        
-        /* Prevent layout thrashing during scroll */
-        body {
-            /* Enable smooth scrolling */
-            scroll-behavior: smooth;
-            /* Optimize for scroll performance */
-            overflow-x: hidden;
-            /* Prevent paint flashing */
-            will-change: scroll-position;
-        }
-        
-        /* Optimize animated backgrounds specifically */
-        .futuristic-background-left *,
-        .futuristic-background-right * {
-            /* Ensure all child animations continue */
-            animation-play-state: running !important;
-            /* GPU acceleration for all animated children */
-            transform: translateZ(0);
-            will-change: transform, opacity;
-        }
 
         // Futuristic Background Animations
         function initializeFuturisticBackgrounds() {
