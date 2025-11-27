@@ -6053,6 +6053,367 @@
             transform: translateZ(0);
             will-change: transform, opacity;
         }
+
+        /* ============================================
+           FUTURISTIC FOOTER ANIMATIONS
+           ============================================ */
+        
+        /* Footer Futuristic Background Container */
+        .footer-futuristic-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        /* Footer Holographic Streams */
+        .footer-holographic-streams {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.03) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(255, 0, 255, 0.02) 50%, transparent 70%),
+                linear-gradient(135deg, transparent 30%, rgba(0, 255, 255, 0.02) 50%, transparent 70%);
+            background-size: 200% 200%, 150% 150%, 180% 180%;
+            animation: footerHolographicFlow 15s ease-in-out infinite;
+        }
+        
+        /* Footer Neon Particle Waves */
+        .footer-neon-particle-waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 30%);
+            background-size: 100% 100%, 120% 120%, 150% 150%;
+            animation: footerNeonWave 12s ease-in-out infinite;
+        }
+        
+        /* Footer Cybernetic Grid */
+        .footer-cybernetic-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 49%, rgba(0, 255, 255, 0.02) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(255, 0, 255, 0.02) 50%, transparent 51%);
+            background-size: 50px 50px, 50px 50px;
+            animation: footerGridPulse 8s ease-in-out infinite;
+        }
+        
+        /* Footer Light Streaks */
+        .footer-light-streaks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.05) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 30%, rgba(0, 255, 255, 0.03) 50%, transparent 70%),
+                linear-gradient(90deg, transparent 35%, rgba(255, 0, 255, 0.02) 50%, transparent 65%);
+            background-size: 300% 100%, 250% 100%, 200% 100%;
+            animation: footerLightStreakFlow 20s linear infinite;
+        }
+        
+        /* Footer Particles Container */
+        .footer-particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+        
+        /* Footer Energy Waves */
+        .footer-energy-waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 70% 80%, rgba(255, 0, 255, 0.08) 0%, transparent 35%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+            background-size: 100% 100%, 120% 120%, 150% 150%;
+            animation: footerEnergyWave 10s ease-in-out infinite;
+        }
+        
+        /* Footer Holographic Overlay */
+        .footer-holographic-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.02) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 40%, rgba(255, 0, 255, 0.01) 50%, transparent 60%);
+            background-size: 200% 200%, 180% 180%;
+            animation: footerHolographicPulse 18s ease-in-out infinite;
+        }
+        
+        /* Footer Neon Grid */
+        .footer-neon-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 48%, rgba(0, 255, 255, 0.015) 50%, transparent 52%),
+                linear-gradient(0deg, transparent 48%, rgba(255, 0, 255, 0.015) 50%, transparent 52%),
+                linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.01) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255, 0, 255, 0.01) 50%, transparent 52%);
+            background-size: 60px 60px, 60px 60px, 80px 80px, 80px 80px;
+            animation: footerNeonGridPulse 12s ease-in-out infinite;
+        }
+        
+        /* Footer Canvas */
+        #footerBackgroundCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        /* Footer Animation Keyframes */
+        @keyframes footerHolographicFlow {
+            0%, 100% { 
+                background-position: 0% 50%, 0% 50%, 0% 50%;
+                opacity: 0.3;
+            }
+            25% { 
+                background-position: 100% 50%, 50% 0%, 75% 100%;
+                opacity: 0.5;
+            }
+            50% { 
+                background-position: 50% 100%, 100% 50%, 0% 0%;
+                opacity: 0.4;
+            }
+            75% { 
+                background-position: 75% 0%, 0% 100%, 50% 50%;
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes footerNeonWave {
+            0%, 100% { 
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            33% { 
+                background-position: 50% 50%, 0% 0%, 100% 100%;
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+            66% { 
+                background-position: 100% 100%, 50% 50%, 0% 0%;
+                opacity: 0.5;
+                transform: scale(0.95);
+            }
+        }
+        
+        @keyframes footerGridPulse {
+            0%, 100% { 
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.4;
+                transform: scale(1.02);
+            }
+        }
+        
+        @keyframes footerLightStreakFlow {
+            0% { 
+                background-position: -300% 0%, -250% 0%, -200% 0%;
+                opacity: 0.3;
+            }
+            100% { 
+                background-position: 300% 0%, 250% 0%, 200% 0%;
+                opacity: 0.5;
+            }
+        }
+        
+        @keyframes footerEnergyWave {
+            0%, 100% { 
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            25% { 
+                background-position: 50% 0%, 0% 100%, 100% 50%;
+                opacity: 0.5;
+                transform: scale(1.03);
+            }
+            50% { 
+                background-position: 100% 50%, 50% 0%, 0% 100%;
+                opacity: 0.4;
+                transform: scale(0.97);
+            }
+            75% { 
+                background-position: 50% 100%, 100% 50%, 0% 0%;
+                opacity: 0.6;
+                transform: scale(1.01);
+            }
+        }
+        
+        @keyframes footerHolographicPulse {
+            0%, 100% { 
+                background-position: 0% 50%, 0% 50%;
+                opacity: 0.2;
+            }
+            50% { 
+                background-position: 100% 50%, 100% 50%;
+                opacity: 0.4;
+            }
+        }
+        
+        @keyframes footerNeonGridPulse {
+            0%, 100% { 
+                opacity: 0.15;
+                transform: scale(1);
+            }
+            25% { 
+                opacity: 0.25;
+                transform: scale(1.01);
+            }
+            50% { 
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            75% { 
+                opacity: 0.3;
+                transform: scale(0.99);
+            }
+        }
+        
+        /* Footer particles animation */
+        .footer-particles-container::before,
+        .footer-particles-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: footerParticleFloat 8s ease-in-out infinite;
+        }
+        
+        .footer-particles-container::before {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .footer-particles-container::after {
+            top: 70%;
+            right: 30%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes footerParticleFloat {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            25% { 
+                transform: translate(30px, -20px) scale(1.2);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translate(-20px, -40px) scale(0.8);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translate(-30px, 20px) scale(1.1);
+                opacity: 0.7;
+            }
+        }
+        
+        /* Ensure footer content stays above animations */
+        .footer .container {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-section {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-bottom {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Footer animation optimization */
+        .footer-futuristic-background,
+        .footer-futuristic-background * {
+            animation-play-state: running !important;
+            transform: translateZ(0);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+        }
+        
+        /* Responsive footer animations */
+        @media (max-width: 768px) {
+            .footer-futuristic-background {
+                opacity: 0.7;
+            }
+            
+            .footer-holographic-streams,
+            .footer-neon-particle-waves,
+            .footer-energy-waves {
+                animation-duration: 20s;
+            }
+            
+            .footer-light-streaks {
+                animation-duration: 25s;
+            }
+            
+            .footer-cybernetic-grid,
+            .footer-neon-grid {
+                background-size: 40px 40px, 40px 40px, 60px 60px, 60px 60px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-futuristic-background {
+                opacity: 0.5;
+            }
+            
+            .footer-particles-container::before,
+            .footer-particles-container::after {
+                width: 3px;
+                height: 3px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -6196,6 +6557,19 @@
     <footer class="footer">
         <!-- Kenyan Flag Creative Background Elements -->
         <div class="kenyan-texture"></div>
+        
+        <!-- Futuristic Footer Background Elements -->
+        <div class="footer-futuristic-background">
+            <div class="footer-holographic-streams"></div>
+            <div class="footer-neon-particle-waves"></div>
+            <div class="footer-cybernetic-grid"></div>
+            <div class="footer-light-streaks"></div>
+            <div class="footer-particles-container"></div>
+            <div class="footer-energy-waves"></div>
+            <div class="footer-holographic-overlay"></div>
+            <div class="footer-neon-grid"></div>
+            <canvas id="footerBackgroundCanvas" aria-hidden="true"></canvas>
+        </div>
         
         <div class="container">
             <div class="footer-content">
@@ -7722,6 +8096,12 @@
             const rightCanvas = document.getElementById('rightBackgroundCanvas');
             if (rightCanvas) {
                 initializeBackgroundCanvas(rightCanvas, 'right');
+            }
+            
+            // Initialize footer background canvas
+            const footerCanvas = document.getElementById('footerBackgroundCanvas');
+            if (footerCanvas) {
+                initializeBackgroundCanvas(footerCanvas, 'footer');
             }
         }
 
