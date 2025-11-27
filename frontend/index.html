@@ -4960,7 +4960,7 @@
            NYUMBASURE STYLES - COMPLETELY ISOLATED
            ============================================ */
         
-        /* NyumbaSure Icon Container - Non-Intrusive */
+        /* NyumbaSure Icon Container - Enhanced with Futuristic Effects */
         .nyumbasure-icon-container {
             position: absolute;
             top: 20px;
@@ -4975,6 +4975,7 @@
             display: block;
             text-decoration: none;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .nyumbasure-icon-wrapper {
@@ -4983,33 +4984,335 @@
             align-items: center;
             gap: 8px;
             padding: 15px;
-            background: rgba(0, 100, 200, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 100, 200, 0.3);
+            border: 2px solid rgba(0, 100, 200, 0.3);
             border-radius: 15px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
+        /* Futuristic Holographic Glow Effect */
+        .nyumbasure-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(0, 255, 255, 0.8) 50%, 
+                transparent 70%),
+                linear-gradient(-45deg, 
+                transparent 30%, 
+                rgba(255, 0, 255, 0.8) 50%, 
+                transparent 70%);
+            background-size: 200% 200%;
+            border-radius: 15px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            animation: holographicRotate 3s linear infinite;
+        }
+
+        .nyumbasure-icon-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes holographicRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Enhanced Hover Effects */
         .nyumbasure-icon-wrapper:hover {
-            background: rgba(0, 100, 200, 0.2);
-            border-color: rgba(0, 100, 200, 0.5);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 100, 200, 0.3);
+            background: rgba(0, 100, 200, 0.15);
+            border-color: rgba(0, 255, 255, 0.6);
+            transform: scale(1.1) rotateY(5deg) rotateX(5deg);
+            box-shadow: 
+                0 8px 25px rgba(0, 100, 200, 0.4),
+                0 0 30px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
         }
 
+        /* 3D Transform Effect */
+        .nyumbasure-icon-wrapper:active {
+            transform: scale(1.05) rotateY(-2deg) rotateX(-2deg);
+            transition: all 0.1s ease;
+        }
+
+        /* Icon Enhancement with Glow */
         .nyumbasure-icon {
             font-size: 32px;
             display: block;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+            position: relative;
         }
 
+        .nyumbasure-icon-wrapper:hover .nyumbasure-icon {
+            transform: scale(1.2);
+            filter: 
+                drop-shadow(0 0 10px rgba(0, 255, 255, 0.8))
+                drop-shadow(0 0 20px rgba(0, 100, 200, 0.6))
+                drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1.2); }
+            50% { transform: scale(1.3); }
+        }
+
+        /* Text Enhancement */
         .nyumbasure-text {
             font-size: 12px;
             font-weight: 600;
             color: #0064c8;
             text-align: center;
             white-space: nowrap;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nyumbasure-icon-wrapper:hover .nyumbasure-text {
+            color: #00ffff;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Particle Trail Effects */
+        .nyumbasure-icon-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.5s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .nyumbasure-icon-wrapper:hover::after {
+            width: 100px;
+            height: 100px;
+            opacity: 0.3;
+            animation: particleExpand 1s ease-out infinite;
+        }
+
+        @keyframes particleExpand {
+            0% { 
+                width: 0; 
+                height: 0; 
+                opacity: 0.6; 
+            }
+            100% { 
+                width: 150px; 
+                height: 150px; 
+                opacity: 0; 
+            }
+        }
+
+        /* Floating Particles Around Icon */
+        .nyumbasure-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .nyumbasure-icon-wrapper:hover .nyumbasure-particle {
+            opacity: 1;
+            animation: particleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { 
+                transform: translate(0, 0) scale(0); 
+                opacity: 0; 
+            }
+            20% { 
+                transform: translate(var(--tx1), var(--ty1)) scale(1); 
+                opacity: 1; 
+            }
+            80% { 
+                transform: translate(var(--tx2), var(--ty2)) scale(1); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translate(var(--tx3), var(--ty3)) scale(0); 
+                opacity: 0; 
+            }
+        }
+
+        /* Futuristic Tooltip */
+        .nyumbasure-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: linear-gradient(135deg, 
+                rgba(0, 100, 200, 0.95) 0%, 
+                rgba(0, 50, 150, 0.95) 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(0, 255, 255, 0.2);
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .nyumbasure-tooltip::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: rgba(0, 100, 200, 0.95);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .nyumbasure-icon-wrapper:hover .nyumbasure-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-15px);
+        }
+
+        /* Scanning Animation */
+        .nyumbasure-scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 255, 255, 0.8) 50%, 
+                transparent 100%);
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.3s ease;
+        }
+
+        .nyumbasure-icon-wrapper:hover .nyumbasure-scan-line {
+            opacity: 1;
+            animation: scanning 2s ease-in-out infinite;
+        }
+
+        @keyframes scanning {
+            0% { 
+                transform: scaleX(0); 
+                left: 0%; 
+            }
+            50% { 
+                transform: scaleX(1); 
+                left: 0%; 
+            }
+            51% { 
+                transform: scaleX(1); 
+                left: 100%; 
+            }
+            100% { 
+                transform: scaleX(0); 
+                left: 100%; 
+            }
+        }
+
+        /* Energy Field Effect */
+        .nyumbasure-energy-field {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nyumbasure-icon-wrapper:hover .nyumbasure-energy-field {
+            opacity: 1;
+            animation: energyPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes energyPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                opacity: 0.3; 
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.3); 
+                opacity: 0.1; 
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nyumbasure-icon-container {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .nyumbasure-icon-wrapper {
+                padding: 12px;
+            }
+            
+            .nyumbasure-icon {
+                font-size: 28px;
+            }
+            
+            .nyumbasure-text {
+                font-size: 11px;
+            }
+            
+            .nyumbasure-tooltip {
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nyumbasure-icon-container {
+                top: 8px;
+                right: 8px;
+            }
+            
+            .nyumbasure-icon-wrapper {
+                padding: 10px;
+            }
+            
+            .nyumbasure-icon {
+                font-size: 24px;
+            }
+            
+            .nyumbasure-text {
+                font-size: 10px;
+            }
         }
 
         @keyframes nyumbasureFadeIn {
@@ -5777,12 +6080,29 @@
             </div>
         </div>
         
-        <!-- NyumbaSure Icon - Non-Intrusive Addition -->
+        <!-- NyumbaSure Icon - Enhanced with Futuristic Effects -->
         <div class="nyumbasure-icon-container">
             <a href="#nyumba" class="nyumbasure-icon-link" onclick="showNyumbaSure(); return false;" title="NyumbaSure - Verified Affordable Housing">
                 <div class="nyumbasure-icon-wrapper">
+                    <!-- Holographic Glow Effects -->
+                    <div class="nyumbasure-energy-field"></div>
+                    <div class="nyumbasure-scan-line"></div>
+                    
+                    <!-- Floating Particles -->
+                    <div class="nyumbasure-particle" style="--tx1: -20px; --ty1: -20px; --tx2: 20px; --ty2: -30px; --tx3: 40px; --ty3: 20px;"></div>
+                    <div class="nyumbasure-particle" style="--tx1: 15px; --ty1: -25px; --tx2: -15px; --ty2: -15px; --tx3: -25px; --ty3: 25px;"></div>
+                    <div class="nyumbasure-particle" style="--tx1: -18px; --ty1: 18px; --tx2: 22px; --ty2: 12px; --tx3: 18px; --ty3: -22px;"></div>
+                    <div class="nyumbasure-particle" style="--tx1: 25px; --ty1: 15px; --tx2: -20px; --ty2: 25px; --tx3: -30px; --ty3: -15px;"></div>
+                    <div class="nyumbasure-particle" style="--tx1: -22px; --ty1: -12px; --tx2: 18px; --ty2: -22px; --tx3: 12px; --ty3: 28px;"></div>
+                    
+                    <!-- Icon and Text -->
                     <span class="nyumbasure-icon">🏠</span>
                     <span class="nyumbasure-text">NyumbaSure</span>
+                    
+                    <!-- Futuristic Tooltip -->
+                    <div class="nyumbasure-tooltip">
+                        NyumbaSure — Verified Affordable Housing Platform
+                    </div>
                 </div>
             </a>
         </div>
