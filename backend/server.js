@@ -2216,6 +2216,23 @@ app.post('/api/debug-register', (req, res) => {
   });
 });
 
+// Serve JavaScript analysis tools
+app.get("/check-all-sellers-login.js", (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    const filePath = path.join(__dirname, 'check-all-sellers-login.js');
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    
+    res.setHeader('Content-Type', 'application/javascript');
+    res.send(fileContent);
+  } catch (error) {
+    console.error('Error serving JavaScript file:', error);
+    res.status(404).send('JavaScript file not found');
+  }
+});
+
 // Start server
 connectToMongo().then(() => {
   // Make database available to routes
