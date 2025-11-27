@@ -2180,3 +2180,47 @@ connectToMongo().then(() => {
     console.log(`  POST /api/admin/settings - Update system settings`);
   });
 });
+
+// Debug endpoint for testing deployment
+app.get('/api/debug/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Backend deployment test successful',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+});
+
+// Debug endpoint to check user details
+app.get('/api/debug/user/:email', async (req, res) => {
+  try {
+    const db = req.app.locals.db;
+    const user = await db.collection("users").findOne({ 
+      email: req.params.email 
+    });
+    
+    if (user) {
+      res.json({
+        success: true,
+        user: {
+          email: user.email,
+          firstName: user.firstName,
+          role: user.role,
+          status: user.status,
+          passwordType: user.password.startsWith('$2') ? 'hashed' : 'plaintext'
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Database error',
+      error: error.message
+    });
+  }
+});
