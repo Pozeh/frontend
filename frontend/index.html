@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EcoLoop Kenya - Sustainable Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/futuristic-animations.css">
+    <link rel="stylesheet" href="assets/css/mobile-desktop-scaling.css">
     <!-- Old Animation CSS (DISABLED) -->
     <!-- <link rel="stylesheet" href="assets/css/productLayer.css"> -->
     <style>
@@ -6757,6 +6758,96 @@
             background: rgba(0, 255, 255, 0.2);
             border-color: rgba(0, 255, 255, 0.6);
             transform: translateY(-5px) rotate(360deg);
+        }
+        
+        /* Force Desktop Layout - Override All Mobile Rules */
+        .container {
+            width: 1200px !important;
+            max-width: none !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
+        }
+        
+        /* Force desktop grid layouts */
+        .product-grid,
+        .featured-products-grid,
+        .categories-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 20px !important;
+        }
+        
+        /* Force desktop navigation */
+        .main-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        
+        .navbar-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            list-style: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        /* Force desktop dashboard */
+        .dashboard-sidebar {
+            width: 280px !important;
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+            height: 100vh !important;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+        }
+        
+        .dashboard-content {
+            margin-left: 280px !important;
+            padding: 30px !important;
+        }
+        
+        /* Force desktop forms */
+        .form-row {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
+        }
+        
+        /* Force desktop modals */
+        .modal-content {
+            width: 800px !important;
+            max-width: none !important;
+            margin: 50px auto !important;
+        }
+        
+        /* Override Bootstrap responsive classes */
+        @media (max-width: 1200px),
+               (max-width: 992px),
+               (max-width: 768px),
+               (max-width: 576px) {
+            .container {
+                width: 1200px !important;
+                max-width: none !important;
+            }
+            
+            .col-md-6,
+            .col-lg-4,
+            .col-sm-12 {
+                flex: 0 0 auto !important;
+                max-width: none !important;
+            }
+            
+            .row {
+                display: flex !important;
+                flex-direction: row !important;
+            }
+            
+            .navbar-nav {
+                display: flex !important;
+                flex-direction: row !important;
+            }
         }
         
         </style>
@@ -15238,6 +15329,10 @@
     <!-- Futuristic Animation System -->
     <script src="assets/js/futuristic-animations.js"></script>
     
+    <!-- Mobile Desktop Scaling System -->
+    <script src="assets/js/mobile-desktop-scaling.js"></script>
+    <script src="assets/js/enhanced-mobile-scaling.js"></script>
+    
     <!-- Initialize Animation System -->
     <script>
         // Initialize futuristic animations when DOM is ready
@@ -15264,6 +15359,28 @@
             
             // The animation system will automatically initialize
             console.log('🚀 Futuristic Animation System Initialized');
+            
+            // Initialize mobile desktop scaling system
+            if (window.enhancedMobileScaling) {
+                console.log('📱 Enhanced Mobile Desktop Scaling System Active');
+                console.log(`📐 Current scale: ${window.enhancedMobileScaling.getCurrentScale()}`);
+                console.log(`📱 Mobile device: ${window.enhancedMobileScaling.isMobileDevice()}`);
+                console.log(`⚡ Performance mode: ${window.enhancedMobileScaling.getPerformanceMode()}`);
+            }
+            
+            // Update scaling when animations change
+            window.addEventListener('animationUpdate', () => {
+                if (window.updateMobileScaling) {
+                    window.updateMobileScaling();
+                }
+            });
+            
+            // Setup periodic scaling updates for dynamic content
+            setInterval(() => {
+                if (window.getMobileScale && window.getMobileScale() !== 1) {
+                    window.updateMobileScaling();
+                }
+            }, 3000);
         });
     </script>
 </body>

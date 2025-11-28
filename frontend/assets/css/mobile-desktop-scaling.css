@@ -1,0 +1,193 @@
+/* ============================================
+   MOBILE DESKTOP SCALING SYSTEM
+   Forces desktop layout on all mobile devices
+   ============================================ */
+
+/* Base scaling container */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* Desktop container that gets scaled */
+.desktop-container {
+    width: 1920px !important;
+    height: 1080px !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform-origin: top left !important;
+    overflow: hidden !important;
+    background: var(--bg-dark) !important;
+}
+
+/* Override all responsive breakpoints */
+@media (max-width: 768px),
+       (max-width: 480px),
+       (max-width: 360px) {
+    /* Disable all mobile responsive rules */
+    .container {
+        width: 1200px !important;
+        max-width: none !important;
+    }
+    
+    /* Force desktop layouts */
+    .product-grid,
+    .featured-products-grid,
+    .categories-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    .dashboard-sidebar {
+        width: 280px !important;
+        position: fixed !important;
+    }
+    
+    .dashboard-content {
+        margin-left: 280px !important;
+        padding: 30px !important;
+    }
+    
+    /* Force desktop navigation */
+    .main-nav {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    /* Force desktop modals */
+    .modal-content {
+        width: 800px !important;
+        max-width: none !important;
+        margin: 50px auto !important;
+    }
+    
+    /* Force desktop forms */
+    .form-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    /* Disable mobile text scaling */
+    body,
+    h1, h2, h3, h4, h5, h6 {
+        font-size: inherit !important;
+    }
+}
+
+/* Override any mobile-specific display changes */
+@media (max-width: 992px) {
+    .container {
+        width: 1200px !important;
+    }
+    
+    .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+}
+
+/* Ensure all sections use desktop width */
+section,
+.hero-section,
+.about-section,
+.products-section,
+.contact-section,
+.footer-section {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 1920px !important;
+}
+
+/* Override Bootstrap responsive classes */
+@media (max-width: 1200px) {
+    .container {
+        width: 1200px !important;
+        max-width: none !important;
+    }
+}
+
+@media (max-width: 992px),
+(max-width: 768px),
+(max-width: 576px) {
+    .col-md-6,
+    .col-lg-4,
+    .col-sm-12 {
+        flex: 0 0 auto !important;
+        max-width: none !important;
+    }
+    
+    .row {
+        flex-direction: row !important;
+    }
+}
+
+/* Animation scaling preservation */
+.futuristic-particles,
+.futuristic-geometric,
+.futuristic-waves,
+.futuristic-glow,
+.futuristic-grid {
+    transform-origin: top left !important;
+}
+
+/* Ensure all interactive elements maintain desktop size */
+.btn,
+.futuristic-btn,
+.nav-link,
+.product-card,
+.modal {
+    transform-origin: top left !important;
+}
+
+/* Fix any positioning issues */
+.position-fixed,
+.position-absolute,
+.position-relative {
+    transform-origin: top left !important;
+}
+
+/* Override any mobile viewport meta effects */
+html {
+    touch-action: manipulation !important;
+    -webkit-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+}
+
+/* Ensure proper scaling for all images */
+img {
+    max-width: none !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Canvas and SVG scaling */
+canvas,
+svg {
+    transform-origin: top left !important;
+}
+
+/* Performance optimization for scaling */
+.desktop-container {
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+    perspective: 1000px !important;
+}
+
+/* Disable any mobile-specific animations */
+@media (max-width: 768px) {
+    * {
+        animation-duration: inherit !important;
+        transition-duration: inherit !important;
+    }
+}
