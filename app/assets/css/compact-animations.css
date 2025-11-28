@@ -1,0 +1,203 @@
+/* ========================================
+   COMPACT MOBILE ANIMATED BACKGROUND
+   ========================================
+   Lightweight, performance-optimized animations for mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+    
+    /* ========================================
+       OPTIMIZED CANVAS ANIMATION
+       ======================================== */
+    #ecoloopProductLayer {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 60px !important; /* Further reduced height */
+        opacity: 0.15 !important; /* Even lighter for performance */
+        pointer-events: none !important;
+        z-index: 1 !important;
+        transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
+        perspective: 1000px !important;
+    }
+    
+    /* ========================================
+       LIGHTWEIGHT PARTICLE SYSTEM
+       ======================================== */
+    .compact-particle-container {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100px !important;
+        overflow: hidden !important;
+        opacity: 0.3 !important;
+    }
+    
+    .compact-particle {
+        position: absolute !important;
+        width: 2px !important;
+        height: 2px !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        border-radius: 50% !important;
+        animation: compactFloat 8s infinite ease-in-out !important;
+    }
+    
+    @keyframes compactFloat {
+        0%, 100% {
+            transform: translateY(0) translateX(0) !important;
+            opacity: 0 !important;
+        }
+        10% {
+            opacity: 0.6 !important;
+        }
+        90% {
+            opacity: 0.6 !important;
+        }
+        100% {
+            transform: translateY(-80px) translateX(20px) !important;
+            opacity: 0 !important;
+        }
+    }
+    
+    /* ========================================
+       COMPACT BACKGROUND PATTERNS
+       ======================================== */
+    .compact-bg-pattern {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100px !important;
+        opacity: 0.1 !important;
+        background-image: 
+            radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%) !important;
+        background-size: 60px 60px !important;
+        animation: compactPatternMove 20s linear infinite !important;
+    }
+    
+    @keyframes compactPatternMove {
+        0% {
+            background-position: 0 0, 30px 30px !important;
+        }
+        100% {
+            background-position: 60px 60px, 90px 90px !important;
+        }
+    }
+    
+    /* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+    .mobile-welcome-panel,
+    .mobile-categories-section,
+    .mobile-featured-section,
+    .mobile-nyumba-section {
+        will-change: transform !important;
+        contain: layout style paint !important;
+    }
+    
+    /* Disable heavy animations on low-end devices */
+    @media (max-width: 480px) {
+        #ecoloopProductLayer {
+            height: 80px !important;
+            opacity: 0.2 !important;
+        }
+        
+        .compact-particle {
+            width: 1px !important;
+            height: 1px !important;
+        }
+        
+        @keyframes compactFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0) !important;
+                opacity: 0 !important;
+            }
+            10% {
+                opacity: 0.4 !important;
+            }
+            90% {
+                opacity: 0.4 !important;
+            }
+            100% {
+                transform: translateY(-60px) translateX(15px) !important;
+                opacity: 0 !important;
+            }
+        }
+    }
+    
+    /* Extra small phones - minimal animations */
+    @media (max-width: 360px) {
+        #ecoloopProductLayer {
+            height: 60px !important;
+            opacity: 0.15 !important;
+        }
+        
+        .compact-bg-pattern {
+            animation: none !important;
+        }
+    }
+    
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+        #ecoloopProductLayer,
+        .compact-particle,
+        .compact-bg-pattern {
+            animation: none !important;
+            opacity: 0.1 !important;
+        }
+    }
+    
+    /* ========================================
+       FOOTER ANIMATION OPTIMIZATION
+       ======================================== */
+    .mobile-footer #ecoloopProductLayer {
+        height: 60px !important;
+        opacity: 0.2 !important;
+    }
+    
+    /* ========================================
+       NYUMBASURE ANIMATIONS
+       ======================================== */
+    .mobile-nyumba-section #ecoloopProductLayer {
+        height: 70px !important;
+        opacity: 0.25 !important;
+    }
+    
+    .mobile-nyumba-dashboard-header #ecoloopProductLayer {
+        height: 50px !important;
+        opacity: 0.2 !important;
+    }
+    
+    /* ========================================
+       ADMIN PAGE ANIMATIONS
+       ======================================== */
+    .mobile-admin-login #ecoloopProductLayer {
+        height: 80px !important;
+        opacity: 0.15 !important;
+    }
+    
+    .mobile-admin-dashboard #ecoloopProductLayer {
+        height: 60px !important;
+        opacity: 0.1 !important;
+    }
+    
+    /* ========================================
+       PRODUCT DETAIL ANIMATIONS
+       ======================================== */
+    .mobile-product-detail #ecoloopProductLayer {
+        height: 70px !important;
+        opacity: 0.2 !important;
+    }
+    
+    /* ========================================
+       CART PAGE ANIMATIONS
+       ======================================== */
+    .mobile-cart-section #ecoloopProductLayer {
+        height: 50px !important;
+        opacity: 0.15 !important;
+    }
+}
