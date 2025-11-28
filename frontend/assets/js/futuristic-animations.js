@@ -57,11 +57,55 @@ class FuturisticAnimationSystem {
         // Setup global animation controller
         this.setupGlobalController();
         
+        // Setup scroll performance optimization
+        this.setupScrollOptimization();
+        
         // Initialize all animation containers
         this.initializeContainers();
         
         // Start animation loop
         this.startAnimationLoop();
+    }
+    
+    setupScrollOptimization() {
+        // Optimize animations during scroll for smooth performance
+        let isScrolling = false;
+        let scrollTimeout;
+        
+        const handleScroll = () => {
+            if (!isScrolling) {
+                // Reduce animation intensity during scroll
+                document.querySelectorAll('.futuristic-particles, .futuristic-geometric, .futuristic-waves').forEach(el => {
+                    el.style.animationPlayState = 'paused';
+                    el.style.opacity = '0.3';
+                });
+                
+                isScrolling = true;
+            }
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                // Resume animations after scroll ends
+                document.querySelectorAll('.futuristic-particles, .futuristic-geometric, .futuristic-waves').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                    el.style.opacity = '';
+                });
+                
+                isScrolling = false;
+            }, 150);
+        };
+        
+        // Throttled scroll handler for performance
+        let ticking = false;
+        const requestTick = () => {
+            if (!ticking) {
+                requestAnimationFrame(handleScroll);
+                ticking = true;
+                setTimeout(() => { ticking = false; }, 100);
+            }
+        };
+        
+        window.addEventListener('scroll', requestTick, { passive: true });
     }
     
     setupGlobalController() {
@@ -247,18 +291,25 @@ class FuturisticAnimationSystem {
         const container = document.createElement('div');
         container.className = 'futuristic-particles';
         
-        const particleCount = this.options.maxParticles;
+        // Reduce particle count for footer to improve performance
+        let particleCount = this.options.maxParticles;
+        if (element.classList.contains('futuristic-footer')) {
+            particleCount = Math.min(particleCount, 15); // Fewer particles for footer
+        }
         
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             
-            // Random position
+            // Random position within bounds
             particle.style.left = `${Math.random() * 100}%`;
             particle.style.top = `${Math.random() * 100}%`;
             
-            // Random size
-            const size = Math.random() * 4 + 2;
+            // Smaller size for footer particles
+            let size = Math.random() * 4 + 2;
+            if (element.classList.contains('futuristic-footer')) {
+                size = Math.random() * 2 + 1; // Smaller for footer
+            }
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             

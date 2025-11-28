@@ -403,10 +403,11 @@
     }
 }
 
-/* Footer Animations */
+/* Footer Animations - Optimized for Boundaries and Performance */
 .futuristic-footer {
     position: relative;
     overflow: hidden;
+    will-change: transform; /* Optimize for smooth scrolling */
 }
 
 .futuristic-footer::before {
@@ -422,16 +423,194 @@
         var(--futuristic-primary) 50%,
         transparent 100%
     );
-    opacity: 0.05;
+    opacity: 0.03; /* Reduced opacity for performance */
     animation: footerWave var(--animation-speed-slow) infinite linear;
+    transform: translateZ(0); /* GPU acceleration */
 }
 
 @keyframes footerWave {
     0% {
-        transform: translateY(-100%);
+        transform: translateZ(0) translateY(0);
+        opacity: 0.01;
+    }
+    50% {
+        transform: translateZ(0) translateY(-20px);
+        opacity: 0.05;
     }
     100% {
-        transform: translateY(100%);
+        transform: translateZ(0) translateY(0);
+        opacity: 0.01;
+    }
+}
+
+/* Footer-specific particle constraints */
+.futuristic-footer .futuristic-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden; /* Ensure particles stay within footer */
+}
+
+.futuristic-footer .particle {
+    position: absolute;
+    background: var(--futuristic-primary);
+    border-radius: 50%;
+    opacity: var(--particle-opacity);
+    animation: footerParticleFloat var(--animation-speed-slow) infinite ease-in-out;
+    max-width: 4px;
+    max-height: 4px;
+}
+
+@keyframes footerParticleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: calc(var(--particle-opacity) * 0.5); /* Reduced opacity */
+    }
+    90% {
+        opacity: calc(var(--particle-opacity) * 0.5);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px) scale(1.1); /* Smaller movement */
+    }
+}
+
+/* Footer geometric pattern - contained */
+.futuristic-footer .futuristic-geometric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.1; /* Reduced for performance */
+    overflow: hidden;
+    background-size: 80px 80px, 100px 100px, 120px 120px;
+    animation: footerGeometricShift var(--animation-speed-slow) infinite linear;
+    transform: translateZ(0);
+}
+
+@keyframes footerGeometricShift {
+    0% {
+        background-position: 0 0, 0 0, 0 0;
+        transform: translateZ(0) rotate(0deg);
+    }
+    100% {
+        background-position: 80px 80px, -100px 100px, 120px -120px;
+        transform: translateZ(0) rotate(360deg);
+    }
+}
+
+/* Footer wave effect - optimized */
+.futuristic-footer .futuristic-waves {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.futuristic-footer .wave {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--futuristic-cyan) 20%, 
+        transparent 40%,
+        var(--futuristic-purple) 60%, 
+        transparent 80%);
+    animation: footerWaveFlow var(--animation-speed-medium) infinite linear;
+    opacity: 0.1; /* Reduced opacity */
+    transform: translateZ(0);
+}
+
+.futuristic-footer .wave:nth-child(2) {
+    animation-delay: -var(--animation-speed-fast);
+    opacity: 0.08;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--futuristic-green) 25%, 
+        transparent 45%,
+        var(--futuristic-primary) 75%, 
+        transparent 95%);
+}
+
+@keyframes footerWaveFlow {
+    0% {
+        transform: translateZ(0) translateX(-100%);
+    }
+    100% {
+        transform: translateZ(0) translateX(100%);
+    }
+}
+
+/* Footer glow - contained */
+.futuristic-footer .futuristic-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    background: radial-gradient(
+        circle at 50% 50%,
+        var(--futuristic-primary) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    animation: footerGlowPulse var(--animation-speed-slow) infinite ease-in-out;
+    transform: translateZ(0);
+}
+
+@keyframes footerGlowPulse {
+    0%, 100% {
+        opacity: 0;
+        transform: translateZ(0) scale(0.8);
+    }
+    50% {
+        opacity: calc(var(--glow-intensity) * 0.3); /* Reduced intensity */
+        transform: translateZ(0) scale(1.1);
+    }
+}
+
+/* Footer grid - optimized */
+.futuristic-footer .futuristic-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.05; /* Very low opacity for performance */
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: footerGridPulse var(--animation-speed-slow) infinite ease-in-out;
+    transform: translateZ(0);
+}
+
+@keyframes footerGridPulse {
+    0%, 100% {
+        opacity: 0.02;
+        transform: translateZ(0) scale(1);
+    }
+    50% {
+        opacity: 0.08;
+        transform: translateZ(0) scale(1.01); /* Minimal scale */
     }
 }
 
