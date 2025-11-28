@@ -1,0 +1,364 @@
+/* Full Desktop Zoom Out for Mobile - Default Mobile View */
+/* Shows complete desktop layout zoomed out to fit mobile screen */
+
+/* Base zoom calculation for mobile devices */
+@media screen and (max-width: 768px) {
+    html {
+        /* Calculate zoom factor to fit desktop width (1200px) into mobile screen */
+        --desktop-width: 1200px;
+        --screen-width: 100vw;
+        --zoom-factor: calc(var(--screen-width) / var(--desktop-width));
+        --final-zoom: min(var(--zoom-factor), 0.8); /* Cap at 0.8 for readability */
+    }
+}
+
+/* Apply full desktop zoom out transformation */
+@media screen and (max-width: 768px) {
+    body {
+        /* Scale entire body to show full desktop layout */
+        transform: scale(var(--final-zoom, 0.5));
+        transform-origin: 0 0;
+        
+        /* Adjust dimensions to account for scaling */
+        width: calc(100% / var(--final-zoom, 0.5));
+        height: auto;
+        min-height: calc(100vh / var(--final-zoom, 0.5));
+        
+        /* Prevent overflow and ensure proper scrolling */
+        overflow-x: hidden;
+        overflow-y: auto;
+        
+        /* Ensure proper positioning */
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+    
+    /* Force desktop container widths */
+    .container {
+        width: 1200px !important;
+        max-width: 1200px !important;
+        min-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 0 20px !important;
+    }
+    
+    /* Force desktop header layout */
+    .header-content {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 20px !important;
+    }
+    
+    .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 20px !important;
+    }
+    
+    .nav-link {
+        display: inline-block !important;
+        padding: 0.5rem 1rem !important;
+    }
+    
+    /* Hide mobile-specific elements */
+    .navbar-toggler,
+    .mobile-menu-btn,
+    .hamburger,
+    .mobile-only {
+        display: none !important;
+    }
+    
+    /* Force desktop grid layouts */
+    .products-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 30px !important;
+    }
+    
+    .categories-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 30px !important;
+    }
+    
+    .featured-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+        gap: 30px !important;
+    }
+    
+    /* Force desktop search layout */
+    .search-form {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 15px !important;
+        align-items: center !important;
+    }
+    
+    .search-input,
+    .search-select {
+        width: auto !important;
+        min-width: 200px !important;
+        flex: 1 !important;
+    }
+    
+    /* Force desktop footer layout */
+    .footer-content {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 40px !important;
+    }
+    
+    .footer-section {
+        flex: none !important;
+        width: auto !important;
+    }
+    
+    /* Force desktop modals */
+    .modal {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) scale(var(--final-zoom, 0.5)) !important;
+        width: 600px !important;
+        max-width: 90vw !important;
+    }
+    
+    .modal-content {
+        width: 100% !important;
+        padding: 2rem !important;
+    }
+    
+    /* Force desktop product details */
+    .product-details-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 40px !important;
+        padding: 40px !important;
+    }
+    
+    /* Force desktop dashboard */
+    .dashboard-sidebar {
+        width: 280px !important;
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        height: 100vh !important;
+    }
+    
+    .dashboard-content {
+        margin-left: 280px !important;
+        padding: 20px !important;
+    }
+    
+    /* Force desktop cart sidebar */
+    .cart-sidebar,
+    .wishlist-sidebar {
+        width: 400px !important;
+        right: -400px !important;
+    }
+    
+    /* Override responsive typography */
+    h1 { font-size: 2.5rem !important; }
+    h2 { font-size: 2rem !important; }
+    h3 { font-size: 1.5rem !important; }
+    h4 { font-size: 1.25rem !important; }
+    h5 { font-size: 1.125rem !important; }
+    h6 { font-size: 1rem !important; }
+    p { font-size: 1rem !important; }
+    .btn { font-size: 1rem !important; }
+    
+    /* Force desktop button sizes */
+    .btn {
+        padding: 0.75rem 1.5rem !important;
+        display: inline-block !important;
+        margin: 0.25rem !important;
+    }
+    
+    /* Force desktop form elements */
+    .form-control {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 1rem !important;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Ensure animations work with zoom */
+    .futuristic-particles,
+    .futuristic-geometric,
+    .futuristic-waves,
+    .futuristic-glow,
+    .futuristic-grid {
+        transform-origin: center center !important;
+    }
+    
+    /* Scale touch targets for mobile use */
+    button, a, .btn, input, select, textarea {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        position: relative !important;
+    }
+    
+    /* Prevent horizontal overflow */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure scrollable areas work */
+    .products, .categories, .main-content {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+}
+
+/* Smaller screens - more aggressive zoom */
+@media screen and (max-width: 480px) {
+    html {
+        --final-zoom: min(calc(var(--screen-width) / var(--desktop-width)), 0.4); /* More aggressive zoom */
+    }
+    
+    /* Adjust font sizes for very small screens */
+    body {
+        font-size: 14px !important; /* Minimum readable size */
+    }
+    
+    .form-control,
+    .btn,
+    .nav-link {
+        font-size: 14px !important;
+    }
+    
+    /* Ensure modals remain usable */
+    .modal {
+        width: 500px !important;
+    }
+}
+
+/* Very small screens - maximum zoom */
+@media screen and (max-width: 360px) {
+    html {
+        --final-zoom: min(calc(var(--screen-width) / var(--desktop-width)), 0.3); /* Maximum zoom */
+    }
+    
+    /* Further adjust for very small screens */
+    .modal {
+        width: 400px !important;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 13px !important;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    html {
+        --final-zoom: min(calc(var(--screen-width) / var(--desktop-width)), 0.6); /* Less zoom for landscape */
+    }
+    
+    body {
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+}
+
+/* High DPI displays */
+@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2),
+       screen and (max-width: 768px) and (min-resolution: 192dpi) {
+    html {
+        --final-zoom: min(calc(var(--screen-width) / var(--desktop-width)), 0.7); /* Slightly less zoom for high DPI */
+    }
+}
+
+/* Override all existing mobile media queries */
+@media screen and (max-width: 1200px) {
+    /* Keep desktop layout - no responsive changes */
+}
+
+@media screen and (max-width: 992px) {
+    /* Keep desktop layout - no responsive changes */
+}
+
+@media screen and (max-width: 768px) {
+    /* Apply zoom-out - already handled above */
+}
+
+@media screen and (max-width: 576px) {
+    /* Apply more aggressive zoom - already handled above */
+}
+
+/* Ensure animations scale properly with zoom */
+@media screen and (max-width: 768px) {
+    .futuristic-header,
+    .futuristic-welcome,
+    .futuristic-product,
+    .futuristic-modal,
+    .futuristic-footer {
+        transform-origin: center center !important;
+    }
+    
+    /* Adjust animation speeds for zoomed content */
+    .particle,
+    .wave,
+    .geometric-pattern {
+        transform-origin: center center !important;
+    }
+}
+
+/* Performance optimizations for zoomed content */
+@media screen and (max-width: 768px) {
+    /* Optimize scrolling performance */
+    body {
+        will-change: transform;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Optimize animations */
+    .animated,
+    .futuristic-particles,
+    .futuristic-geometric {
+        will-change: transform, opacity;
+    }
+    
+    /* Reduce animation intensity for performance */
+    .futuristic-particles .particle {
+        opacity: 0.6 !important;
+    }
+    
+    .futuristic-glow {
+        opacity: 0.5 !important;
+    }
+}
+
+/* Accessibility improvements */
+@media screen and (max-width: 768px) {
+    /* Ensure text remains readable */
+    body {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    
+    /* Improve contrast for zoomed content */
+    .text-muted,
+    .text-light {
+        color: #666 !important;
+    }
+    
+    /* Ensure focus states are visible */
+    button:focus,
+    a:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 2px solid #007bff !important;
+        outline-offset: 2px !important;
+    }
+}
