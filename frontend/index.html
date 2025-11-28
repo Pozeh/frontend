@@ -1046,38 +1046,139 @@
                 transform: scale(1.02) !important;
             }
             
-            /* 6. Bottom Panel - Height to 1/8, resize icons */
+            /* 6. Bottom Panel - Height to 1/6, resize icons & reorganize content */
             .footer {
-                padding: 5px 0 !important; /* Reduced from ~40px */
-                min-height: 20px !important; /* 1/8 of original */
+                padding: 3px 0 !important; /* Further reduced to 1/6 of original */
+                min-height: 15px !important; /* Reduced from 20px to ~1/6 */
+                border: 1px solid rgba(0, 255, 0, 0.2) !important; /* Debug border for mobile optimization */
+                position: relative !important;
+            }
+            
+            .footer::after {
+                content: "Footer 1/6 Height";
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background: rgba(0, 255, 0, 0.8);
+                color: white;
+                font-size: 0.1rem;
+                padding: 1px 3px;
+                border-radius: 2px 0 0 0;
+                z-index: 9999;
             }
             
             .footer-content {
-                font-size: 0.2rem !important; /* 1/8 of original */
-                line-height: 1.2 !important;
+                font-size: 0.15rem !important; /* Even smaller for compact layout */
+                line-height: 1.1 !important;
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important; /* 4 columns for compact layout */
+                gap: 2px !important;
+                padding: 0 5px !important;
             }
             
-            .footer-links {
-                margin: 3px 0 !important;
+            .footer-section {
+                margin: 0 !important;
+                padding: 2px !important;
+                text-align: center !important;
             }
             
-            .footer-links a {
-                font-size: 0.2rem !important;
-                margin: 0 3px !important;
+            .footer-section h3 {
+                font-size: 0.16rem !important;
+                margin: 1px 0 !important;
+                color: #00ffff !important; /* Cyan color for headers */
+                text-transform: uppercase !important;
+                letter-spacing: 0.5px !important;
             }
             
-            .social-icons {
-                margin: 3px 0 !important;
+            .footer-section ul {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 1px 0 !important;
             }
             
-            .social-icons a {
-                font-size: 0.3rem !important; /* 1/4 of original */
-                margin: 0 2px !important;
+            .footer-section li {
+                margin: 0.5px 0 !important;
             }
             
-            .copyright {
-                font-size: 0.15rem !important;
+            .footer-section a {
+                font-size: 0.12rem !important;
+                color: #ffffff !important;
+                text-decoration: none !important;
+                display: block !important;
+                padding: 1px 2px !important;
+                border-radius: 2px !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .footer-section a:hover {
+                background: rgba(0, 255, 255, 0.2) !important;
+                color: #00ffff !important;
+                transform: scale(1.05) !important;
+            }
+            
+            .social-links {
+                display: flex !important;
+                justify-content: center !important;
+                gap: 3px !important;
                 margin: 2px 0 !important;
+            }
+            
+            .social-links a {
+                font-size: 0.14rem !important;
+                width: 15px !important;
+                height: 15px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border-radius: 50% !important;
+                padding: 0 !important;
+            }
+            
+            .social-links a:hover {
+                background: rgba(0, 255, 255, 0.3) !important;
+                transform: scale(1.1) !important;
+            }
+            
+            .footer-bottom {
+                text-align: center !important;
+                padding: 2px 0 !important;
+                margin-top: 3px !important;
+                border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            
+            .footer-bottom p {
+                font-size: 0.1rem !important;
+                color: rgba(255, 255, 255, 0.6) !important;
+                margin: 0 !important;
+            }
+            
+            /* Special mobile footer grid layout for better organization */
+            @media (max-width: 480px) {
+                .footer-content {
+                    grid-template-columns: repeat(2, 1fr) !important; /* 2x2 grid on smaller screens */
+                    gap: 3px !important;
+                }
+                
+                .footer-section:nth-child(1) {
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 2;
+                }
+                
+                .footer-section:nth-child(2) {
+                    grid-column: 2 / 3;
+                    grid-row: 1 / 2;
+                }
+                
+                .footer-section:nth-child(3) {
+                    grid-column: 1 / 2;
+                    grid-row: 2 / 3;
+                }
+                
+                .footer-section:nth-child(4) {
+                    grid-column: 2 / 3;
+                    grid-row: 2 / 3;
+                }
             }
             
             /* Remove unnecessary text - About Ecoloop description */
@@ -8036,19 +8137,23 @@
             <div class="futuristic-glow"></div>
             
             <div class="footer-content">
+                <!-- Row 1: About EcoLoop & Quick Links -->
                 <div class="footer-section">
                     <h3>About EcoLoop</h3>
-                    <!-- Removed unnecessary description text for mobile optimization -->
+                    <ul>
+                        <li><a href="pages/about-us.html">About Us</a></li>
+                        <li><a href="pages/how-it-works.html">How It Works</a></li>
+                    </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="pages/about-us.html">About Us</a></li>
-                        <li><a href="pages/how-it-works.html">How It Works</a></li>
                         <li><a href="#">Sustainability</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
+                
+                <!-- Row 2: Categories & Connect -->
                 <div class="footer-section">
                     <h3>Categories</h3>
                     <ul>
@@ -8061,10 +8166,10 @@
                 <div class="footer-section">
                     <h3>Connect</h3>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -9139,28 +9244,125 @@
 
         // Modal functions - Make them global immediately
         window.showLoginModal = function() {
-            console.log('showLoginModal called');
+            console.log('🔑 showLoginModal called');
             const modal = document.getElementById('loginModal');
             if (modal) {
+                console.log('🔍 Login modal element found, current display:', modal.style.display);
+                console.log('🔍 Login modal computed style:', window.getComputedStyle(modal).display);
+                
+                // Force show the modal with multiple approaches
                 modal.style.display = 'block';
-                // Remove body scroll lock to allow website scrolling
-                console.log('Login modal opened');
+                modal.style.visibility = 'visible';
+                modal.style.opacity = '1';
+                modal.style.zIndex = '99999';
+                
+                // Ensure modal is above all other elements
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                
+                console.log('✅ Login modal opened with display:', modal.style.display);
+                console.log('✅ Login modal z-index set to:', modal.style.zIndex);
+                
+                // Add a visual indicator for debugging
+                const debugIndicator = document.createElement('div');
+                debugIndicator.textContent = 'Login Modal Active';
+                debugIndicator.style.cssText = `
+                    position: fixed;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(0, 255, 0, 0.8);
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    z-index: 100000;
+                    font-size: 12px;
+                `;
+                document.body.appendChild(debugIndicator);
+                
+                // Remove debug indicator after 3 seconds
+                setTimeout(() => {
+                    if (debugIndicator.parentNode) {
+                        debugIndicator.parentNode.removeChild(debugIndicator);
+                    }
+                }, 3000);
+                
+                // Focus on the first input field
+                setTimeout(() => {
+                    const firstInput = modal.querySelector('input');
+                    if (firstInput) {
+                        firstInput.focus();
+                        console.log('✅ Focused on first input field');
+                    }
+                }, 100);
+                
             } else {
-                console.error('Login modal not found');
+                console.error('❌ Login modal not found');
+                console.log('🔍 Available modals:', document.querySelectorAll('.modal').length);
+                document.querySelectorAll('.modal').forEach((m, i) => {
+                    console.log(`Modal ${i}:`, m.id, m.className);
+                });
             }
         };
 
         window.showRegisterModal = function() {
-            console.log('showRegisterModal called');
+            console.log('👤 showRegisterModal called');
             const modal = document.getElementById('registerModal');
             if (modal) {
                 modal.style.display = 'block';
-                // Remove body scroll lock to allow website scrolling
-                console.log('Register modal opened');
+                modal.style.visibility = 'visible';
+                modal.style.opacity = '1';
+                modal.style.zIndex = '99999';
+                console.log('✅ Register modal opened');
             } else {
-                console.error('Register modal not found');
+                console.error('❌ Register modal not found');
             }
         };
+
+        // Login Test Function
+        function testLoginFunctionality() {
+            console.log('🧪 Testing login functionality...');
+            
+            // Check if login elements exist
+            const loginIcon = document.querySelector('a[onclick*="showLoginModal"]');
+            const loginModal = document.getElementById('loginModal');
+            
+            console.log('🔍 Element Check:');
+            console.log('- Login icon:', loginIcon ? '✅ Found' : '❌ Missing');
+            console.log('- Login modal:', loginModal ? '✅ Found' : '❌ Missing');
+            
+            if (loginIcon && loginModal) {
+                console.log('✅ All login elements are present');
+                console.log('🔑 Login functionality should work correctly');
+                
+                // Test the modal visibility
+                console.log('🔍 Modal current state:');
+                console.log('- Display style:', loginModal.style.display);
+                console.log('- Computed display:', window.getComputedStyle(loginModal).display);
+                console.log('- Z-index:', loginModal.style.zIndex || window.getComputedStyle(loginModal).zIndex);
+                
+            } else {
+                console.error('❌ Some login elements are missing');
+            }
+        }
+        
+        // Auto-test on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(testLoginFunctionality, 3000);
+            
+            // Add backup click listener for login icon
+            const loginIcon = document.querySelector('a[onclick*="showLoginModal"]');
+            if (loginIcon) {
+                loginIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🔑 Login icon clicked via event listener');
+                    showLoginModal();
+                });
+                console.log('✅ Backup login click listener attached');
+            }
+        });
 
         window.showSellerRegisterModal = function() {
             console.log('showSellerRegisterModal called');
@@ -15051,61 +15253,159 @@
         
         // NyumbaSure Navigation Functions
         function showNyumbaSure() {
-            // Hide all main sections
-            document.querySelectorAll('section').forEach(section => {
+            console.log('🏠 Showing NyumbaSure homepage...');
+            
+            // Hide all main sections properly
+            const sections = document.querySelectorAll('section, header, main');
+            sections.forEach(section => {
                 section.style.display = 'none';
             });
             
-            // Hide other overlays
-            document.getElementById('adminDashboard')?.classList.remove('active');
-            document.getElementById('sellerDashboard')?.classList.remove('active');
+            // Hide other overlays and dashboards
+            const adminDashboard = document.getElementById('adminDashboard');
+            if (adminDashboard) adminDashboard.classList.remove('active');
+            
+            const sellerDashboard = document.getElementById('sellerDashboard');
+            if (sellerDashboard) sellerDashboard.classList.remove('active');
+            
+            // Hide cart and wishlist sidebars
+            const cartSidebar = document.getElementById('cartSidebar');
+            if (cartSidebar) cartSidebar.classList.remove('active');
+            
+            const wishlistSidebar = document.getElementById('wishlistSidebar');
+            if (wishlistSidebar) wishlistSidebar.classList.remove('active');
             
             // Show NyumbaSure homepage
-            document.getElementById('nyumbasure-homepage').classList.add('active');
-            document.getElementById('nyumbasure-dashboard').classList.remove('active');
+            const nyumbasureHomepage = document.getElementById('nyumbasure-homepage');
+            if (nyumbasureHomepage) {
+                nyumbasureHomepage.classList.add('active');
+                nyumbasureHomepage.style.display = 'block';
+                console.log('✅ NyumbaSure homepage activated');
+            } else {
+                console.error('❌ NyumbaSure homepage element not found');
+            }
+            
+            // Hide dashboard if it's active
+            const nyumbasureDashboard = document.getElementById('nyumbasure-dashboard');
+            if (nyumbasureDashboard) {
+                nyumbasureDashboard.classList.remove('active');
+                nyumbasureDashboard.style.display = 'none';
+            }
             
             // Scroll to top
             window.scrollTo(0, 0);
+            
+            console.log('🏠 NyumbaSure homepage display complete');
         }
         
         function hideNyumbaSure() {
-            // Hide NyumbaSure sections
-            document.getElementById('nyumbasure-homepage').classList.remove('active');
-            document.getElementById('nyumbasure-dashboard').classList.remove('active');
+            console.log('🏠 Hiding NyumbaSure and returning to EcoLoop...');
             
-            // Show all main sections
-            document.querySelectorAll('section').forEach(section => {
+            // Hide NyumbaSure sections
+            const nyumbasureHomepage = document.getElementById('nyumbasure-homepage');
+            if (nyumbasureHomepage) {
+                nyumbasureHomepage.classList.remove('active');
+                nyumbasureHomepage.style.display = 'none';
+            }
+            
+            const nyumbasureDashboard = document.getElementById('nyumbasure-dashboard');
+            if (nyumbasureDashboard) {
+                nyumbasureDashboard.classList.remove('active');
+                nyumbasureDashboard.style.display = 'none';
+            }
+            
+            // Show all main sections properly
+            const sections = document.querySelectorAll('section, header, main');
+            sections.forEach(section => {
                 section.style.display = '';
             });
             
             // Scroll to top
             window.scrollTo(0, 0);
+            
+            console.log('🏠 Returned to EcoLoop main site');
         }
         
         function showNyumbaSureDashboard() {
+            console.log('🏠 Showing NyumbaSure dashboard...');
+            
             // Hide homepage
-            document.getElementById('nyumbasure-homepage').classList.remove('active');
+            const nyumbasureHomepage = document.getElementById('nyumbasure-homepage');
+            if (nyumbasureHomepage) {
+                nyumbasureHomepage.classList.remove('active');
+                nyumbasureHomepage.style.display = 'none';
+            }
             
             // Show dashboard
-            document.getElementById('nyumbasure-dashboard').classList.add('active');
+            const nyumbasureDashboard = document.getElementById('nyumbasure-dashboard');
+            if (nyumbasureDashboard) {
+                nyumbasureDashboard.classList.add('active');
+                nyumbasureDashboard.style.display = 'block';
+                console.log('✅ NyumbaSure dashboard activated');
+            } else {
+                console.error('❌ NyumbaSure dashboard element not found');
+            }
             
             // Scroll to top
             window.scrollTo(0, 0);
+            
+            console.log('🏠 NyumbaSure dashboard display complete');
         }
         
         function showNyumbaSureUpload() {
+            console.log('🏠 Showing NyumbaSure upload form...');
             // Show dashboard and scroll to upload form
             showNyumbaSureDashboard();
-            document.getElementById('nyumbasure-upload-form').scrollIntoView({ behavior: 'smooth' });
+            
+            const uploadForm = document.getElementById('nyumbasure-upload-form');
+            if (uploadForm) {
+                uploadForm.scrollIntoView({ behavior: 'smooth' });
+                console.log('✅ Scrolled to upload form');
+            } else {
+                console.error('❌ Upload form not found');
+            }
         }
         
         function showNyumbaSureListings() {
+            console.log('🏠 Showing NyumbaSure listings...');
             // Show dashboard and scroll to listings table
             showNyumbaSureDashboard();
-            document.querySelector('.nyumbasure-listings-table').scrollIntoView({ behavior: 'smooth' });
+            
+            const listingsTable = document.querySelector('.nyumbasure-listings-table');
+            if (listingsTable) {
+                listingsTable.scrollIntoView({ behavior: 'smooth' });
+                console.log('✅ Scrolled to listings table');
+            } else {
+                console.error('❌ Listings table not found');
+            }
         }
         
-        // NyumbaSure Form Functions
+        // NyumbaSure Test Function
+        function testNyumbasureFunctionality() {
+            console.log('🧪 Testing NyumbaSure functionality...');
+            
+            // Check if elements exist
+            const homepage = document.getElementById('nyumbasure-homepage');
+            const dashboard = document.getElementById('nyumbasure-dashboard');
+            const icon = document.querySelector('.nyumbasure-icon-link');
+            
+            console.log('🔍 Element Check:');
+            console.log('- Homepage element:', homepage ? '✅ Found' : '❌ Missing');
+            console.log('- Dashboard element:', dashboard ? '✅ Found' : '❌ Missing');
+            console.log('- Icon link:', icon ? '✅ Found' : '❌ Missing');
+            
+            if (homepage && dashboard && icon) {
+                console.log('✅ All NyumbaSure elements are present');
+                console.log('🏠 NyumbaSure functionality should work correctly');
+            } else {
+                console.error('❌ Some NyumbaSure elements are missing');
+            }
+        }
+        
+        // Auto-test on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(testNyumbasureFunctionality, 2000);
+        });
         function searchNyumbaSureProperties(event) {
             event.preventDefault();
             
