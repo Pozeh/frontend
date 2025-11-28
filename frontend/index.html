@@ -425,8 +425,7 @@
             background: var(--white);
             padding: clamp(1rem, 2.5vw, 1.5rem) 0;
             box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
+            position: relative;
             z-index: 100;
         }
 
@@ -855,10 +854,340 @@
             background: radial-gradient(ellipse at center, #001a33 0%, #000511 50%, #000000 100%);
         }
 
-        /* Responsive Hero Content */
+        /* Mobile Height & Font Optimization - EcoLoop Compact Interface */
         @media (max-width: 768px) {
+            /* Debug: Add visual indicators for mobile optimization */
+            body::before {
+                content: "Mobile Optimization Active";
+                position: fixed;
+                top: 0;
+                left: 0;
+                background: rgba(0, 255, 0, 0.8);
+                color: white;
+                padding: 2px 5px;
+                font-size: 0.2rem;
+                z-index: 9999;
+                border-radius: 0 0 5px 0;
+            }
+            
+            /* 1. Welcome Panel - Reduce height to 1/4, fonts to 1/8 */
             .hero {
-                min-height: clamp(25vh, 35vh, 45vh);
+                min-height: clamp(8vh, 12vh, 15vh) !important; /* Reduced from 25-45vh to ~1/4 */
+                padding: 10px 0 !important;
+                border: 1px solid rgba(0, 255, 0, 0.3) !important; /* Debug border */
+            }
+            
+            .welcome-title {
+                font-size: clamp(0.3rem, 1.2vw, 0.5rem) !important; /* Reduced from 2.5-4rem to 1/8 */
+                margin-bottom: 5px !important;
+                letter-spacing: 1px !important;
+            }
+            
+            .welcome-subtitle {
+                font-size: clamp(0.2rem, 0.8vw, 0.3rem) !important; /* 1/8 of original */
+                margin-bottom: 8px !important;
+            }
+            
+            .futuristic-btn .btn-text {
+                font-size: clamp(0.25rem, 1vw, 0.4rem) !important; /* 1/8 of original */
+                padding: 4px 12px !important;
+            }
+            
+            /* 2. Top Header - Reduce fonts to 1/4 */
+            .top-header {
+                padding: 5px 0 !important;
+                font-size: 0.25rem !important; /* 1/4 of original */
+            }
+            
+            .top-header a {
+                font-size: 0.25rem !important;
+                padding: 2px 5px !important;
+            }
+            
+            /* 3. White Panel - Reduce height to 1/4, fonts proportionally */
+            .main-header {
+                padding: 8px 0 !important; /* Reduced from ~32px */
+            }
+            
+            .main-header .logo-text {
+                font-size: clamp(0.4rem, 1.5vw, 0.8rem) !important; /* 1/4 of original */
+            }
+            
+            .search-container {
+                margin: 5px 0 !important;
+            }
+            
+            .search-input {
+                font-size: 0.3rem !important;
+                padding: 4px 8px !important;
+                height: 20px !important;
+            }
+            
+            .search-btn {
+                font-size: 0.3rem !important;
+                padding: 4px 8px !important;
+                height: 20px !important;
+            }
+            
+            .header-actions button,
+            .header-actions a {
+                font-size: 0.25rem !important;
+                padding: 3px 6px !important;
+                margin: 0 2px !important;
+            }
+            
+            .nyumbasure-icon-container img {
+                width: 20px !important; /* Reduced from ~40px */
+                height: 20px !important;
+            }
+            
+            /* 4. Shop by Category - Icons/fonts to 1/4, 4-6 per row */
+            .categories {
+                padding: 10px 0 !important;
+            }
+            
+            .category-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important; /* 4 per row */
+                gap: 5px !important;
+                padding: 0 10px !important;
+            }
+            
+            @media (max-width: 480px) {
+                .category-grid {
+                    grid-template-columns: repeat(6, 1fr) !important; /* 6 per row on smaller screens */
+                    gap: 3px !important;
+                }
+            }
+            
+            .category-card {
+                padding: 5px 2px !important;
+                text-align: center !important;
+            }
+            
+            .category-icon {
+                font-size: 0.8rem !important; /* 1/4 of original ~3rem */
+                margin-bottom: 2px !important;
+            }
+            
+            .category-name {
+                font-size: 0.2rem !important; /* 1/4 of original */
+                line-height: 1 !important;
+            }
+            
+            /* 5. Product Panels - Fonts to 1/8, 4 per row, remove View Details */
+            .featured-products,
+            .products-section {
+                padding: 10px 0 !important;
+            }
+            
+            .section-title {
+                font-size: clamp(0.4rem, 1.5vw, 0.8rem) !important; /* 1/8 of original */
+                margin-bottom: 8px !important;
+            }
+            
+            .products-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important; /* 4 per row */
+                gap: 5px !important;
+                padding: 0 5px !important;
+            }
+            
+            @media (max-width: 480px) {
+                .products-grid {
+                    grid-template-columns: repeat(4, 1fr) !important;
+                    gap: 3px !important;
+                }
+            }
+            
+            .product-card {
+                padding: 5px !important;
+                border-radius: 4px !important;
+            }
+            
+            .product-image {
+                height: 40px !important; /* Reduced from ~200px */
+                border-radius: 3px !important;
+            }
+            
+            .product-name {
+                font-size: 0.2rem !important; /* 1/8 of original */
+                line-height: 1.1 !important;
+                margin: 3px 0 !important;
+            }
+            
+            .product-price {
+                font-size: 0.25rem !important; /* 1/8 of original */
+                margin: 2px 0 !important;
+            }
+            
+            .product-actions {
+                margin-top: 3px !important;
+            }
+            
+            .product-actions button {
+                font-size: 0.2rem !important;
+                padding: 2px 4px !important;
+                margin: 0 1px !important;
+            }
+            
+            /* Hide "View Details" text on mobile */
+            .view-details-btn {
+                display: none !important;
+            }
+            
+            /* Make entire product card clickable */
+            .product-card {
+                cursor: pointer !important;
+                transition: transform 0.2s !important;
+            }
+            
+            .product-card:hover {
+                transform: scale(1.02) !important;
+            }
+            
+            /* 6. Bottom Panel - Height to 1/8, resize icons */
+            .footer {
+                padding: 5px 0 !important; /* Reduced from ~40px */
+                min-height: 20px !important; /* 1/8 of original */
+            }
+            
+            .footer-content {
+                font-size: 0.2rem !important; /* 1/8 of original */
+                line-height: 1.2 !important;
+            }
+            
+            .footer-links {
+                margin: 3px 0 !important;
+            }
+            
+            .footer-links a {
+                font-size: 0.2rem !important;
+                margin: 0 3px !important;
+            }
+            
+            .social-icons {
+                margin: 3px 0 !important;
+            }
+            
+            .social-icons a {
+                font-size: 0.3rem !important; /* 1/4 of original */
+                margin: 0 2px !important;
+            }
+            
+            .copyright {
+                font-size: 0.15rem !important;
+                margin: 2px 0 !important;
+            }
+            
+            /* Remove unnecessary text - About Ecoloop description */
+            .about-ecoloop-description {
+                display: none !important;
+            }
+            
+            /* Global mobile optimizations */
+            .container {
+                padding: 0 5px !important;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 0.3rem !important;
+                margin: 3px 0 !important;
+            }
+            
+            p {
+                font-size: 0.2rem !important;
+                margin: 2px 0 !important;
+                line-height: 1.2 !important;
+            }
+            
+            button {
+                font-size: 0.2rem !important;
+                padding: 3px 6px !important;
+                margin: 2px !important;
+            }
+            
+            a {
+                font-size: 0.2rem !important;
+            }
+            
+            /* Ensure all animations scale properly */
+            .futuristic-glow,
+            .futuristic-grid,
+            .btn-glow {
+                transform: scale(0.3) !important;
+            }
+            
+            /* Modal optimizations */
+            .modal-content {
+                padding: 10px !important;
+                font-size: 0.2rem !important;
+            }
+            
+            .modal-header h2 {
+                font-size: 0.3rem !important;
+            }
+            
+            .form-group label {
+                font-size: 0.2rem !important;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 0.2rem !important;
+                padding: 3px !important;
+                height: 20px !important;
+            }
+            
+            /* Sidebar optimizations */
+            .cart-sidebar,
+            .wishlist-sidebar {
+                width: 80% !important;
+                padding: 10px !important;
+            }
+            
+            .sidebar-header h3 {
+                font-size: 0.3rem !important;
+            }
+            
+            .cart-item,
+            .wishlist-item {
+                padding: 5px !important;
+                font-size: 0.2rem !important;
+            }
+            
+            /* Dashboard optimizations */
+            .dashboard-header h2 {
+                font-size: 0.3rem !important;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 5px !important;
+            }
+            
+            .stat-card {
+                padding: 5px !important;
+                font-size: 0.2rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: clamp(6vh, 10vh, 12vh) !important; /* Even smaller for very small screens */
+            }
+            
+            .welcome-title {
+                font-size: clamp(0.25rem, 1vw, 0.4rem) !important;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(6, 1fr) !important;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
             }
         }
 
@@ -2802,15 +3131,16 @@
 
         /* Seller Dashboard Styles */
         .seller-dashboard {
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
             z-index: 10000;
             display: none;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .dashboard-header {
@@ -2909,7 +3239,8 @@
 
         .dashboard-container {
             display: flex;
-            height: clamp(60vh, 90vh, 100vh);
+            height: auto;
+            min-height: 100vh;
         }
 
         /* Responsive Dashboard Container */
@@ -3643,15 +3974,16 @@
 
         /* Admin Dashboard Styles */
         .admin-dashboard {
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
             z-index: 10000;
             display: none;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .admin-header {
@@ -4825,15 +5157,16 @@
 
         /* Seller Homepage Styles */
         .seller-homepage {
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
             z-index: 10000;
             display: none;
-            overflow-y: auto;
+            overflow: visible;
         }
 
         .homepage-header {
@@ -4842,7 +5175,7 @@
             padding: 15px 30px;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
-            position: sticky;
+            position: relative;
             top: 0;
             z-index: 10001;
         }
@@ -5552,14 +5885,15 @@
         /* NyumbaSure Homepage Styles - Completely Isolated */
         .nyumbasure-homepage {
             display: none;
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             z-index: 10000;
-            overflow-y: auto;
+            overflow: visible;
         }
 
         .nyumbasure-homepage.active {
@@ -5957,14 +6291,15 @@
         /* NyumbaSure Dashboard Styles - Completely Isolated */
         .nyumbasure-dashboard {
             display: none;
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
             background: #f8f9fa;
             z-index: 10000;
-            overflow-y: auto;
+            overflow: visible;
         }
 
         .nyumbasure-dashboard.active {
@@ -7703,7 +8038,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>About EcoLoop</h3>
-                    <p>We are Kenya's leading sustainable marketplace, connecting eco-conscious buyers with responsible sellers.</p>
+                    <!-- Removed unnecessary description text for mobile optimization -->
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
@@ -10766,10 +11101,7 @@
                 sellerDashboard.style.display = 'none';
             }
             
-            // Restore body scrolling
-            document.body.style.overflowY = 'auto';
-            document.body.style.overflowX = 'auto';
-            document.body.style.height = 'auto';
+            // Don't modify body overflow - keep unified scrolling
             
             // Show ALL main website sections for sellers
             showAllHomepageSections();
@@ -10787,14 +11119,7 @@
         function ensureProperScrollingForSellers() {
             console.log('📜 Ensuring proper scrolling for sellers on main website');
             
-            // Ensure body allows scrolling
-            document.body.style.overflowY = 'auto';
-            document.body.style.overflowX = 'auto';
-            document.body.style.height = 'auto';
-            document.body.style.minHeight = '100vh';
-            
-            // Ensure html element allows scrolling
-            document.documentElement.style.overflowY = 'auto';
+            // Don't modify body overflow - keep unified scrolling
             document.documentElement.style.overflowX = 'auto';
             document.documentElement.style.height = 'auto';
             
@@ -12293,7 +12618,7 @@
         window.addEventListener('click', function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                // Don't modify body overflow - keep unified scrolling
                 clearFormErrors(event.target.id);
             }
         });
@@ -12531,7 +12856,7 @@
         // Create product card
         function createProductCard(product) {
             return `
-                <div class="product-card futuristic-product">
+                <div class="product-card futuristic-product" onclick="showProductDetails(${product.id})" style="cursor: pointer;">
                     <div class="futuristic-particles"></div>
                     <div class="futuristic-glow"></div>
                     <img src="${product.image}" alt="${product.title}" class="product-image">
@@ -12540,8 +12865,8 @@
                         <div class="product-price">${product.price}</div>
                         <p class="product-description">${product.description}</p>
                         <div class="product-actions">
-                            <button class="btn futuristic-btn" onclick="showProductDetails(${product.id})">View Details</button>
-                            <button class="btn btn-wishlist" onclick="addToWishlist(${product.id})" title="Add to Wishlist">
+                            <button class="btn futuristic-btn view-details-btn" onclick="event.stopPropagation(); showProductDetails(${product.id})">View Details</button>
+                            <button class="btn btn-wishlist" onclick="event.stopPropagation(); addToWishlist(${product.id})" title="Add to Wishlist">
                                 <i class="fas fa-heart"></i>
                             </button>
                         </div>
@@ -12662,7 +12987,7 @@
             
             // Show modal
             document.getElementById('productDetailsModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             console.log(`📦 Showing details for product: ${product.title}`);
         }
@@ -12670,7 +12995,7 @@
         // Close product details modal
         function closeProductDetailsModal() {
             document.getElementById('productDetailsModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            // Don't modify body overflow - keep unified scrolling
             currentProduct = null;
         }
 
@@ -13140,7 +13465,7 @@
             
             cartSidebar.classList.add('open');
             overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             loadCartItems();
         }
@@ -13151,7 +13476,7 @@
             
             cartSidebar.classList.remove('open');
             overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            // Don't modify body overflow - keep unified scrolling
         }
 
         function toggleWishlist() {
@@ -13171,7 +13496,7 @@
             
             wishlistSidebar.classList.add('open');
             overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             loadWishlistItems();
         }
@@ -13182,7 +13507,7 @@
             
             wishlistSidebar.classList.remove('open');
             overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            // Don't modify body overflow - keep unified scrolling
         }
 
         function updateCartBadge() {
@@ -13366,7 +13691,7 @@
         // Show seller dashboard
         function showSellerDashboard() {
             document.getElementById('sellerDashboard').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             // Initialize seller dashboard
             initializeSellerDashboard();
@@ -13375,7 +13700,7 @@
         // Close seller dashboard
         function closeSellerDashboard() {
             document.getElementById('sellerDashboard').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            // Don't modify body overflow - keep unified scrolling
         }
 
         // Seller logout
@@ -13997,7 +14322,7 @@
         // Show admin dashboard
         function showAdminDashboard() {
             document.getElementById('adminDashboard').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             // Initialize admin dashboard
             initializeAdminDashboard();
@@ -14006,7 +14331,7 @@
         // Close admin dashboard
         function closeAdminDashboard() {
             document.getElementById('adminDashboard').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            // Don't modify body overflow - keep unified scrolling
         }
 
         // Admin logout
@@ -15179,8 +15504,7 @@
             const modal = document.getElementById('howItWorksModal');
             if (!modal) return;
             
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             // Show modal with animation
             modal.classList.add('active');
@@ -15203,8 +15527,7 @@
             // Hide modal
             modal.classList.remove('active');
             
-            // Restore body scroll
-            document.body.style.overflow = '';
+            // Don't modify body overflow - keep unified scrolling
             
             // Clear stats animation
             if (modalStatsAnimation) {
@@ -15226,8 +15549,7 @@
             const modal = document.getElementById('aboutUsModal');
             if (!modal) return;
             
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - allow unified scrolling
             
             // Show modal with animation
             modal.classList.add('active');
@@ -15245,8 +15567,7 @@
             // Hide modal
             modal.classList.remove('active');
             
-            // Restore body scroll
-            document.body.style.overflow = '';
+            // Don't modify body overflow - keep unified scrolling
             
             // Remove keyboard event listener
             document.removeEventListener('keydown', handleModalKeydown);
