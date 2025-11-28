@@ -403,13 +403,14 @@
     }
 }
 
-/* Footer Animations - Optimized for Boundaries and Performance */
+/* Footer Animations - Simple, Attractive, and Contained */
 .futuristic-footer {
     position: relative;
     overflow: hidden;
     will-change: transform; /* Optimize for smooth scrolling */
 }
 
+/* Simple gradient overlay animation */
 .futuristic-footer::before {
     content: '';
     position: absolute;
@@ -418,32 +419,30 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(
-        180deg,
+        135deg,
         transparent 0%,
-        var(--futuristic-primary) 50%,
+        rgba(0, 255, 255, 0.03) 25%,
+        rgba(255, 0, 255, 0.03) 50%,
+        rgba(255, 255, 0, 0.03) 75%,
         transparent 100%
     );
-    opacity: 0.03; /* Reduced opacity for performance */
-    animation: footerWave var(--animation-speed-slow) infinite linear;
+    opacity: 0.5;
+    animation: footerGradientShift 8s infinite ease-in-out;
     transform: translateZ(0); /* GPU acceleration */
 }
 
-@keyframes footerWave {
-    0% {
-        transform: translateZ(0) translateY(0);
-        opacity: 0.01;
+@keyframes footerGradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+        opacity: 0.3;
     }
     50% {
-        transform: translateZ(0) translateY(-20px);
-        opacity: 0.05;
-    }
-    100% {
-        transform: translateZ(0) translateY(0);
-        opacity: 0.01;
+        background-position: 100% 50%;
+        opacity: 0.6;
     }
 }
 
-/* Footer-specific particle constraints */
+/* Subtle floating dots animation */
 .futuristic-footer .futuristic-particles {
     position: absolute;
     top: 0;
@@ -452,36 +451,38 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
-    overflow: hidden; /* Ensure particles stay within footer */
+    overflow: hidden; /* Strict containment */
 }
 
 .futuristic-footer .particle {
     position: absolute;
-    background: var(--futuristic-primary);
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.6) 0%, transparent 70%);
     border-radius: 50%;
-    opacity: var(--particle-opacity);
-    animation: footerParticleFloat var(--animation-speed-slow) infinite ease-in-out;
-    max-width: 4px;
-    max-height: 4px;
+    opacity: 0;
+    animation: footerDotFloat 6s infinite ease-in-out;
+    width: 3px;
+    height: 3px;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
 }
 
-@keyframes footerParticleFloat {
+@keyframes footerDotFloat {
     0%, 100% {
-        transform: translateY(0) translateX(0) scale(1);
+        transform: translateY(0) scale(0.8);
         opacity: 0;
     }
-    10% {
-        opacity: calc(var(--particle-opacity) * 0.5); /* Reduced opacity */
-    }
-    90% {
-        opacity: calc(var(--particle-opacity) * 0.5);
+    20% {
+        opacity: 0.4;
     }
     50% {
-        transform: translateY(-30px) translateX(20px) scale(1.1); /* Smaller movement */
+        transform: translateY(-15px) scale(1.2);
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.4;
     }
 }
 
-/* Footer geometric pattern - contained */
+/* Gentle pulse lines */
 .futuristic-footer .futuristic-geometric {
     position: absolute;
     top: 0;
@@ -490,25 +491,28 @@
     height: 100%;
     pointer-events: none;
     z-index: 2;
-    opacity: 0.1; /* Reduced for performance */
+    opacity: 0.15;
     overflow: hidden;
-    background-size: 80px 80px, 100px 100px, 120px 120px;
-    animation: footerGeometricShift var(--animation-speed-slow) infinite linear;
+    background: 
+        linear-gradient(90deg, transparent 48%, rgba(0, 255, 255, 0.1) 49%, rgba(0, 255, 255, 0.1) 51%, transparent 52%),
+        linear-gradient(0deg, transparent 48%, rgba(255, 0, 255, 0.1) 49%, rgba(255, 0, 255, 0.1) 51%, transparent 52%);
+    background-size: 60px 60px, 60px 60px;
+    animation: footerLinePulse 10s infinite ease-in-out;
     transform: translateZ(0);
 }
 
-@keyframes footerGeometricShift {
-    0% {
-        background-position: 0 0, 0 0, 0 0;
-        transform: translateZ(0) rotate(0deg);
+@keyframes footerLinePulse {
+    0%, 100% {
+        opacity: 0.05;
+        background-size: 60px 60px, 60px 60px;
     }
-    100% {
-        background-position: 80px 80px, -100px 100px, 120px -120px;
-        transform: translateZ(0) rotate(360deg);
+    50% {
+        opacity: 0.2;
+        background-size: 65px 65px, 65px 65px;
     }
 }
 
-/* Footer wave effect - optimized */
+/* Subtle wave effect - contained */
 .futuristic-footer .futuristic-waves {
     position: absolute;
     top: 0;
@@ -522,40 +526,55 @@
 
 .futuristic-footer .wave {
     position: absolute;
-    width: 200%;
-    height: 100%;
+    width: 100%;
+    height: 2px;
     background: linear-gradient(90deg, 
         transparent, 
-        var(--futuristic-cyan) 20%, 
+        rgba(0, 255, 255, 0.2) 20%, 
         transparent 40%,
-        var(--futuristic-purple) 60%, 
+        rgba(255, 0, 255, 0.2) 60%, 
         transparent 80%);
-    animation: footerWaveFlow var(--animation-speed-medium) infinite linear;
-    opacity: 0.1; /* Reduced opacity */
+    animation: footerWaveFlow 4s infinite linear;
+    opacity: 0;
     transform: translateZ(0);
 }
 
+.futuristic-footer .wave:nth-child(1) {
+    top: 20%;
+    animation-delay: 0s;
+}
+
 .futuristic-footer .wave:nth-child(2) {
-    animation-delay: -var(--animation-speed-fast);
-    opacity: 0.08;
+    top: 50%;
+    animation-delay: 1s;
     background: linear-gradient(90deg, 
         transparent, 
-        var(--futuristic-green) 25%, 
+        rgba(255, 255, 0, 0.2) 25%, 
         transparent 45%,
-        var(--futuristic-primary) 75%, 
+        rgba(0, 255, 255, 0.2) 75%, 
         transparent 95%);
+}
+
+.futuristic-footer .wave:nth-child(3) {
+    top: 80%;
+    animation-delay: 2s;
 }
 
 @keyframes footerWaveFlow {
     0% {
         transform: translateZ(0) translateX(-100%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.6;
     }
     100% {
         transform: translateZ(0) translateX(100%);
+        opacity: 0;
     }
 }
 
-/* Footer glow - contained */
+/* Gentle glow effect */
 .futuristic-footer .futuristic-glow {
     position: absolute;
     top: 0;
@@ -565,27 +584,27 @@
     pointer-events: none;
     z-index: 3;
     background: radial-gradient(
-        circle at 50% 50%,
-        var(--futuristic-primary) 0%,
-        transparent 70%
+        ellipse at 50% 50%,
+        rgba(0, 255, 255, 0.02) 0%,
+        transparent 60%
     );
-    opacity: 0;
-    animation: footerGlowPulse var(--animation-speed-slow) infinite ease-in-out;
+    opacity: 0.5;
+    animation: footerGlowPulse 12s infinite ease-in-out;
     transform: translateZ(0);
 }
 
 @keyframes footerGlowPulse {
     0%, 100% {
-        opacity: 0;
-        transform: translateZ(0) scale(0.8);
+        opacity: 0.2;
+        transform: translateZ(0) scale(0.95);
     }
     50% {
-        opacity: calc(var(--glow-intensity) * 0.3); /* Reduced intensity */
-        transform: translateZ(0) scale(1.1);
+        opacity: 0.4;
+        transform: translateZ(0) scale(1.05);
     }
 }
 
-/* Footer grid - optimized */
+/* Minimal grid pattern */
 .futuristic-footer .futuristic-grid {
     position: absolute;
     top: 0;
@@ -594,23 +613,23 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.05; /* Very low opacity for performance */
+    opacity: 0.03;
     background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 0, 255, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: footerGridPulse var(--animation-speed-slow) infinite ease-in-out;
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: footerGridPulse 15s infinite ease-in-out;
     transform: translateZ(0);
 }
 
 @keyframes footerGridPulse {
     0%, 100% {
-        opacity: 0.02;
+        opacity: 0.01;
         transform: translateZ(0) scale(1);
     }
     50% {
-        opacity: 0.08;
-        transform: translateZ(0) scale(1.01); /* Minimal scale */
+        opacity: 0.05;
+        transform: translateZ(0) scale(1.02);
     }
 }
 

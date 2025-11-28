@@ -291,10 +291,10 @@ class FuturisticAnimationSystem {
         const container = document.createElement('div');
         container.className = 'futuristic-particles';
         
-        // Reduce particle count for footer to improve performance
+        // Minimal particles for footer to ensure smooth performance
         let particleCount = this.options.maxParticles;
         if (element.classList.contains('futuristic-footer')) {
-            particleCount = Math.min(particleCount, 15); // Fewer particles for footer
+            particleCount = Math.min(particleCount, 8); // Very few particles for footer
         }
         
         for (let i = 0; i < particleCount; i++) {
@@ -305,16 +305,16 @@ class FuturisticAnimationSystem {
             particle.style.left = `${Math.random() * 100}%`;
             particle.style.top = `${Math.random() * 100}%`;
             
-            // Smaller size for footer particles
+            // Small size for footer particles
             let size = Math.random() * 4 + 2;
             if (element.classList.contains('futuristic-footer')) {
-                size = Math.random() * 2 + 1; // Smaller for footer
+                size = Math.random() * 2 + 1; // Very small for footer
             }
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             
-            // Random animation delay
-            particle.style.animationDelay = `${Math.random() * 5}s`;
+            // Staggered animation delays for smooth performance
+            particle.style.animationDelay = `${Math.random() * 6}s`;
             
             container.appendChild(particle);
         }
@@ -332,10 +332,16 @@ class FuturisticAnimationSystem {
         const waves = document.createElement('div');
         waves.className = 'futuristic-waves';
         
-        for (let i = 0; i < 2; i++) {
+        // Create only 3 thin horizontal lines for footer
+        let waveCount = 2;
+        if (element.classList.contains('futuristic-footer')) {
+            waveCount = 3; // Exactly 3 thin lines for footer
+        }
+        
+        for (let i = 0; i < waveCount; i++) {
             const wave = document.createElement('div');
             wave.className = 'wave';
-            wave.style.animationDelay = `${i * 0.5}s`;
+            wave.style.animationDelay = `${i * 1}s`; // Staggered delays
             waves.appendChild(wave);
         }
         
