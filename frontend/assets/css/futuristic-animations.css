@@ -403,87 +403,42 @@
     }
 }
 
-/* Footer Animations - Simple, Attractive, and Contained */
-.futuristic-footer {
+/* Footer Animations - Very Simple, Contained to Black Panel Only */
+.container.futuristic-footer {
     position: relative;
     overflow: hidden;
-    will-change: transform; /* Optimize for smooth scrolling */
 }
 
-/* Simple gradient overlay animation */
-.futuristic-footer::before {
+/* Very simple glow effect */
+.container.futuristic-footer::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        135deg,
-        transparent 0%,
-        rgba(0, 255, 255, 0.03) 25%,
-        rgba(255, 0, 255, 0.03) 50%,
-        rgba(255, 255, 0, 0.03) 75%,
-        transparent 100%
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 255, 255, 0.02) 0%,
+        transparent 70%
     );
-    opacity: 0.5;
-    animation: footerGradientShift 8s infinite ease-in-out;
-    transform: translateZ(0); /* GPU acceleration */
-}
-
-@keyframes footerGradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-        opacity: 0.3;
-    }
-    50% {
-        background-position: 100% 50%;
-        opacity: 0.6;
-    }
-}
-
-/* Subtle floating dots animation */
-.futuristic-footer .futuristic-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    opacity: 0.3;
+    animation: simpleGlow 10s infinite ease-in-out;
     pointer-events: none;
     z-index: 1;
-    overflow: hidden; /* Strict containment */
 }
 
-.futuristic-footer .particle {
-    position: absolute;
-    background: radial-gradient(circle, rgba(0, 255, 255, 0.6) 0%, transparent 70%);
-    border-radius: 50%;
-    opacity: 0;
-    animation: footerDotFloat 6s infinite ease-in-out;
-    width: 3px;
-    height: 3px;
-    box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
-}
-
-@keyframes footerDotFloat {
+@keyframes simpleGlow {
     0%, 100% {
-        transform: translateY(0) scale(0.8);
-        opacity: 0;
-    }
-    20% {
-        opacity: 0.4;
+        opacity: 0.1;
     }
     50% {
-        transform: translateY(-15px) scale(1.2);
-        opacity: 0.8;
-    }
-    80% {
-        opacity: 0.4;
+        opacity: 0.3;
     }
 }
 
-/* Gentle pulse lines */
-.futuristic-footer .futuristic-geometric {
+/* Very simple dots - minimal and contained */
+.container.futuristic-footer .futuristic-particles {
     position: absolute;
     top: 0;
     left: 0;
@@ -491,91 +446,32 @@
     height: 100%;
     pointer-events: none;
     z-index: 2;
-    opacity: 0.15;
-    overflow: hidden;
-    background: 
-        linear-gradient(90deg, transparent 48%, rgba(0, 255, 255, 0.1) 49%, rgba(0, 255, 255, 0.1) 51%, transparent 52%),
-        linear-gradient(0deg, transparent 48%, rgba(255, 0, 255, 0.1) 49%, rgba(255, 0, 255, 0.1) 51%, transparent 52%);
-    background-size: 60px 60px, 60px 60px;
-    animation: footerLinePulse 10s infinite ease-in-out;
-    transform: translateZ(0);
-}
-
-@keyframes footerLinePulse {
-    0%, 100% {
-        opacity: 0.05;
-        background-size: 60px 60px, 60px 60px;
-    }
-    50% {
-        opacity: 0.2;
-        background-size: 65px 65px, 65px 65px;
-    }
-}
-
-/* Subtle wave effect - contained */
-.futuristic-footer .futuristic-waves {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
     overflow: hidden;
 }
 
-.futuristic-footer .wave {
+.container.futuristic-footer .particle {
     position: absolute;
-    width: 100%;
+    width: 2px;
     height: 2px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(0, 255, 255, 0.2) 20%, 
-        transparent 40%,
-        rgba(255, 0, 255, 0.2) 60%, 
-        transparent 80%);
-    animation: footerWaveFlow 4s infinite linear;
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 50%;
     opacity: 0;
-    transform: translateZ(0);
+    animation: simpleDot 8s infinite ease-in-out;
 }
 
-.futuristic-footer .wave:nth-child(1) {
-    top: 20%;
-    animation-delay: 0s;
-}
-
-.futuristic-footer .wave:nth-child(2) {
-    top: 50%;
-    animation-delay: 1s;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 0, 0.2) 25%, 
-        transparent 45%,
-        rgba(0, 255, 255, 0.2) 75%, 
-        transparent 95%);
-}
-
-.futuristic-footer .wave:nth-child(3) {
-    top: 80%;
-    animation-delay: 2s;
-}
-
-@keyframes footerWaveFlow {
-    0% {
-        transform: translateZ(0) translateX(-100%);
+@keyframes simpleDot {
+    0%, 100% {
         opacity: 0;
+        transform: translateY(0);
     }
     50% {
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateZ(0) translateX(100%);
-        opacity: 0;
+        opacity: 0.4;
+        transform: translateY(-5px);
     }
 }
 
-/* Gentle glow effect */
-.futuristic-footer .futuristic-glow {
+/* Very simple glow overlay */
+.container.futuristic-footer .futuristic-glow {
     position: absolute;
     top: 0;
     left: 0;
@@ -583,54 +479,35 @@
     height: 100%;
     pointer-events: none;
     z-index: 3;
-    background: radial-gradient(
-        ellipse at 50% 50%,
-        rgba(0, 255, 255, 0.02) 0%,
+    background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(0, 255, 255, 0.01) 50%,
         transparent 60%
     );
     opacity: 0.5;
-    animation: footerGlowPulse 12s infinite ease-in-out;
-    transform: translateZ(0);
+    animation: simpleOverlay 15s infinite linear;
 }
 
-@keyframes footerGlowPulse {
-    0%, 100% {
+@keyframes simpleOverlay {
+    0% {
+        background-position: 0% 50%;
         opacity: 0.2;
-        transform: translateZ(0) scale(0.95);
     }
     50% {
+        background-position: 100% 50%;
         opacity: 0.4;
-        transform: translateZ(0) scale(1.05);
+    }
+    100% {
+        background-position: 0% 50%;
+        opacity: 0.2;
     }
 }
 
-/* Minimal grid pattern */
-.futuristic-footer .futuristic-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.03;
-    background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 0, 255, 0.03) 1px, transparent 1px);
-    background-size: 80px 80px;
-    animation: footerGridPulse 15s infinite ease-in-out;
-    transform: translateZ(0);
-}
-
-@keyframes footerGridPulse {
-    0%, 100% {
-        opacity: 0.01;
-        transform: translateZ(0) scale(1);
-    }
-    50% {
-        opacity: 0.05;
-        transform: translateZ(0) scale(1.02);
-    }
+/* Ensure footer content stays on top */
+.container.futuristic-footer .footer-content {
+    position: relative;
+    z-index: 10;
 }
 
 /* Performance Optimizations */

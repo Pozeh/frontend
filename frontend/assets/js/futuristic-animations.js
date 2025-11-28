@@ -264,37 +264,30 @@ class FuturisticAnimationSystem {
     // CSS Animation System
     initCSSAnimation(containerId) {
         const container = this.containers.get(containerId);
-        const element = container.element;
+        if (!container) return;
         
-        // Add CSS classes
-        element.classList.add('futuristic-container');
-        
-        // Create particles if enabled
-        if (this.options.enableParticles && this.options.performanceMode !== 'low') {
-            this.createCSSParticles(element);
+        // For footer, only create very simple animations
+        if (container.element.classList.contains('futuristic-footer')) {
+            this.createCSSParticles(container.element);
+            this.createCSSGlow(container.element);
+        } else {
+            // For other elements, create full animations
+            this.createCSSParticles(container.element);
+            this.createCSSGeometric(container.element);
+            this.createCSSWaves(container.element);
+            this.createCSSGlow(container.element);
+            this.createCSSGrid(container.element);
         }
-        
-        // Create geometric patterns
-        this.createCSSGeometric(element);
-        
-        // Create waves
-        this.createCSSWaves(element);
-        
-        // Create glow effect
-        this.createCSSGlow(element);
-        
-        // Create grid
-        this.createCSSGrid(element);
     }
     
     createCSSParticles(element) {
         const container = document.createElement('div');
         container.className = 'futuristic-particles';
         
-        // Minimal particles for footer to ensure smooth performance
+        // Very minimal particles for footer
         let particleCount = this.options.maxParticles;
         if (element.classList.contains('futuristic-footer')) {
-            particleCount = Math.min(particleCount, 8); // Very few particles for footer
+            particleCount = 5; // Only 5 tiny dots for footer
         }
         
         for (let i = 0; i < particleCount; i++) {
@@ -305,16 +298,16 @@ class FuturisticAnimationSystem {
             particle.style.left = `${Math.random() * 100}%`;
             particle.style.top = `${Math.random() * 100}%`;
             
-            // Small size for footer particles
+            // Very small size for footer particles
             let size = Math.random() * 4 + 2;
             if (element.classList.contains('futuristic-footer')) {
-                size = Math.random() * 2 + 1; // Very small for footer
+                size = 2; // Fixed 2px size for footer
             }
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             
-            // Staggered animation delays for smooth performance
-            particle.style.animationDelay = `${Math.random() * 6}s`;
+            // Staggered animation delays
+            particle.style.animationDelay = `${Math.random() * 8}s`;
             
             container.appendChild(particle);
         }
