@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="viewport" content="width=1200, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EcoLoop Kenya - Sustainable Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/productLayer.css">
@@ -38,7 +38,119 @@
             min-height: 100vh; /* Ensure minimum full viewport height */
         }
 
-        /* Responsive Design for Mobile */
+        /* Force Desktop View on Mobile - Disable Responsive Design */
+        body {
+            min-width: 1200px !important;
+            width: 1200px !important;
+            max-width: 1200px !important;
+            overflow-x: auto !important;
+        }
+
+        /* Disable all media queries by overriding mobile styles */
+        @media (max-width: 1200px), (max-width: 768px), (max-width: 480px) {
+            /* Keep desktop layout on all screen sizes */
+            * {
+                min-width: unset !important;
+                max-width: unset !important;
+                width: unset !important;
+                height: unset !important;
+                padding: unset !important;
+                margin: unset !important;
+                font-size: unset !important;
+                flex-direction: unset !important;
+                grid-template-columns: unset !important;
+                grid-template-rows: unset !important;
+                display: unset !important;
+                position: unset !important;
+                transform: unset !important;
+            }
+            
+            /* Force desktop container styles */
+            .container {
+                padding: 0 20px !important;
+                max-width: 1200px !important;
+                margin: 0 auto !important;
+            }
+            
+            /* Force desktop header styles */
+            .header-content {
+                flex-direction: row !important;
+                text-align: left !important;
+                gap: 20px !important;
+            }
+            
+            /* Force desktop search styles */
+            .search-form {
+                flex-direction: row !important;
+                gap: 15px !important;
+            }
+            
+            .search-input, .search-select {
+                width: auto !important;
+                min-width: 200px !important;
+            }
+            
+            /* Force desktop grid layouts */
+            .featured-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+                gap: 30px !important;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+                gap: 30px !important;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+                gap: 30px !important;
+            }
+            
+            /* Force desktop cart sidebar */
+            .cart-sidebar, .wishlist-sidebar {
+                width: 400px !important;
+                right: -400px !important;
+            }
+            
+            /* Force desktop welcome panel */
+            .welcome-panel {
+                padding: 60px 40px !important;
+                margin: 0 auto !important;
+                max-width: 1200px !important;
+            }
+            
+            /* Force desktop product details */
+            .product-details-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 40px !important;
+                padding: 40px !important;
+            }
+            
+            /* Force desktop dashboard */
+            .dashboard-sidebar {
+                width: 280px !important;
+            }
+            
+            .dashboard-content {
+                margin-left: 280px !important;
+            }
+            
+            /* Force desktop modals */
+            .modal-content {
+                width: 600px !important;
+                max-height: 80vh !important;
+                margin: 50px auto !important;
+            }
+            
+            /* Force desktop footer */
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+                gap: 40px !important;
+            }
+        }
+
+        /* Original Responsive Design (DISABLED - Force Desktop View) */
+        /* 
         @media (max-width: 1200px) {
             .container {
                 padding: 0 15px;
@@ -76,6 +188,7 @@
                 padding: 15px;
             }
         }
+        */
 
         /* Header Styles */
         .top-header {
@@ -750,12 +863,15 @@
             display: block;
         }
 
+        /* Cart Sidebar Mobile Responsive (DISABLED) */
+        /* 
         @media (max-width: 768px) {
             .cart-sidebar, .wishlist-sidebar {
                 width: 100%;
                 right: -100%;
             }
         }
+        */
 
         /* Futuristic Hero Section with Enhanced Design */
         .hero {
@@ -924,7 +1040,8 @@
             pointer-events: none;
         }
 
-        /* Responsive adjustments for futuristic backgrounds */
+        /* Futuristic Background Responsive (DISABLED) */
+        /* 
         @media (max-width: 1200px) {
             .futuristic-background-left,
             .futuristic-background-right {
@@ -958,9 +1075,10 @@
             }
             
             .neon-particle-waves {
-                background-size: 30px 30px, 35px 35px, 40px 40px;
+                background-size: 25px 25px, 35px 35px, 45px 45px;
             }
         }
+        */
 
         .hero-background {
             position: absolute;
@@ -1804,9 +1922,22 @@
                 border-radius: 30px; /* Match panel border radius */
             }
 
+            .welcome-title {
+                font-size: clamp(1.5rem, 4vw, 2.5rem);
+                letter-spacing: 1px;
+            }
+
+            .welcome-subtitle {
+                font-size: clamp(0.8rem, 2.5vw, 1rem);
+            }
+
             .futuristic-btn {
                 padding: 12px 30px;
                 font-size: 0.9rem;
+            }
+
+            .panel-neon-grid {
+                background-size: 20px 20px;
             }
         }
 
