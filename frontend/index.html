@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=1200, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EcoLoop Kenya - Sustainable Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/proportional-scaling.css">
     <link rel="stylesheet" href="assets/css/futuristic-animations.css">
     <!-- Old Animation CSS (DISABLED) -->
     <!-- <link rel="stylesheet" href="assets/css/productLayer.css"> -->
@@ -142,85 +141,10 @@
             }
         }
 
-        /* DISABLE ALL RESPONSIVE MEDIA QUERIES - FORCE DESKTOP LAYOUT */
-        /* This overrides all responsive behaviors to maintain desktop layout on mobile */
-        
-        /* Override all media queries with desktop-first approach */
-        @media (max-width: 1200px), (max-width: 768px), (max-width: 480px) {
-            /* DO NOT APPLY ANY MOBILE STYLES - KEEP DESKTOP LAYOUT */
-            .container {
-                width: 100% !important;
-                max-width: 1200px !important;
-                padding: 0 20px !important;
-                margin: 0 auto !important;
-            }
-            
-            /* Force desktop navigation */
-            .homepage-nav {
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-            }
-            
-            /* Force desktop header */
-            .top-header {
-                padding: 10px 0 !important;
-                height: auto !important;
-            }
-            
-            /* Force desktop welcome panel */
-            .welcome-panel {
-                padding: 60px 40px !important;
-                margin: 0 auto !important;
-            }
-            
-            /* Force desktop product grid */
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-                gap: 20px !important;
-            }
-            
-            /* Force desktop modals */
-            .modal-content {
-                width: 600px !important;
-                max-width: 90vw !important;
-                margin: 50px auto !important;
-            }
-            
-            /* Force desktop footer */
-            .footer-content {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-                gap: 40px !important;
-            }
-            
-            /* Force desktop dashboard */
-            .dashboard-sidebar {
-                width: 250px !important;
-            }
-            
-            /* Force desktop forms */
-            .search-form {
-                flex-direction: row !important;
-            }
-            
-            /* Disable all mobile-specific animations */
-            .header-particle {
-                width: 2px !important;
-                height: 2px !important;
-            }
-            
-            /* Disable mobile ocean effects */
-            .ocean-waves,
-            .ocean-currents,
-            .ocean-reflections {
-                display: none !important;
-            }
-        }
-        
-        /* Additional overrides for specific responsive classes */
+        /* Original Responsive Design (DISABLED - Force Desktop View) */
+        /* 
         @media (max-width: 1200px) {
             .container {
-                padding: 0 20px !important;
                 padding: 0 15px;
             }
         }
@@ -16048,9 +15972,6 @@
     
     <!-- Futuristic Animation System -->
     <script src="assets/js/futuristic-animations.js"></script>
-    
-    <!-- Proportional Scaling System -->
-    <script src="assets/js/proportional-scaling.js"></script>
     
     <!-- Initialize Animation System -->
     <script>
