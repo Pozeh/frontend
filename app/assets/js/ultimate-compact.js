@@ -38,13 +38,20 @@ class UltimateCompactScaling {
         const vh = window.innerHeight;
         let scale = 1;
         
-        // Dynamic scaling based on viewport height
-        if (vh <= 640) scale = 0.70;
-        else if (vh <= 700) scale = 0.75;
-        else if (vh <= 770) scale = 0.78;
-        else if (vh <= 820) scale = 0.82;
-        else if (vh <= 880) scale = 0.85;
-        else scale = 0.90;
+        // More aggressive scaling for standard Android screen sizes
+        // Common Android viewport heights:
+        // - Small phones: 560px-640px
+        // - Standard phones: 640px-720px  
+        // - Large phones: 720px-800px
+        // - Tablets: 800px-900px
+        
+        if (vh <= 560) scale = 0.55;      // Ultra-small phones
+        else if (vh <= 640) scale = 0.60; // Small phones
+        else if (vh <= 720) scale = 0.65; // Standard phones
+        else if (vh <= 800) scale = 0.70; // Large phones
+        else if (vh <= 900) scale = 0.75; // Small tablets
+        else if (vh <= 1000) scale = 0.80; // Tablets
+        else scale = 0.85;                 // Large tablets
         
         // Set CSS custom property
         document.documentElement.style.setProperty("--compact-scale", scale);
@@ -121,7 +128,7 @@ class UltimateCompactScaling {
         
         if (header && footer) {
             const headerHeight = header.offsetHeight || 60;
-            const footerHeight = footer.offsetHeight || 40;
+            const footerHeight = footer.offsetHeight || 45; // Updated to 45px
             
             // Update CSS custom properties
             document.documentElement.style.setProperty("--compact-header-height", headerHeight + 'px');

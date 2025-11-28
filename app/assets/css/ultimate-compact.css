@@ -32,8 +32,8 @@
     :root {
         --compact-scale: 0.78;
         --compact-header-height: 60px;
-        --compact-footer-height: 40px;
-        --compact-middle-height: calc(100vh - 100px);
+        --compact-footer-height: 45px; /* Updated to match new footer size */
+        --compact-middle-height: calc(100vh - 105px); /* 60px + 45px = 105px */
         
         /* Ultra-compact spacing */
         --compact-xs: 1px;
@@ -114,7 +114,7 @@
     }
     
     /* ========================================
-       FIXED FOOTER (ALWAYS VISIBLE)
+       ULTRA-COMPACT FOOTER (NEARLY SAME SIZE AS HEADER)
        ======================================== */
     .mobile-footer,
     footer,
@@ -123,14 +123,15 @@
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        height: var(--compact-footer-height) !important;
-        max-height: 40px !important;
+        height: 45px !important; /* Slightly smaller than header (60px) */
+        max-height: 45px !important;
         z-index: 9999 !important;
         background: rgba(0, 0, 0, 0.95) !important;
         backdrop-filter: blur(10px) !important;
         border-top: 1px solid rgba(0, 255, 255, 0.2) !important;
-        padding: var(--compact-xs) var(--compact-sm) !important;
+        padding: 2px 4px !important;
         margin: 0 !important;
+        overflow: hidden !important;
     }
     
     .mobile-footer-content {
@@ -140,7 +141,7 @@
         height: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
-        gap: var(--compact-xs) !important;
+        gap: 1px !important;
     }
     
     .mobile-footer-section {
@@ -148,65 +149,84 @@
         text-align: center !important;
         padding: 0 !important;
         margin: 0 !important;
+        min-width: 0 !important;
+        max-width: 25% !important;
     }
     
-    .mobile-footer-section h4 {
-        display: none !important; /* Hide titles on mobile */
-    }
-    
-    .mobile-footer-section p {
-        display: none !important; /* Hide descriptions on mobile */
+    /* Hide ALL footer text content on mobile */
+    .mobile-footer-section h4,
+    .mobile-footer-section p,
+    .mobile-footer-section span,
+    .mobile-footer-section div {
+        display: none !important;
     }
     
     .mobile-footer-links {
-        display: none !important; /* Hide links on mobile */
+        display: none !important;
     }
     
     .mobile-footer-bottom {
-        display: none !important; /* Hide bottom section on mobile */
+        display: none !important;
     }
     
     .mobile-social-links {
         display: flex !important;
-        gap: var(--compact-xs) !important;
+        gap: 1px !important;
         justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     
     .mobile-social-links a {
-        width: 10px !important;
-        height: 10px !important;
-        font-size: 6px !important;
+        width: 8px !important;
+        height: 8px !important;
+        font-size: 5px !important;
         padding: 0 !important;
         margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
-    /* Icon-only footer navigation */
+    /* Ultra-compact icon-only footer navigation */
     .mobile-footer-section[data-section="home"]::before {
         content: "🏠" !important;
-        font-size: 8px !important;
+        font-size: 7px !important;
         display: block !important;
         margin: 0 !important;
+        line-height: 1 !important;
     }
     
     .mobile-footer-section[data-section="categories"]::before {
         content: "📦" !important;
-        font-size: 8px !important;
+        font-size: 7px !important;
         display: block !important;
         margin: 0 !important;
+        line-height: 1 !important;
     }
     
     .mobile-footer-section[data-section="account"]::before {
         content: "👤" !important;
-        font-size: 8px !important;
+        font-size: 7px !important;
         display: block !important;
         margin: 0 !important;
+        line-height: 1 !important;
     }
     
     .mobile-footer-section[data-section="contact"]::before {
         content: "📞" !important;
-        font-size: 8px !important;
+        font-size: 7px !important;
         display: block !important;
         margin: 0 !important;
+        line-height: 1 !important;
+    }
+    
+    /* Remove all footer animations and backgrounds */
+    .mobile-footer .animated-bg,
+    .mobile-footer .canvas-animation,
+    .mobile-footer .particle-bg,
+    .mobile-footer .futuristic-footer-bg {
+        display: none !important;
     }
     
     /* ========================================
@@ -480,13 +500,13 @@
     }
     
     /* ========================================
-       REMOVE ALL EXCESS HEIGHT
+       REMOVE ALL EXCESS HEIGHT - ULTRA COMPACT
        ======================================== */
     .spacer,
     .gap,
     .divider,
     [class*="separator"] {
-        height: var(--compact-xs) !important;
+        height: 1px !important;
         margin: 0 !important;
         padding: 0 !important;
     }
@@ -495,22 +515,71 @@
     .main-banner,
     .welcome-section,
     .mobile-welcome-panel {
-        min-height: 40px !important;
-        max-height: 60px !important;
-        padding: var(--compact-sm) !important;
-        margin: var(--compact-xs) 0 !important;
+        min-height: 25px !important;
+        max-height: 35px !important;
+        padding: 2px 3px !important;
+        margin: 1px 0 !important;
     }
     
     .hero-title,
     .welcome-title {
-        font-size: var(--compact-xl-font) !important;
-        margin-bottom: var(--compact-xs) !important;
+        font-size: var(--compact-md-font) !important;
+        margin-bottom: 1px !important;
+        line-height: 1.1 !important;
     }
     
     .hero-subtitle,
     .welcome-subtitle {
-        font-size: var(--compact-sm-font) !important;
-        margin-bottom: var(--compact-xs) !important;
+        font-size: var(--compact-xs-font) !important;
+        margin-bottom: 1px !important;
+        line-height: 1.1 !important;
+    }
+    
+    /* Ultra-compact seller dashboard */
+    .seller-dashboard,
+    .dashboard-panel,
+    .stats-panel,
+    .mobile-seller-dashboard {
+        padding: 2px !important;
+        margin: 1px 0 !important;
+        min-height: 30px !important;
+        max-height: 40px !important;
+    }
+    
+    /* Ultra-compact categories */
+    .categories-section,
+    .mobile-categories-section {
+        padding: 2px !important;
+        margin: 1px 0 !important;
+        min-height: 35px !important;
+        max-height: 45px !important;
+    }
+    
+    /* Ultra-compact featured products */
+    .featured-section,
+    .mobile-featured-section {
+        padding: 2px !important;
+        margin: 1px 0 !important;
+        min-height: 40px !important;
+        max-height: 50px !important;
+    }
+    
+    /* Ultra-compact NyumbaSure */
+    .nyumbasure-section,
+    .mobile-nyumbasure-panel {
+        padding: 2px !important;
+        margin: 1px 0 !important;
+        min-height: 30px !important;
+        max-height: 40px !important;
+    }
+    
+    /* Ultra-compact shop banners */
+    .shop-banners,
+    .mobile-shop-banners {
+        padding: 2px !important;
+        margin: 1px 0 !important;
+        min-height: 25px !important;
+        max-height: 35px !important;
     }
     
     /* ========================================
@@ -553,7 +622,16 @@
     @media (orientation: landscape) and (max-width: 768px) {
         :root {
             --compact-header-height: 50px;
-            --compact-footer-height: 35px;
+            --compact-footer-height: 35px; /* Smaller in landscape */
+        }
+        
+        .mobile-header {
+            height: 50px !important;
+        }
+        
+        .mobile-footer {
+            height: 35px !important;
+            max-height: 35px !important;
         }
         
         .mobile-footer-section::before {
@@ -561,9 +639,31 @@
         }
         
         .mobile-social-links a {
-            width: 8px !important;
-            height: 8px !important;
-            font-size: 5px !important;
+            width: 6px !important;
+            height: 6px !important;
+            font-size: 4px !important;
+        }
+        
+        /* Even more compact in landscape */
+        .hero,
+        .welcome-section {
+            min-height: 20px !important;
+            max-height: 25px !important;
+        }
+        
+        .seller-dashboard {
+            min-height: 25px !important;
+            max-height: 30px !important;
+        }
+        
+        .categories-section {
+            min-height: 25px !important;
+            max-height: 30px !important;
+        }
+        
+        .featured-section {
+            min-height: 30px !important;
+            max-height: 35px !important;
         }
     }
     
