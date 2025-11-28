@@ -46,25 +46,8 @@
             overflow-x: auto !important;
         }
 
-        /* Disable all media queries by overriding mobile styles */
+        /* Override specific mobile responsive styles without breaking layout */
         @media (max-width: 1200px), (max-width: 768px), (max-width: 480px) {
-            /* Keep desktop layout on all screen sizes */
-            * {
-                min-width: unset !important;
-                max-width: unset !important;
-                width: unset !important;
-                height: unset !important;
-                padding: unset !important;
-                margin: unset !important;
-                font-size: unset !important;
-                flex-direction: unset !important;
-                grid-template-columns: unset !important;
-                grid-template-rows: unset !important;
-                display: unset !important;
-                position: unset !important;
-                transform: unset !important;
-            }
-            
             /* Force desktop container styles */
             .container {
                 padding: 0 20px !important;
@@ -77,12 +60,14 @@
                 flex-direction: row !important;
                 text-align: left !important;
                 gap: 20px !important;
+                display: flex !important;
             }
             
             /* Force desktop search styles */
             .search-form {
                 flex-direction: row !important;
                 gap: 15px !important;
+                display: flex !important;
             }
             
             .search-input, .search-select {
@@ -94,16 +79,19 @@
             .featured-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
                 gap: 30px !important;
+                display: grid !important;
             }
             
             .categories-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
                 gap: 30px !important;
+                display: grid !important;
             }
             
             .products-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
                 gap: 30px !important;
+                display: grid !important;
             }
             
             /* Force desktop cart sidebar */
@@ -124,6 +112,7 @@
                 grid-template-columns: 1fr 1fr !important;
                 gap: 40px !important;
                 padding: 40px !important;
+                display: grid !important;
             }
             
             /* Force desktop dashboard */
@@ -146,6 +135,7 @@
             .footer-content {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
                 gap: 40px !important;
+                display: grid !important;
             }
         }
 
