@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoLoop Kenya - Sustainable Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/futuristic-animations.css">
-    <link rel="stylesheet" href="assets/css/desktop-scaling.css">
     <!-- Old Animation CSS (DISABLED) -->
     <!-- <link rel="stylesheet" href="assets/css/productLayer.css"> -->
     <style>
@@ -40,148 +39,6 @@
             height: auto; /* Allow body to grow naturally */
             min-height: 100vh; /* Ensure minimum full viewport height */
         }
-
-        /* Force Desktop View on Mobile - Disable Responsive Design */
-        body {
-            min-width: 1200px !important;
-            width: 1200px !important;
-            max-width: 1200px !important;
-            overflow-x: auto !important;
-        }
-
-        /* Override specific mobile responsive styles without breaking layout */
-        @media (max-width: 1200px), (max-width: 768px), (max-width: 480px) {
-            /* Force desktop container styles */
-            .container {
-                padding: 0 20px !important;
-                max-width: 1200px !important;
-                margin: 0 auto !important;
-            }
-            
-            /* Force desktop header styles */
-            .header-content {
-                flex-direction: row !important;
-                text-align: left !important;
-                gap: 20px !important;
-                display: flex !important;
-            }
-            
-            /* Force desktop search styles */
-            .search-form {
-                flex-direction: row !important;
-                gap: 15px !important;
-                display: flex !important;
-            }
-            
-            .search-input, .search-select {
-                width: auto !important;
-                min-width: 200px !important;
-            }
-            
-            /* Force desktop grid layouts */
-            .featured-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-                gap: 30px !important;
-                display: grid !important;
-            }
-            
-            .categories-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-                gap: 30px !important;
-                display: grid !important;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-                gap: 30px !important;
-                display: grid !important;
-            }
-            
-            /* Force desktop cart sidebar */
-            .cart-sidebar, .wishlist-sidebar {
-                width: 400px !important;
-                right: -400px !important;
-            }
-            
-            /* Force desktop welcome panel */
-            .welcome-panel {
-                padding: 60px 40px !important;
-                margin: 0 auto !important;
-                max-width: 1200px !important;
-            }
-            
-            /* Force desktop product details */
-            .product-details-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 40px !important;
-                padding: 40px !important;
-                display: grid !important;
-            }
-            
-            /* Force desktop dashboard */
-            .dashboard-sidebar {
-                width: 280px !important;
-            }
-            
-            .dashboard-content {
-                margin-left: 280px !important;
-            }
-            
-            /* Force desktop modals */
-            .modal-content {
-                width: 600px !important;
-                max-height: 80vh !important;
-                margin: 50px auto !important;
-            }
-            
-            /* Force desktop footer */
-            .footer-content {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-                gap: 40px !important;
-                display: grid !important;
-            }
-        }
-
-        /* Original Responsive Design (DISABLED - Force Desktop View) */
-        /* 
-        @media (max-width: 1200px) {
-            .container {
-                padding: 0 15px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .search-form {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .search-input, .search-select {
-                width: 100%;
-            }
-            
-            .featured-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-header {
-                padding: 5px 0;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .search-bar {
-                padding: 15px;
-            }
-        }
-        */
 
         /* Header Styles */
         .top-header {
@@ -856,16 +713,6 @@
             display: block;
         }
 
-        /* Cart Sidebar Mobile Responsive (DISABLED) */
-        /* 
-        @media (max-width: 768px) {
-            .cart-sidebar, .wishlist-sidebar {
-                width: 100%;
-                right: -100%;
-            }
-        }
-        */
-
         /* Futuristic Hero Section with Enhanced Design */
         .hero {
             position: relative;
@@ -1032,46 +879,6 @@
             height: 100%;
             pointer-events: none;
         }
-
-        /* Futuristic Background Responsive (DISABLED) */
-        /* 
-        @media (max-width: 1200px) {
-            .futuristic-background-left,
-            .futuristic-background-right {
-                width: 30%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .futuristic-background-left,
-            .futuristic-background-right {
-                width: 25%;
-            }
-            
-            .cybernetic-grid {
-                background-size: 30px 30px;
-            }
-            
-            .neon-particle-waves {
-                background-size: 40px 40px, 50px 50px, 60px 60px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .futuristic-background-left,
-            .futuristic-background-right {
-                width: 20%;
-            }
-            
-            .cybernetic-grid {
-                background-size: 20px 20px;
-            }
-            
-            .neon-particle-waves {
-                background-size: 25px 25px, 35px 35px, 45px 45px;
-            }
-        }
-        */
 
         .hero-background {
             position: absolute;
@@ -15974,9 +15781,6 @@
     <!-- Futuristic Animation System -->
     <script src="assets/js/futuristic-animations.js"></script>
     
-    <!-- Desktop Scaling System -->
-    <script src="assets/js/desktop-scaling.js"></script>
-    
     <!-- Initialize Animation System -->
     <script>
         // Initialize futuristic animations when DOM is ready
@@ -16003,7 +15807,6 @@
             
             // The animation system will automatically initialize
             console.log('🚀 Futuristic Animation System Initialized');
-            console.log('🖥️ Desktop Scaling System Initialized');
         });
     </script>
 </body>
