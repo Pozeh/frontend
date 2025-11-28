@@ -4636,6 +4636,26 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .quick-stats {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .homepage-content {
+                padding: 20px 15px;
+            }
+        }
+
         /* ============================================
            NYUMBASURE STYLES - COMPLETELY ISOLATED
            ============================================ */
@@ -4948,6 +4968,50 @@
             50% { 
                 transform: translate(-50%, -50%) scale(1.3); 
                 opacity: 0.1; 
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nyumbasure-icon-container {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .nyumbasure-icon-wrapper {
+                padding: 12px;
+            }
+            
+            .nyumbasure-icon {
+                font-size: 28px;
+            }
+            
+            .nyumbasure-text {
+                font-size: 11px;
+            }
+            
+            .nyumbasure-tooltip {
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nyumbasure-icon-container {
+                top: 8px;
+                right: 8px;
+            }
+            
+            .nyumbasure-icon-wrapper {
+                padding: 10px;
+            }
+            
+            .nyumbasure-icon {
+                font-size: 24px;
+            }
+            
+            .nyumbasure-text {
+                font-size: 10px;
             }
         }
 
@@ -5542,6 +5606,58 @@
             z-index: 10;
         }
 
+        /* Responsive adjustments for header animations */
+        @media (max-width: 768px) {
+            .header-particle {
+                width: 1.5px;
+                height: 1.5px;
+            }
+            
+            .header-light-trail {
+                width: 60px;
+            }
+            
+            .header-floating-node {
+                width: 3px;
+                height: 3px;
+            }
+            
+            .header-glow-orb {
+                width: 20px;
+                height: 20px;
+            }
+            
+            /* Reduce animation intensity on mobile for better performance */
+            .header-particle,
+            .header-light-trail,
+            .header-floating-node,
+            .header-glow-orb,
+            .header-grid-line {
+                animation-duration: 20s !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-particle {
+                width: 1px;
+                height: 1px;
+            }
+            
+            .header-light-trail {
+                width: 40px;
+            }
+            
+            .header-floating-node {
+                width: 2px;
+                height: 2px;
+            }
+            
+            .header-glow-orb {
+                width: 15px;
+                height: 15px;
+            }
+        }
+
         .nyumbasure-dashboard-nav {
             display: flex;
             justify-content: space-between;
@@ -5740,6 +5856,45 @@
         .nyumbasure-status-rejected {
             background: #dc3545;
             color: white;
+        }
+
+        /* Responsive Design for NyumbaSure */
+        @media (max-width: 768px) {
+            .nyumbasure-icon-container {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                transform: scale(0.8);
+                opacity: 1;
+                animation: none;
+            }
+
+            .nyumbasure-search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .nyumbasure-form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .nyumbasure-dashboard-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nyumbasure-dashboard-nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nyumbasure-navigation {
+                position: static;
+                justify-content: center;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 15px;
+                margin: 20px;
+            }
         }
 
         /* ============================================
@@ -6030,7 +6185,46 @@
             backface-visibility: hidden;
         }
         
-        /* ============================================
+        /* Responsive atomic space animations */
+        @media (max-width: 768px) {
+            .atomic-space-background {
+                opacity: 0.7;
+            }
+            
+            .atomic-particles-layer {
+                animation-duration: 30s;
+                background-size: 40px 40px, 50px 50px, 35px 35px, 45px 45px;
+            }
+            
+            .molecular-connections-layer {
+                animation-duration: 25s;
+                background-size: 150px 150px, 120px 120px, 250px 250px;
+            }
+            
+            .orbital-nodes-layer {
+                animation-duration: 35s;
+                background-size: 80px 80px, 100px 100px, 70px 70px, 90px 90px, 150px 150px;
+            }
+            
+            .cosmic-glow-layer {
+                animation-duration: 20s;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .atomic-space-background {
+                opacity: 0.5;
+            }
+            
+            .atomic-particles-layer {
+                background-size: 30px 30px, 35px 35px, 25px 25px, 32px 32px;
+            }
+            
+            .orbital-nodes-layer {
+                background-size: 60px 60px, 70px 70px, 50px 50px, 65px 65px, 120px 120px;
+            }
+        }
+    /* ============================================
            FUTURISTIC FOOTER MODALS
            ============================================ */
         
@@ -6759,7 +6953,83 @@
             transform: translateY(-5px) rotate(360deg);
         }
         
-        </style>
+        /* Responsive Design for Modals */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                max-height: 95%;
+                margin: 20px auto;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-title {
+                font-size: 20px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .dashboard-intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .flow-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-intro {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .values-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 98%;
+                margin: 10px auto;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .values-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Top Header -->
@@ -6791,7 +7061,7 @@
     <header class="main-header">
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">🌿 EcoLoop Kenya</a>
+                <a href="#" class="logo" onclick="restoreMainViews(); return false;">🌿 EcoLoop Kenya</a>
                 <div class="search-bar">
                     <input type="text" class="search-input" id="searchInput" placeholder="Search for products...">
                 </div>
@@ -10165,6 +10435,32 @@
             modals.forEach(modal => modal.style.display = 'none');
         }
 
+        function restoreMainViews() {
+            // Restore main website sections
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) heroSection.style.display = 'block';
+            
+            const mainContent = document.querySelector('.container');
+            if (mainContent && mainContent.parentElement.classList.contains('main-content')) {
+                mainContent.parentElement.style.display = 'block';
+            }
+            
+            // Hide seller-specific sections
+            const sellerDashboard = document.getElementById('sellerDashboard');
+            if (sellerDashboard) sellerDashboard.style.display = 'none';
+            
+            const unifiedHomepage = document.getElementById('unifiedSellerHomepage');
+            if (unifiedHomepage) unifiedHomepage.style.display = 'none';
+            
+            // Hide any modals
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => modal.style.display = 'none');
+            
+            // Reset navigation state
+            localStorage.removeItem('currentSellerView');
+            console.log('✅ Main views restored');
+        }
+
         async function showUnifiedSellerHomepage(sellerData) {
             console.log('📊 Loading Unified Seller Homepage for:', sellerData.email);
             
@@ -11271,6 +11567,20 @@
 
                 if (data.success) {
                     currentUser = null;
+                    localStorage.removeItem('currentUser');
+                    restoreMainViews();
+                    showToast('Logged out successfully!', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    showToast(data.message || 'Logout failed', 'error');
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                showToast('Logout failed. Please try again.', 'error');
+            }
+        }
                     updateAuthUI();
                     
                     // Hide dashboards
@@ -11638,6 +11948,45 @@
         function loadCategories() {
             const grid = document.getElementById('categoriesGrid');
             if (!grid) return;
+        }
+
+        // Handle browser back button
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.sellerHomepage) {
+                // User navigated back from seller homepage
+                restoreMainViews();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌐 EcoLoop Kenya - Website initialized');
+            loadCategories();
+            loadProducts();
+            setupSearch();
+            
+            // Check if user is logged in and restore appropriate view
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    updateAuthUI();
+                    
+                    // Check if we need to restore a specific view
+                    const currentView = localStorage.getItem('currentSellerView');
+                    if (currentView === 'homepage') {
+                        // Don't auto-show seller homepage on load, let user navigate
+                        restoreMainViews();
+                    }
+                } catch (error) {
+                    console.error('Error parsing saved user data:', error);
+                    localStorage.removeItem('currentUser');
+                    restoreMainViews();
+                }
+            } else {
+                restoreMainViews();
+            }
+        });
             
             // Update category counts based on products
             categories.forEach(category => {
@@ -12530,6 +12879,7 @@
         // Seller logout
         function sellerLogout() {
             closeSellerDashboard();
+            restoreMainViews();
             // Use existing logout function
             if (typeof authManager !== 'undefined') {
                 authManager.logout();
