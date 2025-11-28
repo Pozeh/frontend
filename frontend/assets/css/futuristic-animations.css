@@ -1,0 +1,540 @@
+/* EcoLoop Kenya - Futuristic Animation System */
+/* Lightweight, Performance-Optimized Animations */
+
+/* Animation Configuration Variables */
+:root {
+    /* Primary Animation Colors */
+    --futuristic-primary: #00ffff;
+    --futuristic-secondary: #ff00ff;
+    --futuristic-accent: #ffff00;
+    --futuristic-cyan: #00ced1;
+    --futuristic-purple: #9400d3;
+    --futuristic-green: #39ff14;
+    
+    /* Animation Speed Controls */
+    --animation-speed-slow: 8s;
+    --animation-speed-medium: 4s;
+    --animation-speed-fast: 2s;
+    --animation-speed-ultra: 1s;
+    
+    /* Particle Density Controls */
+    --particle-density-low: 15;
+    --particle-density-medium: 30;
+    --particle-density-high: 50;
+    
+    /* Performance Tiers */
+    --performance-mode: balanced; /* low, balanced, high */
+    
+    /* Animation Intensity */
+    --glow-intensity: 0.8;
+    --particle-opacity: 0.6;
+    --wave-amplitude: 20px;
+}
+
+/* Performance Detection */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --animation-speed-slow: 20s;
+        --animation-speed-medium: 12s;
+        --animation-speed-fast: 8s;
+        --animation-speed-ultra: 4s;
+        --glow-intensity: 0.3;
+        --particle-opacity: 0.2;
+        --wave-amplitude: 5px;
+    }
+}
+
+/* Base Animation Classes */
+.futuristic-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* CSS Particle System - Ultra Lightweight */
+.futuristic-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: var(--futuristic-primary);
+    border-radius: 50%;
+    opacity: var(--particle-opacity);
+    animation: particleFloat var(--animation-speed-slow) infinite ease-in-out;
+}
+
+.particle:nth-child(odd) {
+    background: var(--futuristic-secondary);
+    animation-duration: var(--animation-speed-medium);
+}
+
+.particle:nth-child(even) {
+    background: var(--futuristic-accent);
+    animation-duration: var(--animation-speed-fast);
+}
+
+@keyframes particleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--particle-opacity);
+    }
+    90% {
+        opacity: var(--particle-opacity);
+    }
+    50% {
+        transform: translateY(-100px) translateX(50px) scale(1.2);
+    }
+}
+
+/* Geometric Pattern Animation - CSS Only */
+.futuristic-geometric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+    background-image: 
+        linear-gradient(45deg, transparent 48%, var(--futuristic-primary) 49%, var(--futuristic-primary) 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, var(--futuristic-secondary) 49%, var(--futuristic-secondary) 51%, transparent 52%),
+        linear-gradient(90deg, transparent 48%, var(--futuristic-accent) 49%, var(--futuristic-accent) 51%, transparent 52%);
+    background-size: 60px 60px, 80px 80px, 100px 100px;
+    animation: geometricShift var(--animation-speed-slow) infinite linear;
+}
+
+@keyframes geometricShift {
+    0% {
+        background-position: 0 0, 0 0, 0 0;
+        transform: rotate(0deg);
+    }
+    100% {
+        background-position: 60px 60px, -80px 80px, 100px -100px;
+        transform: rotate(360deg);
+    }
+}
+
+/* Wave Animation System */
+.futuristic-waves {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--futuristic-cyan) 20%, 
+        transparent 40%,
+        var(--futuristic-purple) 60%, 
+        transparent 80%);
+    animation: waveFlow var(--animation-speed-medium) infinite linear;
+    opacity: 0.3;
+}
+
+.wave:nth-child(2) {
+    animation-delay: -var(--animation-speed-fast);
+    opacity: 0.2;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--futuristic-green) 25%, 
+        transparent 45%,
+        var(--futuristic-primary) 75%, 
+        transparent 95%);
+}
+
+@keyframes waveFlow {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Glow Pulse Effect */
+.futuristic-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    background: radial-gradient(
+        circle at 50% 50%,
+        var(--futuristic-primary) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    animation: glowPulse var(--animation-speed-slow) infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: var(--glow-intensity);
+        transform: scale(1.2);
+    }
+}
+
+/* Grid Animation - Lightweight */
+.futuristic-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.2;
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridPulse var(--animation-speed-slow) infinite ease-in-out;
+}
+
+@keyframes gridPulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(1.02);
+    }
+}
+
+/* SVG Animation Container */
+.futuristic-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Canvas Animation Container */
+.futuristic-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Section-Specific Animation Optimizations */
+
+/* Header Animations */
+.futuristic-header {
+    position: relative;
+    overflow: hidden;
+}
+
+.futuristic-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        var(--futuristic-primary) 50%,
+        transparent 70%
+    );
+    animation: headerGlow var(--animation-speed-medium) infinite;
+    opacity: 0.1;
+}
+
+@keyframes headerGlow {
+    0%, 100% {
+        transform: translateX(-100%);
+        opacity: 0.05;
+    }
+    50% {
+        transform: translateX(100%);
+        opacity: 0.15;
+    }
+}
+
+/* Welcome Panel Animations */
+.futuristic-welcome {
+    position: relative;
+    overflow: hidden;
+}
+
+.futuristic-welcome::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, var(--futuristic-primary) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, var(--futuristic-secondary) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, var(--futuristic-accent) 0%, transparent 50%);
+    animation: welcomePulse var(--animation-speed-slow) infinite ease-in-out;
+    opacity: 0.2;
+}
+
+@keyframes welcomePulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(1.05);
+    }
+}
+
+/* Product Card Animations */
+.futuristic-product {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.futuristic-product::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--futuristic-primary), var(--futuristic-secondary), var(--futuristic-accent));
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.futuristic-product:hover::before {
+    opacity: var(--glow-intensity);
+    animation: borderRotate 2s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Button Animations */
+.futuristic-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.futuristic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.futuristic-btn:hover::before {
+    left: 100%;
+}
+
+/* Modal Animations */
+.futuristic-modal {
+    position: relative;
+    overflow: hidden;
+}
+
+.futuristic-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--futuristic-primary) 0%, transparent 70%);
+    opacity: 0.05;
+    animation: modalGlow var(--animation-speed-slow) infinite ease-in-out;
+}
+
+@keyframes modalGlow {
+    0%, 100% {
+        opacity: 0.02;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 0.08;
+        transform: scale(1.1);
+    }
+}
+
+/* Footer Animations */
+.futuristic-footer {
+    position: relative;
+    overflow: hidden;
+}
+
+.futuristic-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        var(--futuristic-primary) 50%,
+        transparent 100%
+    );
+    opacity: 0.05;
+    animation: footerWave var(--animation-speed-slow) infinite linear;
+}
+
+@keyframes footerWave {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* Performance Optimizations */
+@media (max-width: 768px) {
+    :root {
+        --particle-density-low: 8;
+        --particle-density-medium: 15;
+        --particle-density-high: 25;
+        --glow-intensity: 0.5;
+        --particle-opacity: 0.4;
+    }
+    
+    .futuristic-particles,
+    .futuristic-geometric,
+    .futuristic-grid {
+        opacity: 0.3;
+    }
+}
+
+/* Low Performance Mode */
+@media (max-width: 480px) {
+    :root {
+        --performance-mode: low;
+        --glow-intensity: 0.3;
+        --particle-opacity: 0.2;
+    }
+    
+    .futuristic-particles,
+    .futuristic-geometric,
+    .futuristic-waves,
+    .futuristic-grid {
+        display: none;
+    }
+    
+    .futuristic-glow,
+    .futuristic-header::before,
+    .futuristic-welcome::before,
+    .futuristic-modal::before,
+    .futuristic-footer::before {
+        opacity: 0.1;
+    }
+}
+
+/* High Performance Mode */
+@media (min-width: 1200px) {
+    :root {
+        --performance-mode: high;
+        --glow-intensity: 1.0;
+        --particle-opacity: 0.8;
+        --particle-density-low: 20;
+        --particle-density-medium: 40;
+        --particle-density-high: 70;
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .futuristic-particles,
+    .futuristic-geometric,
+    .futuristic-waves,
+    .futuristic-grid {
+        display: none;
+    }
+}
+
+/* GPU Acceleration */
+.futuristic-particles,
+.futuristic-geometric,
+.futuristic-waves,
+.futuristic-glow,
+.futuristic-grid,
+.futuristic-svg,
+.futuristic-canvas {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Cross-Browser Compatibility */
+@supports not (animation: pulse 1s infinite) {
+    .futuristic-particles,
+    .futuristic-geometric,
+    .futuristic-waves,
+    .futuristic-grid {
+        display: none;
+    }
+    
+    .futuristic-glow {
+        opacity: 0.2;
+    }
+}
+
+/* Fallback for older browsers */
+.fallback-animation {
+    background: linear-gradient(45deg, var(--futuristic-primary), var(--futuristic-secondary));
+    opacity: 0.1;
+}

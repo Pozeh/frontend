@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=1200, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EcoLoop Kenya - Sustainable Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/productLayer.css">
+    <link rel="stylesheet" href="assets/css/futuristic-animations.css">
+    <!-- Old Animation CSS (DISABLED) -->
+    <!-- <link rel="stylesheet" href="assets/css/productLayer.css"> -->
     <style>
         :root {
             --primary-color: #2ecc71;
@@ -7496,12 +7498,13 @@
 </head>
 <body>
     <!-- Top Header -->
-    <div class="top-header">
-        <!-- Ocean Wave Effects -->
-        <div class="ocean-waves"></div>
-        <div class="ocean-currents"></div>
-        <div class="ocean-reflections"></div>
-        <div class="bio-particles" id="bioParticles"></div>
+    <div class="top-header futuristic-header">
+        <!-- Futuristic Animation Effects -->
+        <div class="futuristic-particles"></div>
+        <div class="futuristic-geometric"></div>
+        <div class="futuristic-waves"></div>
+        <div class="futuristic-glow"></div>
+        <div class="futuristic-grid"></div>
         
         <div class="container">
             <div class="contact-info">
@@ -7564,16 +7567,13 @@
         </div>
         
         <div class="container">
-            <div class="welcome-panel">
-                <!-- Animated Background Elements - Now contained within panel -->
-                <div class="panel-background">
-                    <div class="panel-particles-container"></div>
-                    <div class="panel-energy-waves"></div>
-                    <div class="panel-holographic-overlay"></div>
-                    <div class="panel-neon-grid"></div>
-                </div>
-                <canvas id="ecoloopProductLayer" aria-hidden="true"></canvas>
-                <div class="panel-glow"></div>
+            <div class="welcome-panel futuristic-welcome">
+                <!-- Futuristic Animation Effects -->
+                <div class="futuristic-particles"></div>
+                <div class="futuristic-geometric"></div>
+                <div class="futuristic-waves"></div>
+                <div class="futuristic-glow"></div>
+                <div class="futuristic-grid"></div>
                 <h1 class="welcome-title">Welcome to EcoLoop Kenya</h1>
                 <p class="welcome-subtitle">Your sustainable marketplace for eco-friendly products and services</p>
                 <a href="#products" class="futuristic-btn">
@@ -7632,15 +7632,13 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <!-- Kenyan Flag Creative Background Elements -->
-        <div class="kenyan-texture"></div>
-        
-        <!-- Atomic Space Simulation Background Elements -->
-        <div class="atomic-space-background">
-            <canvas id="atomicSpaceCanvas" aria-hidden="true"></canvas>
-            <div class="atomic-particles-layer"></div>
-            <div class="molecular-connections-layer"></div>
+    <footer class="footer futuristic-footer">
+        <!-- Futuristic Animation Effects -->
+        <div class="futuristic-particles"></div>
+        <div class="futuristic-geometric"></div>
+        <div class="futuristic-waves"></div>
+        <div class="futuristic-glow"></div>
+        <div class="futuristic-grid"></div>
             <div class="orbital-nodes-layer"></div>
             <div class="cosmic-glow-layer"></div>
         </div>
@@ -7686,7 +7684,9 @@
     </footer>
 
     <!-- Login Modal -->
-    <div id="loginModal" class="modal">
+    <div id="loginModal" class="modal futuristic-modal">
+        <div class="futuristic-particles"></div>
+        <div class="futuristic-glow"></div>
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Login</h2>
@@ -12421,14 +12421,16 @@
         // Create product card
         function createProductCard(product) {
             return `
-                <div class="product-card">
+                <div class="product-card futuristic-product">
+                    <div class="futuristic-particles"></div>
+                    <div class="futuristic-glow"></div>
                     <img src="${product.image}" alt="${product.title}" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">${product.title}</h3>
                         <div class="product-price">${product.price}</div>
                         <p class="product-description">${product.description}</p>
                         <div class="product-actions">
-                            <button class="btn" onclick="showProductDetails(${product.id})">View Details</button>
+                            <button class="btn futuristic-btn" onclick="showProductDetails(${product.id})">View Details</button>
                             <button class="btn btn-wishlist" onclick="addToWishlist(${product.id})" title="Add to Wishlist">
                                 <i class="fas fa-heart"></i>
                             </button>
@@ -13770,7 +13772,9 @@
             } else {
                 noFeaturedMessage.style.display = 'none';
                 container.innerHTML = featuredProducts.map(product => `
-                    <div class="featured-product-card">
+                    <div class="featured-product-card futuristic-product">
+                        <div class="futuristic-particles"></div>
+                        <div class="futuristic-glow"></div>
                         <img src="${product.image || 'https://picsum.photos/seed/' + product.id + '/300/200.jpg'}" 
                              alt="${product.name}" class="featured-product-image">
                         <div class="featured-product-info">
@@ -15972,6 +15976,36 @@
         </div>
     </div>
     
-    </div>
+    <!-- Futuristic Animation System -->
+    <script src="assets/js/futuristic-animations.js"></script>
+    
+    <!-- Initialize Animation System -->
+    <script>
+        // Initialize futuristic animations when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove old animation scripts if they exist
+            const oldScripts = [
+                'ecoloopProductLayer',
+                'atomicSpaceCanvas',
+                'bioParticles'
+            ];
+            
+            oldScripts.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.remove();
+                }
+            });
+            
+            // Remove old animation classes
+            const oldElements = document.querySelectorAll('.ocean-waves, .ocean-currents, .ocean-reflections, .panel-background, .atomic-space-background');
+            oldElements.forEach(element => {
+                element.remove();
+            });
+            
+            // The animation system will automatically initialize
+            console.log('🚀 Futuristic Animation System Initialized');
+        });
+    </script>
 </body>
 </html>
