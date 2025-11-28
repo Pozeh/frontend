@@ -1,0 +1,364 @@
+/* ========================================
+   FIXED HEADER & FOOTER LAYOUT SYSTEM
+   ========================================
+   Implements fixed header/footer with scrollable middle content
+   Preserves all functionality and animations
+   ======================================== */
+
+@media (max-width: 768px) {
+    
+    /* ========================================
+       FIXED HEADER (ALWAYS VISIBLE)
+       ======================================== */
+    .mobile-header,
+    header,
+    .header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.2) !important;
+    }
+    
+    /* ========================================
+       FIXED FOOTER (ALWAYS VISIBLE)
+       ======================================== */
+    .mobile-footer,
+    footer,
+    .footer {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        border-top: 1px solid rgba(0, 255, 255, 0.2) !important;
+    }
+    
+    /* ========================================
+       ULTRA-COMPACT MOBILE FOOTER (1/8 SIZE)
+       ======================================== */
+    .mobile-footer {
+        height: 30px !important; /* Ultra-compact (1/8 of original) */
+        min-height: 30px !important;
+        padding: 2px 4px !important;
+    }
+    
+    .mobile-footer-content {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 2px !important;
+    }
+    
+    .mobile-footer-section {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .mobile-footer-section h4 {
+        font-size: 6px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+    }
+    
+    .mobile-footer-links {
+        display: none !important; /* Hide detailed links on mobile */
+    }
+    
+    .mobile-footer-bottom {
+        display: none !important; /* Hide bottom section on mobile */
+    }
+    
+    .mobile-social-links {
+        display: flex !important;
+        gap: 1px !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .mobile-social-links a {
+        width: 12px !important;
+        height: 12px !important;
+        font-size: 6px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Compact footer icons only */
+    .mobile-footer-section::before {
+        content: attr(data-icon) !important;
+        font-size: 8px !important;
+        color: #00ffff !important;
+        display: block !important;
+        margin-bottom: 1px !important;
+    }
+    
+    /* ========================================
+       SCROLLABLE MIDDLE CONTENT
+       ======================================== */
+    .mobile-scrollable-content {
+        position: fixed !important;
+        top: 50px !important; /* Header height */
+        bottom: 30px !important; /* Compact footer height */
+        left: 0 !important;
+        right: 0 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        z-index: 1 !important;
+        background: transparent !important;
+    }
+    
+    /* ========================================
+       MAIN CONTAINER ADJUSTMENTS
+       ======================================== */
+    body {
+        padding-top: 50px !important; /* Header height */
+        padding-bottom: 30px !important; /* Compact footer height */
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+    
+    .mobile-container,
+    .container,
+    main {
+        height: calc(100vh - 80px) !important; /* 50px header + 30px footer */
+        overflow-y: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* ========================================
+       CONTENT SECTIONS IN SCROLLABLE AREA
+       ======================================== */
+    .mobile-welcome-panel,
+    .mobile-seller-dashboard,
+    .mobile-categories-section,
+    .mobile-featured-section,
+    .mobile-nyumba-section,
+    .mobile-shop-banners,
+    .section,
+    .panel,
+    .content-section {
+        margin: 2px 0 !important;
+        padding: 4px !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    /* ========================================
+       PRESERVE ALL ANIMATIONS
+       ======================================== */
+    .futuristic-hero-bg,
+    .futuristic-nyumba-bg,
+    .futuristic-footer-bg,
+    .futuristic-header-bg,
+    .animated-bg,
+    .canvas-animation,
+    .particle-bg,
+    #ecoloopProductLayer {
+        position: absolute !important;
+        z-index: 0 !important;
+        pointer-events: none !important;
+    }
+    
+    /* Ensure animations work within scrollable content */
+    .mobile-scrollable-content .futuristic-hero-bg,
+    .mobile-scrollable-content .futuristic-nyumba-bg {
+        height: 60px !important;
+        opacity: 0.6 !important;
+    }
+    
+    /* ========================================
+       FOOTER SPECIFIC FIXES
+       ======================================== */
+    /* Home section */
+    .mobile-footer-section[data-section="home"]::before {
+        content: "🏠" !important;
+    }
+    
+    /* Categories section */
+    .mobile-footer-section[data-section="categories"]::before {
+        content: "📦" !important;
+    }
+    
+    /* Account section */
+    .mobile-footer-section[data-section="account"]::before {
+        content: "👤" !important;
+    }
+    
+    /* Contact section */
+    .mobile-footer-section[data-section="contact"]::before {
+        content: "📞" !important;
+    }
+    
+    /* ========================================
+       DESKTOP COMPATIBILITY
+       ======================================== */
+    @media (min-width: 769px) {
+        .mobile-header,
+        header,
+        .header {
+            position: relative !important;
+        }
+        
+        .mobile-footer,
+        footer,
+        .footer {
+            position: relative !important;
+            height: auto !important;
+            min-height: auto !important;
+        }
+        
+        body {
+            padding: 0 !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+        
+        .mobile-scrollable-content {
+            position: static !important;
+            top: auto !important;
+            bottom: auto !important;
+            overflow: visible !important;
+        }
+        
+        .mobile-footer-content {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: var(--compact-md) !important;
+            padding: var(--compact-md) !important;
+        }
+        
+        .mobile-footer-section {
+            padding: var(--compact-sm) !important;
+        }
+        
+        .mobile-footer-section h4 {
+            font-size: var(--compact-sm-font) !important;
+            margin-bottom: var(--compact-xs) !important;
+        }
+        
+        .mobile-footer-links {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1px !important;
+        }
+        
+        .mobile-footer-links a {
+            font-size: var(--compact-xs-font) !important;
+            padding: 1px !important;
+        }
+        
+        .mobile-footer-bottom {
+            display: block !important;
+            padding: var(--compact-xs) 0 !important;
+            margin-top: var(--compact-xs) !important;
+        }
+        
+        .mobile-footer-bottom p {
+            font-size: var(--compact-xs-font) !important;
+        }
+        
+        .mobile-social-links {
+            gap: var(--compact-xs) !important;
+        }
+        
+        .mobile-social-links a {
+            width: 16px !important;
+            height: 16px !important;
+            font-size: 8px !important;
+        }
+        
+        .mobile-footer-section::before {
+            display: none !important;
+        }
+    }
+    
+    /* ========================================
+       SCROLLBAR STYLING
+       ======================================== */
+    .mobile-scrollable-content::-webkit-scrollbar {
+        width: 3px !important;
+    }
+    
+    .mobile-scrollable-content::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .mobile-scrollable-content::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 255, 0.3) !important;
+        border-radius: 2px !important;
+    }
+    
+    /* ========================================
+       SAFE AREA FOR NOTCHES
+       ======================================== */
+    @supports (padding: max(0px)) {
+        .mobile-header {
+            padding-top: max(var(--compact-xs), env(safe-area-inset-top)) !important;
+        }
+        
+        .mobile-footer {
+            padding-bottom: max(var(--compact-xs), env(safe-area-inset-bottom)) !important;
+        }
+        
+        body {
+            padding-top: max(50px, calc(50px + env(safe-area-inset-top))) !important;
+            padding-bottom: max(30px, calc(30px + env(safe-area-inset-bottom))) !important;
+        }
+        
+        .mobile-scrollable-content {
+            top: max(50px, calc(50px + env(safe-area-inset-top))) !important;
+            bottom: max(30px, calc(30px + env(safe-area-inset-bottom))) !important;
+        }
+    }
+    
+    /* ========================================
+       ORIENTATION CHANGE HANDLING
+       ======================================== */
+    @media (orientation: landscape) and (max-width: 768px) {
+        .mobile-header {
+            height: 40px !important;
+        }
+        
+        .mobile-footer {
+            height: 25px !important;
+        }
+        
+        body {
+            padding-top: 40px !important;
+            padding-bottom: 25px !important;
+        }
+        
+        .mobile-scrollable-content {
+            top: 40px !important;
+            bottom: 25px !important;
+        }
+        
+        .mobile-footer-section h4 {
+            font-size: 5px !important;
+        }
+        
+        .mobile-social-links a {
+            width: 10px !important;
+            height: 10px !important;
+            font-size: 5px !important;
+        }
+    }
+}

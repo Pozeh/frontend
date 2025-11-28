@@ -17,9 +17,11 @@
     <link rel="stylesheet" href="assets/css/ultra-compact.css">
     <link rel="stylesheet" href="assets/css/futuristic-animations.css">
     <link rel="stylesheet" href="assets/css/global-compact.css">
+    <link rel="stylesheet" href="assets/css/fixed-layout.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script src="assets/js/futuristic-animations.js"></script>
+    <script src="assets/js/fixed-layout.js"></script>
 </head>
 <body>
     <!-- Mobile App Optimized Header -->
@@ -215,11 +217,11 @@
     <!-- Mobile Footer -->
     <footer class="mobile-footer">
         <div class="mobile-footer-content">
-            <div class="mobile-footer-section">
+            <div class="mobile-footer-section" data-section="home">
                 <h4 class="mobile-footer-title">About EcoLoop</h4>
                 <p class="mobile-footer-text">Your trusted marketplace for sustainable and eco-friendly products in Kenya.</p>
             </div>
-            <div class="mobile-footer-section">
+            <div class="mobile-footer-section" data-section="categories">
                 <h4 class="mobile-footer-title">Quick Links</h4>
                 <ul class="mobile-footer-links">
                     <li><a href="#" onclick="showPage('about')">About Us</a></li>
@@ -228,7 +230,15 @@
                     <li><a href="#" onclick="showPage('privacy')">Privacy</a></li>
                 </ul>
             </div>
-            <div class="mobile-footer-section">
+            <div class="mobile-footer-section" data-section="account">
+                <h4 class="mobile-footer-title">Account</h4>
+                <ul class="mobile-footer-links">
+                    <li><a href="#" onclick="showPage('login')">Login</a></li>
+                    <li><a href="#" onclick="showPage('register')">Register</a></li>
+                    <li><a href="#" onclick="showPage('dashboard')">Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="mobile-footer-section" data-section="contact">
                 <h4 class="mobile-footer-title">Connect</h4>
                 <div class="mobile-social-links">
                     <a href="#" class="mobile-social-link"><i class="fab fa-facebook"></i></a>
